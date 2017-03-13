@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Planter</string>
+    <string name="frame_planter">Planter</string>
+    <string name="frame_course_notification">课程通知</string>
+    <string name="frame_resource">资源</string>
+    <string name="frame_knowledge_share">知享</string>
+</resources>
