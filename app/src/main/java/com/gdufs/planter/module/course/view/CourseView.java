@@ -1,6 +1,5 @@
 package com.gdufs.planter.module.course.view;
 
-import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -8,7 +7,7 @@ import android.view.View;
 
 import com.gdufs.planter.R;
 import com.gdufs.planter.common.Resource;
-import com.gdufs.planter.module.course.CourseFragment;
+import com.gdufs.planter.module.course.fragment.CourseFragment;
 import com.gdufs.planter.module.frame.adapter.ViewPagerAdapter;
 
 /**

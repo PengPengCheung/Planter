@@ -13,4 +13,16 @@
     <string name="course_others">其他</string>
 
     <string name="course_head_notification">开课啦，点击立即进入</string>
+    <string name="course_attendance_item_enter_class">立即进入班级</string>
+    <string name="course_attendance_item_attendance_count">%1$d次出勤 %2$d次缺勤</string>
+    <string name="course_attendance_item_bonus_num"> * %1$d</string>
+    <string name="course_attendance_item_tips_prefix">可获</string>
+    <string name="course_attendance_item_tips">不考勤会被抽取水滴哦</string>
+
+    <string name="course_homework_item_submit_success">成功上交</string>
+    <string name="course_homework_item_wait_for_score">等待老师评分</string>
+    <string name="course_homework_item_ddl">截止至</string>
+    <string name="course_homework_item_score">评分%1$d</string>
+    <string name="course_homework_item_rank">第%1$d名</string>
+    <string name="course_homework_item_bonus_num"> * %1$d</string>
 </resources>

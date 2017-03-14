@@ -15,7 +15,7 @@
             android:id="@+id/iv_course_head"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/notification_light"
+            android:src="@drawable/class_notification"
             android:layout_marginLeft="8dp"
             android:layout_alignParentLeft="true"/>
 
@@ -35,10 +35,11 @@
         android:clickable="true"
         android:layout_height="35dp"
         android:layout_below="@+id/rl_course_head"
+        android:layout_marginBottom="@dimen/item_margin_bottom"
         android:background="@color/colorWhite"
         app:tabTextColor="@color/colorBlack"
         app:tabSelectedTextColor="@color/colorGreen"
-        app:tabIndicatorColor="@color/colorGrey"/>
+        app:tabIndicatorColor="@color/colorGreen"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_course_function"

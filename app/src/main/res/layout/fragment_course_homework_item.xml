@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@color/colorShallowGrey">
+
+    <TextView
+        android:id="@+id/tv_course_homework_item_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/item_margin_left"
+        android:layout_marginTop="@dimen/item_margin_top"
+        android:text="2017年3月12日9：59"
+        android:textColor="@color/colorBlack" />
+
+    <LinearLayout
+        android:id="@+id/ll_course_homework_item_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_course_homework_item_date"
+        android:layout_marginLeft="@dimen/item_margin_left_large"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="@dimen/item_margin_left"
+                android:src="@drawable/homework_submit_success" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_margin_left"
+                android:text="@string/course_homework_item_submit_success"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sn_14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_margin_left"
+                android:text="@string/course_homework_item_wait_for_score"
+                android:textColor="@color/colorGrey"
+                android:textSize="@dimen/sn_10sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_course_homework_item_wait_for_submit"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginLeft="@dimen/item_margin_left_large"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/img_width_25dp"
+                android:layout_height="@dimen/img_height_25dp"
+                android:src="@drawable/homework_not_submit" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_margin_left"
+                android:text="@string/course_homework_item_ddl"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sn_14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_margin_left"
+                android:text="2017年7月15晚"
+                android:textColor="@color/colorRed"
+                android:textSize="@dimen/sn_14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="@dimen/img_width_25dp"
+                android:layout_height="@dimen/img_height_25dp"
+                android:src="@drawable/coin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_margin_left"
+                android:textColor="@color/colorBlack"
+                android:text="@string/course_homework_item_score"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_margin_left_large"
+                android:textColor="@color/colorBlack"
+                android:text="@string/course_homework_item_rank"/>
+
+            <ImageView
+                android:layout_width="@dimen/img_width_25dp"
+                android:layout_height="@dimen/img_height_25dp"
+                android:src="@drawable/seed"
+                android:layout_marginLeft="@dimen/item_margin_left"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="@string/course_homework_item_bonus_num"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_course_homework_item_detail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/ll_course_homework_item_description"
+        android:layout_margin="@dimen/item_margin_left"
+        android:background="@color/colorWhite"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_course_homework_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="作业标题"
+            android:textColor="@color/colorGrey"
+            android:textSize="@dimen/sn_14sp" />
+
+        <TextView
+            android:id="@+id/tv_course_homework_item_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="这是测试作业\n你试试"
+            android:textColor="@color/colorGrey"
+            android:textSize="@dimen/sn_10sp" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
