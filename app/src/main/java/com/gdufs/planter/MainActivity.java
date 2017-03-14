@@ -1,7 +1,6 @@
 package com.gdufs.planter;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -203,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void logMsg(String str){
-        Log.e("ppp", str);
+//        Log.e("ppp", str);
     }
 
     @Override

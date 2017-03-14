@@ -37,9 +37,14 @@ public class CustomTabView extends FrameLayout{
     }
 
     private void init(Context context){
-        mTabView = LayoutInflater.from(context).inflate(R.layout.layout_tab_custom, this);
+        mTabView = LayoutInflater.from(context).inflate(R.layout.layout_tab_custom, null);
         mIVIcon = (ImageView) mTabView.findViewById(R.id.iv_frame_icon);
         mTVDescription = (TextView) mTabView.findViewById(R.id.tv_frame_description);
+//        mTabView.setClickable(true);
+    }
+
+    public View getTabView(){
+        return mTabView;
     }
 
 

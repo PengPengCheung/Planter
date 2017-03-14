@@ -4,4 +4,13 @@
     <string name="frame_course_notification">课程通知</string>
     <string name="frame_resource">资源</string>
     <string name="frame_knowledge_share">知享</string>
+
+    <string name="course_attendance">考勤</string>
+    <string name="course_attention">专注</string>
+    <string name="course_summary">总结</string>
+    <string name="course_homework">作业</string>
+    <string name="course_group">组别</string>
+    <string name="course_others">其他</string>
+
+    <string name="course_head_notification">开课啦，点击立即进入</string>
 </resources>
