@@ -5,10 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.gdufs.planter.R;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.frame.FrameCourseFragment;
+import com.gdufs.planter.module.frame.FrameResourceFragment;
 import com.gdufs.planter.module.frame.ItemFragment;
 import com.gdufs.planter.module.frame.adapter.ViewPagerAdapter;
 
@@ -25,6 +30,7 @@ public class FrameView {
     private TabLayout mTabLayout;
     private AppCompatActivity mActivity;
     private ViewPager mViewPager;
+    private Spinner mSpinner;
 
 
     public FrameView(AppCompatActivity activity){
@@ -35,32 +41,21 @@ public class FrameView {
     public void init(){
         mTabLayout = (TabLayout) mActivity.findViewById(R.id.tablayout_type);
         mViewPager = (ViewPager) mActivity.findViewById(R.id.viewpager_content);
+        mSpinner = (Spinner) mActivity.findViewById(R.id.sp_title_bar);
 
+        initTitleBar();
+        initViewPagerAndTabLayout();
+
+    }
+
+    private void initViewPagerAndTabLayout(){
         for(int i=0;i<mIconResourceList.length;i++){
-//            CustomTabView tabView = new CustomTabView(mActivity);
-//            View tabView = mActivity.getLayoutInflater().inflate(R.layout.layout_tab_custom, null);
-//            TextView tv = (TextView) tabView.findViewById(R.id.tv_frame_description);
-//            ImageView iv = (ImageView) tabView.findViewById(R.id.iv_frame_icon);
-//            tv.setText(mTextList[i]);
-//            iv.setImageResource(mIconResourceList[i]);
-//            tabView.setImageView(mIconResourceList[i]);
-//            tabView.setText(mTextList[i]);
-//            tabView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Log.e("TAB", "click");
-//                    mViewPager.setCurrentItem(mTabLayout.getSelectedTabPosition());
-//                }
-//            });
             mTabLayout.setTabTextColors(Color.parseColor("#9B9B9B"), Color.parseColor("#159b6f"));
-//            mTabLayout.addTab(mTabLayout.newTab().setCustomView(tabView));
             mTabLayout.addTab(mTabLayout.newTab().setText(mTextList[i]).setIcon(mIconResourceList[i]));
         }
 
         adaptViewPager(mViewPager);
-//        setTabLayoutCanClick(true);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-//        mTabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -79,25 +74,29 @@ public class FrameView {
             }
         });
 //        mTabLayout.setupWithViewPager(mViewPager); // 实现自定义的TABView不能使用这个方法，而需要用到上面两句代码才能实现联动
+    }
 
-//        mTabLayout.setClickable(true);
-//        setTabLayoutCanClick(true);
-//        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                mViewPager.setCurrentItem(tab.getPosition());
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
+    private String[] getSpinnerData(){
+        return mActivity.getResources().getStringArray(R.array.spingarr);
+    }
+
+    private void initTitleBar(){
+        // 建立数据源
+        final String[] mItems = getSpinnerData();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(mActivity, android.R.layout.simple_spinner_item, mItems);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(adapter);
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(mActivity, mItems[position], Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void setCustomViewStyle(TabLayout.Tab tab, int imageResId){
@@ -108,7 +107,7 @@ public class FrameView {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(mActivity.getSupportFragmentManager());
         viewPagerAdapter.addFragment(ItemFragment.newInstance(Resource.MODULE_FRAME_PLANTER), mActivity.getString(R.string.frame_planter));
         viewPagerAdapter.addFragment(FrameCourseFragment.newInstance(Resource.MODULE_FRAME_NOTIFICATION), mActivity.getString(R.string.frame_course_notification));
-        viewPagerAdapter.addFragment(ItemFragment.newInstance(Resource.MODULE_FRAME_RESOURCE), mActivity.getString(R.string.frame_resource));
+        viewPagerAdapter.addFragment(FrameResourceFragment.newInstance(Resource.MODULE_FRAME_RESOURCE), mActivity.getString(R.string.frame_resource));
         viewPager.setAdapter(viewPagerAdapter);
     }
 

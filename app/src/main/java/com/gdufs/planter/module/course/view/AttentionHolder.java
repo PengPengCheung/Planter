@@ -5,18 +5,17 @@ import android.view.View;
 import com.gdufs.planter.widget.ItemViewHolder;
 
 /**
- * Created by peng on 2017/3/14.
+ * Created by peng on 2017/3/15.
  */
 
-public class HomeworkHolder extends ItemViewHolder {
+public class AttentionHolder extends ItemViewHolder {
+
+    public AttentionHolder(View itemView) {
+        super(itemView);
+    }
 
     @Override
     public void findViews(View itemView) {
 
     }
-
-    public HomeworkHolder(View itemView) {
-        super(itemView);
-    }
-
 }

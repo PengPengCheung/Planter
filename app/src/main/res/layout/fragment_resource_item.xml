@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/item_margin_top_large"
+        android:layout_marginLeft="@dimen/item_margin_left_large">
+
+        <ImageView
+            android:id="@+id/iv_resource_item_file"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/word" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_margin_left"
+            android:layout_toRightOf="@+id/iv_resource_item_file"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="第11周课件" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="2016-7-12" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/item_margin_top_large"
+        android:layout_marginRight="@dimen/item_margin_right_large"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/item_margin_bottom">
+
+            <ImageView
+                android:layout_width="@dimen/img_width_20dp"
+                android:layout_height="@dimen/img_height_20dp"
+                android:src="@drawable/download" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_margin_left"
+                android:textColor="@color/colorGrey"
+                android:text="@string/resource_item_download" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="@dimen/img_width_20dp"
+                android:layout_height="@dimen/img_height_20dp"
+                android:src="@drawable/like" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_margin_left"
+                android:textColor="@color/colorGrey"
+                android:text="@string/resource_item_like" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

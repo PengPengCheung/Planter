@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spingarr">
+        <item>计算机英语</item>
+        <item>口译</item>
+        <item>综合英语</item>
+        <item>影视英语</item>
+        <item>笔译</item>
+        <item>新闻视听说</item>
+    </string-array>
+</resources>

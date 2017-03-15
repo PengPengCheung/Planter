@@ -1,5 +1,6 @@
 package com.gdufs.planter.widget;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -18,7 +19,14 @@ public abstract class ItemViewHolder extends RecyclerView.ViewHolder implements 
     private RecyclerViewAdapter.OnItemClickListener mOnItemClickListener;
 
 
-    public abstract void findViews();
+    public abstract void findViews(View itemView);
+
+//    public ItemViewHolder(View itemView){
+//        super(itemView);
+//
+//        itemView.setOnClickListener(this);
+//        findViews();
+//    }
 
     public ItemViewHolder(View itemView) {
         super(itemView);
@@ -26,7 +34,7 @@ public abstract class ItemViewHolder extends RecyclerView.ViewHolder implements 
 //            tvDesc = (TextView) itemView.findViewById(R.id.tv_audio_desc);
 //            ivAudioImg = (ImageView) itemView.findViewById(R.id.iv_audio_img);
         itemView.setOnClickListener(this);
-        findViews();
+        findViews(itemView);
     }
 
     public void setOnItemClickListener(RecyclerViewAdapter.OnItemClickListener l){

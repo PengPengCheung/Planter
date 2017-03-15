@@ -1,7 +1,9 @@
 package com.gdufs.planter.module.course.view;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gdufs.planter.R;
 import com.gdufs.planter.widget.ItemViewHolder;
@@ -12,24 +14,43 @@ import com.gdufs.planter.widget.ItemViewHolder;
 
 public class AttendanceHolder extends ItemViewHolder {
 
-    public TextView mTVCourseDate;
-    public TextView mTVCourseLimitTime;
-    public TextView mTVCourseAttendanceCount;
-    public TextView mTVCourseBonusNum;
-    public TextView mTVCourseTipsPrefix;
 
+//    AttendanceItemView mItemView;
 
     @Override
-    public void findViews() {
-        mTVCourseDate = (TextView) itemView.findViewById(R.id.tv_course_item_date);
-        mTVCourseLimitTime = (TextView) itemView.findViewById(R.id.tv_course_item_limit_time);
-        mTVCourseAttendanceCount = (TextView)itemView.findViewById(R.id.tv_course_item_attendance_count);
-        mTVCourseBonusNum = (TextView) itemView.findViewById(R.id.tv_course_item_bonus_num);
-        mTVCourseTipsPrefix = (TextView) itemView.findViewById(R.id.tv_course_item_tips_prefix);
+    public void findViews(View view) {
+//        if(mItemView != null) {
+//            mItemView.findViews(itemView);
+//        }
+
+//        initViewListeners();
     }
 
-    public AttendanceHolder(View itemView) {
+    private void initViewListeners(){
+//        mTVCourseAttendanceEnterClass.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(context, "enter test", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+    }
+
+//    public void setItemView(AttendanceItemView view){
+//        mItemView = view;
+//    }
+
+    public AttendanceHolder(View itemView, Context c) {
         super(itemView);
+
+//        mItemView = new AttendanceItemView();
+
+//        itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(context, "enter test2", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
     }
 
 

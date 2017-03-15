@@ -19,10 +19,22 @@
     <string name="course_attendance_item_tips_prefix">可获</string>
     <string name="course_attendance_item_tips">不考勤会被抽取水滴哦</string>
 
+    <string name="course_attention_item_attention_count">%1$d次专注 %2$d次小差</string>
+    <string name="course_attention_item_tips">不专注会被抽取水滴哦</string>
+
     <string name="course_homework_item_submit_success">成功上交</string>
     <string name="course_homework_item_wait_for_score">等待老师评分</string>
     <string name="course_homework_item_ddl">截止至</string>
     <string name="course_homework_item_score">评分%1$d</string>
     <string name="course_homework_item_rank">第%1$d名</string>
     <string name="course_homework_item_bonus_num"> * %1$d</string>
+
+    <string name="course_summary_item_input_hint">不少于50字</string>
+    <string name="course_summary_item_send_summary">发送</string>
+    <string name="course_summary_item_thanks">感谢您的每一次反馈</string>
+    <string name="course_summary_item_tips">不写也没关系哦</string>
+    <string name="course_summary_item_validating">审核中</string>
+
+    <string name="resource_item_download">已下载%1$d次</string>
+    <string name="resource_item_like">已点赞%1$d次</string>
 </resources>
