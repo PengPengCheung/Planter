@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.gdufs.planter.R;
 import com.gdufs.planter.common.Resource;
-import com.gdufs.planter.module.course.view.AttendanceHolder;
 import com.gdufs.planter.widget.UniversalListView;
 
 /**
@@ -34,7 +33,7 @@ public class CourseFragment extends Fragment {
         Fragment fragment = null;
         switch (type) {
             case Resource.MODULE_COURSE_ATTENDANCE:{
-                fragment = new CourseFragment();
+                fragment = new AttendanceFragment();
             }
             break;
             case Resource.MODULE_COURSE_HOMEWORK:{
@@ -42,11 +41,11 @@ public class CourseFragment extends Fragment {
             }
             break;
             case Resource.MODULE_COURSE_ATTENTION:{
-                fragment = new CourseFragment();
+                fragment = new AttentionFragment();
             }
             break;
             case Resource.MODULE_COURSE_SUMMARY:{
-                fragment = new CourseFragment();
+                fragment = new SummaryFragment();
             }
             break;
             case Resource.MODULE_COURSE_GROUP:{
@@ -62,37 +61,37 @@ public class CourseFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        mView = new UniversalListView(getActivity(), inflater, container, savedInstanceState);
-        mView.setItemViewListener(new UniversalListView.ItemViewListener() {
-
-            @Override
-            public RecyclerView.ViewHolder createItemViewHolder(Context context) {
-                View view = LayoutInflater.from(context).inflate(R.layout.fragment_course_attendance_item, null);
-                return new AttendanceHolder(view);
-            }
-
-            @Override
-            public void setItemViewContent(RecyclerView.ViewHolder holder) {
-                ((AttendanceHolder) holder).mTVCourseDate.setText("2018年2月29日");
-                ((AttendanceHolder) holder).mTVCourseLimitTime.setText("06:00");
-                String attendanceCount = getResources().getString(R.string.course_attendance_item_attendance_count);
-                String attendanceFormatStr = String.format(attendanceCount, 6, 4);
-                ((AttendanceHolder) holder).mTVCourseAttendanceCount.setText(attendanceFormatStr);
-                String bonusNum = getResources().getString(R.string.course_attendance_item_bonus_num);
-                String bonusStr = String.format(bonusNum, 10);
-                ((AttendanceHolder) holder).mTVCourseBonusNum.setText(bonusStr);
-                ((AttendanceHolder) holder).mTVCourseTipsPrefix.setText("+");
-            }
-        });
-
-        return mView.getUniversalListView();
-    }
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//    }
+//
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//
+////        mView = new UniversalListView(getActivity(), inflater, container, savedInstanceState);
+////        mView.setItemViewListener(new UniversalListView.ItemViewListener() {
+////
+////            @Override
+////            public RecyclerView.ViewHolder createItemViewHolder(Context context) {
+////                View view = LayoutInflater.from(context).inflate(R.layout.fragment_course_attendance_item, null);
+////                return new AttendanceHolder(view);
+////            }
+////
+////            @Override
+////            public void setItemViewContent(RecyclerView.ViewHolder holder) {
+////                ((AttendanceHolder) holder).mTVCourseDate.setText("2018年2月29日");
+////                ((AttendanceHolder) holder).mTVCourseLimitTime.setText("06:00");
+////                String attendanceCount = getResources().getString(R.string.course_attendance_item_attendance_count);
+////                String attendanceFormatStr = String.format(attendanceCount, 6, 4);
+////                ((AttendanceHolder) holder).mTVCourseAttendanceCount.setText(attendanceFormatStr);
+////                String bonusNum = getResources().getString(R.string.course_attendance_item_bonus_num);
+////                String bonusStr = String.format(bonusNum, 10);
+////                ((AttendanceHolder) holder).mTVCourseBonusNum.setText(bonusStr);
+////                ((AttendanceHolder) holder).mTVCourseTipsPrefix.setText("+");
+////            }
+////        });
+////
+////        return mView.getUniversalListView();
+//    }
 }
