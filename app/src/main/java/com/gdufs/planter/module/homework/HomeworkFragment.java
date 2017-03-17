@@ -26,7 +26,8 @@ public class HomeworkFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = new UniversalListView(getActivity(), inflater, container, savedInstanceState);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.widget_recycler_view, null);
+        mView = new UniversalListView(getActivity(), view);
         mView.setItemViewListener(new UniversalListView.ItemViewListener() {
 
             @Override

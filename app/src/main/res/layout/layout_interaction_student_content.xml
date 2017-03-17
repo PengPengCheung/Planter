@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/item_margin_bottom"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sn_16sp"
+            android:textColor="@color/colorBlack"
+            android:text="@string/interaction_result"/>
+
+        <ImageView
+            android:layout_width="@dimen/img_width_25dp"
+            android:layout_height="@dimen/img_height_25dp"
+            android:layout_marginLeft="@dimen/item_margin_left"
+            android:src="@drawable/interaction_finish_check"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGrey"
+            android:text="+"/>
+
+        <ImageView
+            android:layout_width="@dimen/img_width_20dp"
+            android:layout_height="@dimen/img_height_20dp"
+            android:layout_marginLeft="@dimen/item_margin_left"
+            android:src="@drawable/water_shallow"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGrey"
+            android:text="@string/course_attendance_item_bonus_num"/>
+
+    </LinearLayout>
+
+</LinearLayout>

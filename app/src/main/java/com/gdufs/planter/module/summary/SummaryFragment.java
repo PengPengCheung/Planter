@@ -28,7 +28,8 @@ public class SummaryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mListView = new UniversalListView(getActivity(), inflater, container, savedInstanceState);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.widget_recycler_view, null);
+        mListView = new UniversalListView(getActivity(), view);
         mListView.setItemViewListener(new UniversalListView.ItemViewListener() {
             @Override
             public RecyclerView.ViewHolder createItemViewHolder(Context context) {

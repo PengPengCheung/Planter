@@ -20,6 +20,8 @@ import com.gdufs.planter.R;
 public class UniversalListView {
 
     private int mLayoutResId = R.layout.widget_recycler_view;
+    private int mSwipeRefreshWidgetId = R.id.swipe_refresh_widget;
+    private int mRecycleViewId = R.id.recycle_view;
 
     private Activity mActivity;
     private View mView;
@@ -31,23 +33,28 @@ public class UniversalListView {
 
     private boolean isPull = true; // 下拉刷新为true，上拉加载为false
 
-    public UniversalListView(Activity activity, LayoutInflater inflater, ViewGroup container, Bundle savedInstancedState){
+    public UniversalListView(Activity activity, View view){
+        mActivity = activity;
+        mView = view;
+//        mView = inflater.inflate(mLayoutResId, container, false);
+        init(mView, mSwipeRefreshWidgetId, mRecycleViewId);
+    }
+
+    public UniversalListView(Activity activity, LayoutInflater inflater, ViewGroup container, Bundle bundle){
         mActivity = activity;
         mView = inflater.inflate(mLayoutResId, container, false);
-        init(mView);
+        init(mView, mSwipeRefreshWidgetId, mRecycleViewId);
     }
+
 
     public void setItemViewListener(ItemViewListener l){
         mItemViewListener = l;
     }
 
-//    public UniversalListView(Activity context){
-//        init(context);
-//    }
-//
-//    private void init(Activity activity){
-//
-//    }
+    public UniversalListView(Activity context, int swipeRefreshWidgetId, int recycleViewId){
+        mActivity = context;
+        init(mActivity, swipeRefreshWidgetId, recycleViewId);
+    }
 
     private void refresh(){
 
@@ -57,8 +64,28 @@ public class UniversalListView {
         return mView;
     }
 
-    private void init(View view){
-        mSwipeRefreshWidget = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_widget);
+    private void init(View view, int swipeRefreshWidgetId, int recycleViewId){
+        findViews(view, swipeRefreshWidgetId, recycleViewId);
+        setViews();
+    }
+
+    private void init(Activity activity, int swipeRefreshWidgetId, int recycleViewId){
+        findViews(activity, swipeRefreshWidgetId, recycleViewId);
+        setViews();
+    }
+
+    private void findViews(Activity activity, int swipeRefreshWidgetId, int recycleViewId){
+        mSwipeRefreshWidget = (SwipeRefreshLayout) activity.findViewById(swipeRefreshWidgetId);
+        mRecyclerView = (RecyclerView) activity.findViewById(recycleViewId);
+
+    }
+
+    private void findViews(View view, int swipeRefreshWidgetId, int recycleViewId){
+        mSwipeRefreshWidget = (SwipeRefreshLayout) view.findViewById(swipeRefreshWidgetId);
+        mRecyclerView = (RecyclerView) view.findViewById(recycleViewId);
+    }
+
+    private void setViews(){
         mSwipeRefreshWidget.setColorSchemeResources(R.color.primary,
                 R.color.primary_dark, R.color.primary_light,
                 R.color.accent);
@@ -69,7 +96,7 @@ public class UniversalListView {
             }
         });//实现onRefresh方法，进行刷新
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycle_view);
+
         mRecyclerView.setHasFixedSize(true);
 
         mLayoutManager = new LinearLayoutManager(mActivity);

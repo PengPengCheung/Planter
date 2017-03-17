@@ -39,4 +39,10 @@
 
     <string name="resource_item_download">已下载%1$d次</string>
     <string name="resource_item_like">已点赞%1$d次</string>
+
+    <string name="interaction_notification">%1$s通知</string>
+    <string name="interaction_type_and_limit">%1$d分钟%2$s</string>
+    <string name="interaction_result">%1$s成功</string>
+    <string name="interaction_bonus_num"> * %1$d</string>
+
 </resources>

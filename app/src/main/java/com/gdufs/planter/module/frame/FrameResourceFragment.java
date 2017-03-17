@@ -38,7 +38,8 @@ public class FrameResourceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        View view = inflater.inflate(R.layout.fragment_tab_view, null);
 //        CourseView courseView = new CourseView(view, this);
-        mListView = new UniversalListView(getActivity(), inflater, container, savedInstanceState);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.widget_recycler_view, null);
+        mListView = new UniversalListView(getActivity(), view);
         mListView.setItemViewListener(new UniversalListView.ItemViewListener() {
             @Override
             public RecyclerView.ViewHolder createItemViewHolder(Context context) {

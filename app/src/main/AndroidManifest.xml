@@ -65,6 +65,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ClassInteractionActivity">
+
+        </activity>
+
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
