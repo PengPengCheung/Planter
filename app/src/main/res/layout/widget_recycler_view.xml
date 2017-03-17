@@ -10,6 +10,8 @@
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/item_margin_left"
+        android:paddingRight="@dimen/item_margin_right"
         android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 

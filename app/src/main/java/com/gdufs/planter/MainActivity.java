@@ -1,21 +1,38 @@
 package com.gdufs.planter;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.Poi;
+import com.gdufs.planter.common.Resource;
+import com.gdufs.planter.module.frame.ItemFragment;
 import com.gdufs.planter.module.frame.view.FrameView;
 import com.gdufs.planter.service.LocationService;
+import com.gdufs.planter.utils.NetworkUtil;
+import com.gdufs.planter.utils.ResultCallback;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import cn.jpush.android.api.JPushInterface;
+import me.drakeet.materialdialog.MaterialDialog;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -93,14 +110,53 @@ public class MainActivity extends AppCompatActivity {
     private void initViews(){
         mFrameView = new FrameView(this);
         mFrameView.init();
+//        initDialog();
     }
 
     private void init(){
-
+        Log.e("ppp", "init onCreate");
         getPersimmions();
         initLocation();
         initViews();
+//        handleIntent2();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("ppp", "onStart");
+        handleIntent2();
+
+    }
+
+    private void handleIntent(){
+        Intent intent = getIntent();
+        Log.e("ppp", "MainActivity 1");
+        if(intent != null) {
+            Log.e("ppp", "MainActivity 2");
+//            Bundle bundle = intent.getExtras();
+//            if(bundle != null){
+                Log.e("ppp", "MainActivity 3: " + intent.getStringExtra("from"));
+                if("push".equals(intent.getStringExtra("from"))){
+                    Log.e("ppp", "MainActivity");
+//                    mMaterialDialog.show();
+                    Toast.makeText(this, "from push", Toast.LENGTH_SHORT).show();
+                }
+//            }
+        }
+    }
+
+    private void handleIntent2(){
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+            String title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE);
+            String content = bundle.getString(JPushInterface.EXTRA_ALERT);
+            Log.e("ppp", "Title : " + title + "  " + "Content : " + content);
+        }
+    }
+
+
+
 
     private void initLocation(){
         locationService = ((PlanterApplication)getApplication()).locationService;

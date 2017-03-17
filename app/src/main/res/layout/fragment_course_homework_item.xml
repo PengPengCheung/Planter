@@ -137,25 +137,31 @@
         android:layout_height="50dp"
         android:layout_below="@+id/ll_course_homework_item_description"
         android:layout_margin="@dimen/item_margin_left"
-        android:background="@color/colorWhite"
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_course_homework_item_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="作业标题"
-            android:textColor="@color/colorGrey"
-            android:textSize="@dimen/sn_14sp" />
+        <Button
+            android:id="@+id/btn_course_homework_item_detail"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_button"
+            android:text="作业详情"/>
 
-        <TextView
-            android:id="@+id/tv_course_homework_item_content"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="这是测试作业\n你试试"
-            android:textColor="@color/colorGrey"
-            android:textSize="@dimen/sn_10sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_course_homework_item_title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="作业标题"-->
+            <!--android:textColor="@color/colorGrey"-->
+            <!--android:textSize="@dimen/sn_14sp" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_course_homework_item_content"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:text="这是测试作业\n你试试"-->
+            <!--android:textColor="@color/colorGrey"-->
+            <!--android:textSize="@dimen/sn_10sp" />-->
 
 
     </LinearLayout>

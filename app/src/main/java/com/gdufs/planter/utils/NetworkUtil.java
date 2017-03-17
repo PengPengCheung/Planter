@@ -8,18 +8,12 @@ import java.util.Map;
 
 public class NetworkUtil {
 
-    private static OkHttpUtil.ResultCallback mCallback;
-
-    public static void setResultCallback(OkHttpUtil.ResultCallback callback){
-        mCallback = callback;
+    public static void get(String url, ResultCallback callback){
+        OkHttpUtil.get(url, callback);
     }
 
-    public static void get(String url){
-        OkHttpUtil.get(url, mCallback);
-    }
-
-    public static void post(String url, Map<String, Object> params){
-        OkHttpUtil.post(url, mCallback, params);
+    public static void post(String url, Map<String, Object> params, ResultCallback callback){
+        OkHttpUtil.post(url, callback, params);
     }
 
 }

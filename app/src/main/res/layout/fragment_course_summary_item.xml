@@ -32,18 +32,25 @@
             android:layout_marginLeft="20dp"
             android:orientation="vertical">
 
-            <EditText
+            <Button
+                android:id="@+id/btn_course_summary_item_open_to_edit"
                 android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:hint="@string/course_summary_item_input_hint"
-                android:textColorHint="@color/colorGrey"
-                android:textSize="@dimen/sn_12sp"
-                android:textColor="@color/colorGrey"
-                android:gravity="top"
-                android:scrollbars="vertical"
-                android:minLines="1"
-                android:maxLines="50"
-                android:background="@drawable/shape_course_summary_input"/>
+                android:layout_height="35dp"
+                android:background="@drawable/shape_button"
+                android:text="@string/course_summary_item_open_to_edit"/>
+
+            <!--<EditText-->
+                <!--android:layout_width="130dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:hint="@string/course_summary_item_input_hint"-->
+                <!--android:textColorHint="@color/colorGrey"-->
+                <!--android:textSize="@dimen/sn_12sp"-->
+                <!--android:textColor="@color/colorGrey"-->
+                <!--android:gravity="top"-->
+                <!--android:scrollbars="vertical"-->
+                <!--android:minLines="1"-->
+                <!--android:maxLines="50"-->
+                <!--android:background="@drawable/shape_course_summary_input"/>-->
 
             <!--<TextView-->
                 <!--android:id="@+id/tv_course_item_limit_time"-->
@@ -136,7 +143,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorGreen"
             android:textSize="12sp"
-            android:text="@string/course_summary_item_send_summary"
+            android:text="@string/course_summary_item_edit_tips"
             android:visibility="visible"
             android:layout_alignParentTop="true" />
 

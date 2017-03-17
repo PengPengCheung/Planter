@@ -1,12 +1,19 @@
-package com.gdufs.planter.module.course.view;
+package com.gdufs.planter.module.attendance;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gdufs.planter.R;
+import com.gdufs.planter.common.Resource;
+import com.gdufs.planter.utils.NetworkUtil;
+import com.gdufs.planter.utils.ResultCallback;
 import com.gdufs.planter.widget.ItemViewHolder;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by peng on 2017/3/15.
@@ -55,6 +62,24 @@ public class AttendanceItemView extends ItemViewHolder{
             @Override
             public void onClick(View v) {
                 Toast.makeText(mContext, "view test2", Toast.LENGTH_SHORT).show();
+                Map<String, Object> params = new HashMap<>();
+                params.put("client", "hello");
+                params.put("server", "hi");
+                NetworkUtil.post(Resource.PlanterURL.JSON_TEST_URL, params, new ResultCallback<String>() {
+
+                    @Override
+                    public void onSuccess(String response) {
+                        Log.e("ppp", "response: " + response);
+                        Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        Log.e("ppp", "fail: " );
+                        e.printStackTrace();
+                        Toast.makeText(mContext, "fail", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }

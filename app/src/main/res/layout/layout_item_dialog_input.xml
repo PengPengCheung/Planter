@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_centerInParent="true">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginLeft="@dimen/item_margin_left_large"
+        android:layout_marginRight="@dimen/item_margin_right_large"
+        android:background="@drawable/shape_course_summary_input"
+        android:gravity="top"
+        android:hint="@string/course_summary_item_input_hint"
+        android:maxLines="50"
+        android:minLines="1"
+        android:scrollbars="vertical"
+        android:textColor="@color/colorGrey"
+        android:textColorHint="@color/colorGrey"
+        android:textSize="@dimen/sn_16sp" />
+
+</RelativeLayout>

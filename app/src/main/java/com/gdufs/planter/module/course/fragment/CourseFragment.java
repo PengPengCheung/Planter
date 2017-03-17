@@ -1,16 +1,13 @@
 package com.gdufs.planter.module.course.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.gdufs.planter.R;
 import com.gdufs.planter.common.Resource;
+import com.gdufs.planter.module.attendance.AttendanceFragment;
+import com.gdufs.planter.module.attention.AttentionFragment;
+import com.gdufs.planter.module.homework.HomeworkFragment;
+import com.gdufs.planter.module.summary.SummaryFragment;
 import com.gdufs.planter.widget.UniversalListView;
 
 /**

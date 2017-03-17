@@ -2,7 +2,6 @@ package com.gdufs.planter.utils;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.MediaType;
@@ -130,28 +129,28 @@ public class OkHttpUtil {
         getmInstance().postRequest(url, callback, params);
 
     }
-
-    /**
-     * http请求回调类,回调方法在UI线程中执行
-     *
-     * @param <T>
-     */
-    public static abstract class ResultCallback<T> {
-
-        /**
-         * 请求成功回调
-         *
-         * @param response
-         */
-        public abstract void onSuccess(T response);
-
-        /**
-         * 请求失败回调
-         *
-         * @param e
-         */
-        public abstract void onFailure(Exception e);
-    }
+//
+//    /**
+//     * http请求回调类,回调方法在UI线程中执行
+//     *
+//     * @param <T>
+//     */
+//    public static abstract class ResultCallback<T> {
+//
+//        /**
+//         * 请求成功回调
+//         *
+//         * @param response
+//         */
+//        public abstract void onSuccess(T response);
+//
+//        /**
+//         * 请求失败回调
+//         *
+//         * @param e
+//         */
+//        public abstract void onFailure(Exception e);
+//    }
 
 
 }

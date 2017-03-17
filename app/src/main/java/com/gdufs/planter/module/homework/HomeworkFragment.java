@@ -1,4 +1,4 @@
-package com.gdufs.planter.module.course.fragment;
+package com.gdufs.planter.module.homework;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,19 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gdufs.planter.R;
-import com.gdufs.planter.module.course.view.AttendanceItemView;
-import com.gdufs.planter.widget.RecyclerViewAdapter;
 import com.gdufs.planter.widget.UniversalListView;
 
 /**
- * Created by peng on 2017/3/15.
+ * Created by peng on 2017/3/14.
  */
 
-public class AttendanceFragment extends Fragment {
+public class HomeworkFragment extends Fragment {
 
     UniversalListView mView;
-    AttendanceItemView mItemView;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,27 +27,20 @@ public class AttendanceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = new UniversalListView(getActivity(), inflater, container, savedInstanceState);
-
         mView.setItemViewListener(new UniversalListView.ItemViewListener() {
 
             @Override
             public RecyclerView.ViewHolder createItemViewHolder(Context context) {
-                View view = LayoutInflater.from(context).inflate(R.layout.fragment_course_attendance_item, null);
-                mItemView = new AttendanceItemView(view, context);
-                initItemListeners();
-                return mItemView;
+                View view = LayoutInflater.from(context).inflate(R.layout.fragment_course_homework_item, null);
+                return new HomeworkItemView(view, context);
             }
 
             @Override
             public void setItemViewContent(RecyclerView.ViewHolder holder) {
-                ((AttendanceItemView)holder).setViews();
+
             }
         });
 
         return mView.getUniversalListView();
-    }
-
-    private void initItemListeners(){
-
     }
 }
