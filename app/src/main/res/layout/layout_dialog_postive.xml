@@ -27,11 +27,29 @@
         android:textColorHint="@color/colorGrey"
         android:textColor="@color/colorGrey"/>
 
-    <Button
-        android:id="@+id/btn_dialog_positive"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:background="@color/colorGreen"
-        android:text="提交" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_dialog_negative"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:background="@drawable/shape_button_white"
+            android:textColor="@color/colorBlack"
+            android:text="取消"/>
+
+        <Button
+            android:id="@+id/btn_dialog_positive"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="@dimen/item_margin_left_large"
+            android:background="@color/colorGreen"
+            android:text="提交" />
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

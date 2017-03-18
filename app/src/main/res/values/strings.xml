@@ -45,4 +45,9 @@
     <string name="interaction_result">%1$s成功</string>
     <string name="interaction_bonus_num"> * %1$d</string>
 
+    <string name="group_leader_name">组长</string>
+    <string name="group_name">组名</string>
+    <string name="group_member_name">组员</string>
+    <string name="group_item_submit">提交</string>
+
 </resources>

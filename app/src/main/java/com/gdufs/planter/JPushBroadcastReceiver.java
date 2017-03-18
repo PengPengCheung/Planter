@@ -34,7 +34,7 @@ public class JPushBroadcastReceiver extends BroadcastReceiver {
             Log.e("ppp", "收到了自定义消息为：" + bundle.getString(JPushInterface.EXTRA_ALERT));
             Log.e("ppp", "收到了自定义消息为：" + bundle.getString(JPushInterface.EXTRA_EXTRA));
 
-            Intent startIntent = new Intent(context, PushOpenTestActivity.class);
+            Intent startIntent = new Intent(context, ClassInteractionActivity.class);
             bundle.putString("from", "push");
             startIntent.putExtras(bundle);
             startIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );

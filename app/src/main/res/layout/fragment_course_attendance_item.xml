@@ -100,7 +100,7 @@
     </RelativeLayout>
 
     <View
-        android:id="@+id/view_course_item_bottom_divider"
+        android:id="@+id/view_group_item_bottom_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/rl_course_item_content"
@@ -113,7 +113,7 @@
         android:layout_width="match_parent"
         android:layout_height="28dp"
         android:gravity="center"
-        android:layout_below="@+id/view_course_item_bottom_divider">
+        android:layout_below="@+id/view_group_item_bottom_divider">
 
         <TextView
             android:id="@+id/tv_course_item_enter_class"

@@ -65,8 +65,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ClassInteractionActivity">
-
+        <activity android:name="com.gdufs.planter.ClassInteractionActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="jpush.testAction" />
+                <category android:name="jpush.testCategory" />
+            </intent-filter>
         </activity>
 
         <service
