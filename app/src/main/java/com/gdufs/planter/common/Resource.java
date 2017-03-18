@@ -8,9 +8,28 @@ public class Resource {
 
     public static class PlanterURL{
         //http://192.168.1.74:8080
-        public static String HOST_URL = "http://172.17.198.7:8080"; //
+        private static String HOST_URL = "http://192.168.191.6:8080";
+        private static String WEB_URL = HOST_URL + "/web";
+        private static String MOBILE_URL = HOST_URL + "/mob";
         public static String JSON_TEST_URL = HOST_URL + "/json";
-        public static String ATTENDANCE_CODE_URL = HOST_URL + "/attendance";
+        public static String ATTENDANCE_CODE_URL = MOBILE_URL + "/attendance/StudentCheck";
+    }
+
+    public static class KEY{
+        public static final String KEY_TEACHER_ID = "t_id";
+        public static final String KEY_STUDENT_ID = "s_id";
+        public static final String KEY_COURSE_ID  = "c_id";
+
+        //Attendance，考勤模块
+        public static final String KEY_ATTENDANCE_CODE = "attendance_code";
+        public static final String KEY_ATTENDANCE_STATUS = "attendance_status";
+    }
+
+    public static class ATTENDANCE{
+        public static final int ATTENDANCE_STATUS_SUCCESS = 1;
+        public static final int ATTENDANCE_STATUS_FAIL = -2;
+        public static final int ATTENDANCE_STATUS_ALREADY_CHECK_SUCCESS = 0;
+        public static final int ATTENDANCE_STATUS_NOT_IN_TIME = -1;
     }
 
 

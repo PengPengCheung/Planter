@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attendance.AttendanceFragment;
 import com.gdufs.planter.module.attention.AttentionFragment;
+import com.gdufs.planter.module.group.fragment.GroupFragment;
 import com.gdufs.planter.module.homework.HomeworkFragment;
 import com.gdufs.planter.module.summary.SummaryFragment;
 import com.gdufs.planter.widget.UniversalListView;
@@ -46,7 +47,7 @@ public class CourseFragment extends Fragment {
             }
             break;
             case Resource.MODULE_COURSE_GROUP:{
-                fragment = new CourseFragment();
+                fragment = new GroupFragment();
             }
             break;
             case Resource.MODULE_COURSE_OTHERS:{
