@@ -23,6 +23,7 @@ public class Resource {
         //Attendance，考勤模块
         public static final String KEY_ATTENDANCE_CODE = "attendance_code";
         public static final String KEY_ATTENDANCE_STATUS = "attendance_status";
+        public static final String KEY_ATTENDANCE_BONUS_NUM = "attendance_bonus_num";
     }
 
     public static class ATTENDANCE{
@@ -30,8 +31,12 @@ public class Resource {
         public static final int ATTENDANCE_STATUS_FAIL = -2;
         public static final int ATTENDANCE_STATUS_ALREADY_CHECK_SUCCESS = 0;
         public static final int ATTENDANCE_STATUS_NOT_IN_TIME = -1;
+        public static final int ATTENDANCE_STATUS_CODE_ERROR = -3;
+        public static final int ATTENDANCE_STATUS_DEFAULT = -100;
     }
 
+
+    public static String JPUSH_ALIAS = "Planter";
 
 
     public String TYPE = "type";

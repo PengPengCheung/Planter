@@ -14,6 +14,7 @@
         android:id="@+id/viewpager_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/tablayout_type"
         android:layout_below="@+id/rl_title_bar" />
 
     <!--<android.support.design.widget.AppBarLayout-->

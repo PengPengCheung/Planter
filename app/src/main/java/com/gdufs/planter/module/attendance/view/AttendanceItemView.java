@@ -1,4 +1,4 @@
-package com.gdufs.planter.module.attendance;
+package com.gdufs.planter.module.attendance.view;
 
 import android.content.Context;
 import android.util.Log;

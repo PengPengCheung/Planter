@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 
 import com.gdufs.planter.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by peng on 2017/3/14.
  */
@@ -85,6 +88,12 @@ public class UniversalListView {
         mRecyclerView = (RecyclerView) view.findViewById(recycleViewId);
     }
 
+    public void setData(List<?> data){
+        if(mRecyclerViewAdapter != null) {
+            mRecyclerViewAdapter.setData(data);
+        }
+    }
+
     private void setViews(){
         mSwipeRefreshWidget.setColorSchemeResources(R.color.primary,
                 R.color.primary_dark, R.color.primary_light,
@@ -111,6 +120,7 @@ public class UniversalListView {
         if(mRecyclerViewAdapter == null){
             mRecyclerViewAdapter = new RecyclerViewAdapter(mActivity);
         }
+
 
         mRecyclerViewAdapter.setOnItemViewListener(new RecyclerViewAdapter.OnItemViewListener() {
             @Override

@@ -18,6 +18,7 @@
             android:src="@drawable/teacher_man"/>
 
         <com.daasuu.bl.BubbleLayout
+            android:id="@+id/bl_teacher_request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/iv_head_teacher"

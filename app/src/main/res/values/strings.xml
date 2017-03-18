@@ -49,5 +49,7 @@
     <string name="group_name">组名</string>
     <string name="group_member_name">组员</string>
     <string name="group_item_submit">提交</string>
-
+    
+    <string name="bonus_signal_plus">+</string>
+    <string name="bonus_signal_minus">-</string>
 </resources>

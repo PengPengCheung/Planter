@@ -20,6 +20,7 @@ public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vi
     private static final int TYPE_FOOTER = 1;
     private Context mContext;
     private List<T> mData;
+    private Class mClass;
     private boolean mShowFooter = true;
     private OnItemClickListener mOnItemClickListener;
     private OnItemViewListener mOnItemViewListener;
@@ -30,14 +31,18 @@ public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vi
         NO_FOOTER
     }
 
+    public void setClass(Class t){
+        mClass = t;
+    }
+
     public RecyclerViewAdapter(Context context) {
         this.mContext = context;
     }
 
-//    public void setData(List<T> data) {
-//        this.mData = data;
-//        this.notifyDataSetChanged();
-//    }
+    public void setData(List<T> data) {
+        this.mData = data;
+        this.notifyDataSetChanged();
+    }
 
     public void setIsShowFooter(boolean showFooter){
         this.mShowFooter = showFooter;
@@ -119,21 +124,26 @@ public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vi
     /**
      * 因为加上了脚部Footer，所以此处的操作不能像ListView那样直接返回data.size()
      * 要做一些判断，以判断返回的是Footer的布局还是Item的布局
-     * @return
+     *
+     * 通过这个方法控制item的数量
+     *
+     * @return RecyelerView中item的数量
      */
     @Override
     public int getItemCount() {
-        int type;
-        if(mShowFooter){
-            type = TYPE_FOOTER;
-        }else{
-            type = TYPE_ITEM;
-        }
 
-        if(mData == null){
-            return type;
-        }
-        return mData.size() + type;
+        return 10;
+//        int type;
+//        if(mShowFooter){
+//            type = TYPE_FOOTER;
+//        }else{
+//            type = TYPE_ITEM;
+//        }
+//
+//        if(mData == null){
+//            return type;
+//        }
+//        return mData.size() + type;
     }
 
 

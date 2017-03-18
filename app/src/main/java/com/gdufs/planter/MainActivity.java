@@ -30,8 +30,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import me.drakeet.materialdialog.MaterialDialog;
 
 
@@ -117,8 +119,22 @@ public class MainActivity extends AppCompatActivity {
         Log.e("ppp", "init onCreate");
         getPersimmions();
         initLocation();
+        configJPush();
         initViews();
 //        handleIntent2();
+    }
+
+    private void configJPush(){
+        JPushInterface.setAlias(getApplicationContext(), Resource.JPUSH_ALIAS, new TagAliasCallback() {
+            @Override
+            public void gotResult(int i, String s, Set<String> set) {
+                if(i==0){
+                    Log.e("ppp", "alias set success");
+                } else {
+                    Log.e("ppp", "alias error code: " + i);
+                }
+            }
+        });
     }
 
     @Override

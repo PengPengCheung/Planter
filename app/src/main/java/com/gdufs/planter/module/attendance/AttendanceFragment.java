@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gdufs.planter.module.attendance.view.AttendanceView;
+
 /**
  * Created by peng on 2017/3/15.
  */
