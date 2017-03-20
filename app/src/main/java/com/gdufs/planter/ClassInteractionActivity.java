@@ -4,24 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import com.gdufs.planter.common.Resource;
+import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.module.interaction.view.ClassInteractionView;
-import com.gdufs.planter.utils.NetworkUtil;
-import com.gdufs.planter.utils.ResultCallback;
+import com.gdufs.planter.utils.JsonUtil;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
-import me.drakeet.materialdialog.MaterialDialog;
 
 /**
  * Created by peng on 2017/3/17.
@@ -48,8 +39,13 @@ public class ClassInteractionActivity extends AppCompatActivity {
                 if("push".equals(bundle.getString("from"))){
                     String title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE);
                     String content = bundle.getString(JPushInterface.EXTRA_ALERT);
+                    String msg = bundle.getString(JPushInterface.EXTRA_MESSAGE);
                     String push = bundle.getString("from");
-                    Log.e("ppp", "Title : " + title + "  " + "Content : " + content + "from: " + push);
+                    Log.e("ppp", "msg: " + msg + " " + "Title : " + title + "  " + "Content : " + content + "from: " + push);
+                    AttendanceViewModel model = JsonUtil.deserialize(msg, AttendanceViewModel.class);
+//                    List<AttendanceViewModel> list = new ArrayList<>();
+//                    list.add(model);
+                    mInteractionView.addViewData(model);
                     if(mInteractionView != null) {
                         mInteractionView.showDialog();
                     }

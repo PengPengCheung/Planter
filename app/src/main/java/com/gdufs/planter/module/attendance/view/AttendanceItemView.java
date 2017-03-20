@@ -1,13 +1,16 @@
 package com.gdufs.planter.module.attendance.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gdufs.planter.ClassInteractionActivity;
 import com.gdufs.planter.R;
 import com.gdufs.planter.common.Resource;
+import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.utils.NetworkUtil;
 import com.gdufs.planter.utils.ResultCallback;
 import com.gdufs.planter.widget.ItemViewHolder;
@@ -47,40 +50,62 @@ public class AttendanceItemView extends ItemViewHolder{
         mTVCourseAttendanceEnterClass = (TextView) itemView.findViewById(R.id.tv_course_item_enter_class);
     }
 
-    public void setViews(){
-        mTVCourseDate.setText("2018年2月29日");
-        mTVCourseLimitTime.setText("06:00");
+    public void setViews(AttendanceViewModel model){
+        mTVCourseDate.setText(model.getmAttendanceTime());
+        mTVCourseLimitTime.setText(model.getmAttendanceValidDuration());
         String attendanceCount = mContext.getResources().getString(R.string.course_attendance_item_attendance_count);
-        String attendanceFormatStr = String.format(attendanceCount, 6, 4);
+        String attendanceFormatStr = String.format(attendanceCount, model.getmAttendanceCount(), model.getmAbsenceCount());
         mTVCourseAttendanceCount.setText(attendanceFormatStr);
         String bonusNum = mContext.getResources().getString(R.string.course_attendance_item_bonus_num);
-        String bonusStr = String.format(bonusNum, 10);
-        mTVCourseBonusNum.setText(bonusStr);
-        mTVCourseTipsPrefix.setText("+");
+        int bonus = model.getmAttendanceBonusNum();
+        if(bonus > 0) {
+            String bonusStr = String.format(bonusNum, bonus);
+            mTVCourseBonusNum.setText(bonusStr);
+        } else {
+            String bonusStr = String.format(bonusNum, -bonus);
+            mTVCourseBonusNum.setText(bonusStr);
+        }
+
+        if(model.getmAttendanceStatus() == Resource.ATTENDANCE.ATTENDANCE_STATUS_SUCCESS) {
+            mTVCourseTipsPrefix.setText("+");
+        } else if(model.getmAttendanceStatus() == Resource.ATTENDANCE.ATTENDANCE_STATUS_DEFAULT) {
+            mTVCourseTipsPrefix.setText("可获");
+        } else if(model.getmAttendanceStatus() == Resource.ATTENDANCE.ATTENDANCE_STATUS_FAIL){
+            mTVCourseTipsPrefix.setText("-");
+        }
 
         mTVCourseAttendanceEnterClass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "view test2", Toast.LENGTH_SHORT).show();
-                Map<String, Object> params = new HashMap<>();
-                params.put("client", "hello");
-                params.put("server", "hi");
-                NetworkUtil.post(Resource.PlanterURL.JSON_TEST_URL, params, new ResultCallback<String>() {
+                Intent intent = new Intent(mContext, ClassInteractionActivity.class);
+                mContext.startActivity(intent);
 
-                    @Override
-                    public void onSuccess(String response) {
-                        Log.e("ppp", "response: " + response);
-                        Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFailure(Exception e) {
-                        Log.e("ppp", "fail: " );
-                        e.printStackTrace();
-                        Toast.makeText(mContext, "fail", Toast.LENGTH_SHORT).show();
-                    }
-                });
             }
         });
+
+//        mTVCourseAttendanceEnterClass.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(mContext, "view test2", Toast.LENGTH_SHORT).show();
+//                Map<String, Object> params = new HashMap<>();
+//                params.put("client", "hello");
+//                params.put("server", "hi");
+//                NetworkUtil.post(Resource.PlanterURL.JSON_TEST_URL, params, new ResultCallback<String>() {
+//
+//                    @Override
+//                    public void onSuccess(String response) {
+//                        Log.e("ppp", "response: " + response);
+//                        Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Exception e) {
+//                        Log.e("ppp", "fail: " );
+//                        e.printStackTrace();
+//                        Toast.makeText(mContext, "fail", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            }
+//        });
     }
 }

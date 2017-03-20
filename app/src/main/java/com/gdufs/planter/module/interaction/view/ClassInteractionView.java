@@ -13,9 +13,9 @@ import com.gdufs.planter.common.AttendanceBaseView;
 import com.gdufs.planter.common.DataResponse;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.model.AttendanceInfo;
+import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.module.attendance.presenter.AttendancePresenter;
 import com.gdufs.planter.module.attendance.widget.AttendanceCodeDialog;
-import com.gdufs.planter.widget.RecyclerViewAdapter;
 import com.gdufs.planter.widget.UniversalListView;
 
 import java.util.ArrayList;
@@ -27,14 +27,14 @@ import java.util.List;
 
 public class ClassInteractionView implements AttendanceBaseView{
 
-    AttendancePresenter mAttendancePresenter;
+//    AttendancePresenter mAttendancePresenter;
     UniversalListView mListView;
     List<InteractionItemView> mItemViewList;
     private AttendanceCodeDialog mDialog;
 
     private Activity mActivity;
 
-    private int pos = -1;
+    private int pos = 0;
 
     public ClassInteractionView(Activity activity){
         mActivity = activity;
@@ -43,8 +43,29 @@ public class ClassInteractionView implements AttendanceBaseView{
     }
 
     private void init(){
-        mAttendancePresenter = new AttendancePresenter(this);
+//        mAttendancePresenter = new AttendancePresenter(this);
+        AttendancePresenter.getInstance().addView(this);
         mItemViewList = new ArrayList<>();
+    }
+
+    public void addViewData(AttendanceViewModel model){
+        mListView.getAdapter().addData(model);
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_interaction_item, null);
+        InteractionItemView itemView = new InteractionItemView(view, mActivity);
+        itemView.setViews(Resource.MODULE_COURSE_ATTENDANCE);
+        mItemViewList.add(itemView);
+    }
+
+    public void addListViewData(List<AttendanceViewModel> modelList){
+        mListView.getAdapter().addData(modelList);
+        if(modelList != null){
+            for(int i=0;i<modelList.size();i++){
+                View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_interaction_item, null);
+                InteractionItemView itemView = new InteractionItemView(view, mActivity);
+                itemView.setViews(Resource.MODULE_COURSE_ATTENDANCE);
+                mItemViewList.add(itemView);
+            }
+        }
     }
 
 
@@ -72,8 +93,8 @@ public class ClassInteractionView implements AttendanceBaseView{
             }
 
             @Override
-            public void setItemViewContent(RecyclerView.ViewHolder holder) {
-                ((InteractionItemView)holder).setViews();
+            public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
+                ((InteractionItemView)holder).setViews(Resource.MODULE_COURSE_ATTENDANCE);
             }
         });
 
@@ -82,11 +103,12 @@ public class ClassInteractionView implements AttendanceBaseView{
 
             @Override
             public void submit(String code) {
-                if(mAttendancePresenter != null){
-                    mAttendancePresenter.sendAttendanceCode(code);
-//                    int status = mAttendancePresenter.sendAttendanceCode(code);
-//                    showTipsByStatus(status);
-                }
+
+                AttendancePresenter.getInstance().sendAttendanceCode(code);
+
+//                if(mAttendancePresenter != null){
+//                    mAttendancePresenter.sendAttendanceCode(code);
+//                }
             }
 
         });
@@ -105,7 +127,8 @@ public class ClassInteractionView implements AttendanceBaseView{
     }
 
     private void showViewIfCheckSuccess(int bonusNum){
-        if(pos == -1){
+        Log.e("ppp", "showViewIfCheckSuccess pos= " + pos + " list size = " + mItemViewList.size());
+        if(pos == 0){
             mItemViewList.get(mItemViewList.size() - 1).showResponseView(bonusNum, Resource.MODULE_COURSE_ATTENDANCE);
         } else {
             mItemViewList.get(pos).showResponseView(bonusNum, Resource.MODULE_COURSE_ATTENDANCE);
@@ -149,10 +172,12 @@ public class ClassInteractionView implements AttendanceBaseView{
     public void onResponseSuccess(DataResponse response) {
         if(response != null) {
             AttendanceInfo info = (AttendanceInfo) response.getData();
-            int status = info.getmAttendanceStatus();
-            Log.e("ppp", "status: " + status);
-            int bonus = info.getmAttendanceBonusNum();
-            showTipsByStatus(status, bonus);
+            if(info != null) {
+                int status = info.getmAttendanceStatus();
+                Log.e("ppp", "status: " + status);
+                int bonus = info.getmAttendanceBonusNum();
+                showTipsByStatus(status, bonus);
+            }
         }
 
     }
@@ -162,8 +187,12 @@ public class ClassInteractionView implements AttendanceBaseView{
 
     }
 
-    @Override
     public void onReceiveAttendanceStatus(int status) {
         showTipsByStatus(status, 0);
+    }
+
+    @Override
+    public void notifyUpdate(AttendanceViewModel model) {
+
     }
 }

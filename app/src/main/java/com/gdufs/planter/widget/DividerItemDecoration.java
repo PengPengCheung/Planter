@@ -25,9 +25,12 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private Drawable mDivider;
 
+    private int mSpace = 1;
+
     private int mOrientation;
 
     public DividerItemDecoration(Context context, int orientation) {
+//        setItemDividerSpace(20);
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();
@@ -84,10 +87,21 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
+
+
+
         if (mOrientation == VERTICAL_LIST) {
             outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
         } else {
             outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
         }
+
+        if(itemPosition != 0) {
+            outRect.top = mSpace;
+        }
+    }
+
+    public void setItemDividerSpace(int space){
+        mSpace = space;
     }
 }

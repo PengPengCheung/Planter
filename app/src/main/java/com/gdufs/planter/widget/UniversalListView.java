@@ -33,13 +33,13 @@ public class UniversalListView {
     private RecyclerViewAdapter mRecyclerViewAdapter;
     private LinearLayoutManager mLayoutManager;
     private ItemViewListener mItemViewListener;
+    private OnUniversalListViewRefreshListener mRefreshListener;
 
     private boolean isPull = true; // 下拉刷新为true，上拉加载为false
 
     public UniversalListView(Activity activity, View view){
         mActivity = activity;
         mView = view;
-//        mView = inflater.inflate(mLayoutResId, container, false);
         init(mView, mSwipeRefreshWidgetId, mRecycleViewId);
     }
 
@@ -59,8 +59,8 @@ public class UniversalListView {
         init(mActivity, swipeRefreshWidgetId, recycleViewId);
     }
 
-    private void refresh(){
-
+    public RecyclerViewAdapter getAdapter(){
+        return mRecyclerViewAdapter;
     }
 
     public View getUniversalListView(){
@@ -88,20 +88,21 @@ public class UniversalListView {
         mRecyclerView = (RecyclerView) view.findViewById(recycleViewId);
     }
 
-    public void setData(List<?> data){
-        if(mRecyclerViewAdapter != null) {
-            mRecyclerViewAdapter.setData(data);
-        }
+    public void setRefreshListener(OnUniversalListViewRefreshListener l){
+        mRefreshListener = l;
     }
 
     private void setViews(){
-        mSwipeRefreshWidget.setColorSchemeResources(R.color.primary,
-                R.color.primary_dark, R.color.primary_light,
+        mSwipeRefreshWidget.setColorSchemeResources(R.color.colorGreen,
+                R.color.primary_light, R.color.colorGrey,
                 R.color.accent);
         mSwipeRefreshWidget.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refresh();
+//                refresh();
+                if(mRefreshListener != null){
+                    mRefreshListener.refresh();
+                }
             }
         });//实现onRefresh方法，进行刷新
 
@@ -114,8 +115,11 @@ public class UniversalListView {
 
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());//设置动画
 
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(
-                mActivity, DividerItemDecoration.VERTICAL_LIST));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                mActivity, DividerItemDecoration.VERTICAL_LIST);
+        int spacingPixels = mActivity.getResources().getDimensionPixelSize(R.dimen.item_divider_space);
+        dividerItemDecoration.setItemDividerSpace(spacingPixels);
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
 
         if(mRecyclerViewAdapter == null){
             mRecyclerViewAdapter = new RecyclerViewAdapter(mActivity);
@@ -137,13 +141,10 @@ public class UniversalListView {
             }
 
             @Override
-            public void setItemViewContent(RecyclerView.ViewHolder holder) {
+            public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
                 if(mItemViewListener != null){
-                    mItemViewListener.setItemViewContent(holder);
+                    mItemViewListener.setItemViewContent(holder, pos);
                 }
-//            ((ItemViewHolder) holder).tvTitle.setText(audio.getAudioTitle());
-//            ((ItemViewHolder)holder).tvDesc.setText(audio.getAudioDate());
-//            ImageLoaderUtils.display(mContext, ((ItemViewHolder)holder).ivAudioImg, audio.getAudioImageUrl());
             }
         });
         mRecyclerViewAdapter.setOnItemClickListener(mOnItemClickListener);
@@ -157,7 +158,7 @@ public class UniversalListView {
 
         @Override
         public void onItemClick(View view, int position) {
-//            ((MainActivity) getActivity()).setPlayingAudio(mData.get(position), position);
+//            ((LaunchBaseActivity) getActivity()).setPlayingAudio(mData.get(position), position);
         }
     };
 
@@ -184,8 +185,16 @@ public class UniversalListView {
         }
     };
 
+    public void showProgress(boolean show){
+        mSwipeRefreshWidget.setRefreshing(show);
+    }
+
     public interface ItemViewListener {
         RecyclerView.ViewHolder createItemViewHolder(Context context);
-        void setItemViewContent(RecyclerView.ViewHolder holder);
+        void setItemViewContent(RecyclerView.ViewHolder holder, int pos);
+    }
+
+    public interface OnUniversalListViewRefreshListener {
+        void refresh();
     }
 }

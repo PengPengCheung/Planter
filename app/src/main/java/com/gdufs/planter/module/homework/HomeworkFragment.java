@@ -37,7 +37,7 @@ public class HomeworkFragment extends Fragment {
             }
 
             @Override
-            public void setItemViewContent(RecyclerView.ViewHolder holder) {
+            public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
 
             }
         });

@@ -1,118 +1,43 @@
 package com.gdufs.planter;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.Poi;
 import com.gdufs.planter.common.Resource;
-import com.gdufs.planter.module.frame.ItemFragment;
-import com.gdufs.planter.module.frame.view.FrameView;
 import com.gdufs.planter.service.LocationService;
-import com.gdufs.planter.utils.NetworkUtil;
-import com.gdufs.planter.utils.ResultCallback;
 
-import org.json.JSONObject;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
-import me.drakeet.materialdialog.MaterialDialog;
 
+/**
+ * 将复杂的配置放在基类，将界面等简单的应用业务逻辑放在子类，避免对复杂配置做修改而导致出错，简化业务逻辑操作
+ * */
 
-public class MainActivity extends AppCompatActivity {
+public class LaunchBaseActivity extends AppCompatActivity {
     private String permissionInfo;
     private final int SDK_PERMISSION_REQUEST = 127;
-    private String TAG = "MainActivity";
+    private String TAG = "LaunchBaseActivity";
     private LocationService locationService;
-
-    private FrameView mFrameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         init();
-//        testJMessage();
-    }
-
-    @TargetApi(23)
-    private void getPersimmions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ArrayList<String> permissions = new ArrayList<String>();
-            /***
-             * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
-             */
-            // 定位精确位置
-            if(checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                permissions.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
-            }
-            if(checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                permissions.add(android.Manifest.permission.ACCESS_COARSE_LOCATION);
-            }
-			/*
-			 * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
-			 */
-            // 读写权限
-            if (addPermission(permissions, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                permissionInfo += "Manifest.permission.WRITE_EXTERNAL_STORAGE Deny \n";
-            }
-            // 读取电话状态权限
-            if (addPermission(permissions, android.Manifest.permission.READ_PHONE_STATE)) {
-                permissionInfo += "Manifest.permission.READ_PHONE_STATE Deny \n";
-            }
-
-            if (permissions.size() > 0) {
-                requestPermissions(permissions.toArray(new String[permissions.size()]), SDK_PERMISSION_REQUEST);
-            }
-        }
-    }
-
-    @TargetApi(23)
-    private boolean addPermission(ArrayList<String> permissionsList, String permission) {
-        if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) { // 如果应用没有获得对应权限,则添加到列表中,准备批量申请
-            if (shouldShowRequestPermissionRationale(permission)){
-                return true;
-            }else{
-                permissionsList.add(permission);
-                return false;
-            }
-
-        }else{
-            return true;
-        }
-    }
-
-    @TargetApi(23)
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        // TODO Auto-generated method stub
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-    }
-
-    private void initViews(){
-        mFrameView = new FrameView(this);
-        mFrameView.init();
-//        initDialog();
     }
 
     private void init(){
@@ -120,9 +45,20 @@ public class MainActivity extends AppCompatActivity {
         getPersimmions();
         initLocation();
         configJPush();
-        initViews();
-//        handleIntent2();
+        initEventBus();
     }
+
+    private void initEventBus(){
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+
 
     private void configJPush(){
         JPushInterface.setAlias(getApplicationContext(), Resource.JPUSH_ALIAS, new TagAliasCallback() {
@@ -141,38 +77,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Log.e("ppp", "onStart");
-        handleIntent2();
-
     }
-
-    private void handleIntent(){
-        Intent intent = getIntent();
-        Log.e("ppp", "MainActivity 1");
-        if(intent != null) {
-            Log.e("ppp", "MainActivity 2");
-//            Bundle bundle = intent.getExtras();
-//            if(bundle != null){
-                Log.e("ppp", "MainActivity 3: " + intent.getStringExtra("from"));
-                if("push".equals(intent.getStringExtra("from"))){
-                    Log.e("ppp", "MainActivity");
-//                    mMaterialDialog.show();
-                    Toast.makeText(this, "from push", Toast.LENGTH_SHORT).show();
-                }
-//            }
-        }
-    }
-
-    private void handleIntent2(){
-        Bundle bundle = getIntent().getExtras();
-        if(bundle != null) {
-            String title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE);
-            String content = bundle.getString(JPushInterface.EXTRA_ALERT);
-            Log.e("ppp", "Title : " + title + "  " + "Content : " + content);
-        }
-    }
-
-
-
 
     private void initLocation(){
         locationService = ((PlanterApplication)getApplication()).locationService;
@@ -297,4 +202,63 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         Log.e(TAG, "onPause");
     }
+
+
+    @TargetApi(23)
+    private void getPersimmions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ArrayList<String> permissions = new ArrayList<String>();
+            /***
+             * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
+             */
+            // 定位精确位置
+            if(checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                permissions.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
+            }
+            if(checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                permissions.add(android.Manifest.permission.ACCESS_COARSE_LOCATION);
+            }
+			/*
+			 * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
+			 */
+            // 读写权限
+            if (addPermission(permissions, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                permissionInfo += "Manifest.permission.WRITE_EXTERNAL_STORAGE Deny \n";
+            }
+            // 读取电话状态权限
+            if (addPermission(permissions, android.Manifest.permission.READ_PHONE_STATE)) {
+                permissionInfo += "Manifest.permission.READ_PHONE_STATE Deny \n";
+            }
+
+            if (permissions.size() > 0) {
+                requestPermissions(permissions.toArray(new String[permissions.size()]), SDK_PERMISSION_REQUEST);
+            }
+        }
+    }
+
+    @TargetApi(23)
+    private boolean addPermission(ArrayList<String> permissionsList, String permission) {
+        if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) { // 如果应用没有获得对应权限,则添加到列表中,准备批量申请
+            if (shouldShowRequestPermissionRationale(permission)){
+                return true;
+            }else{
+                permissionsList.add(permission);
+                return false;
+            }
+
+        }else{
+            return true;
+        }
+    }
+
+    @TargetApi(23)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        // TODO Auto-generated method stub
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }
+
+
+
 }

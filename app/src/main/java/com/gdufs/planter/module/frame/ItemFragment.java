@@ -71,7 +71,7 @@ public class ItemFragment extends Fragment {
             Bundle bundle = intent.getExtras();
             if(bundle != null){
                 if("push".equals(bundle.getString("from"))){
-                    Log.e("ppp", "MainActivity");
+                    Log.e("ppp", "LaunchBaseActivity");
                     mMaterialDialog.show();
                     Toast.makeText(getActivity(), "from push", Toast.LENGTH_SHORT).show();
                 }

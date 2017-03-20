@@ -48,7 +48,7 @@ public class FrameResourceFragment extends Fragment {
             }
 
             @Override
-            public void setItemViewContent(RecyclerView.ViewHolder holder) {
+            public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
 
             }
         });

@@ -9,7 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gdufs.planter.R;
+import com.gdufs.planter.common.AttendanceBaseView;
+import com.gdufs.planter.common.DataResponse;
+import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
+import com.gdufs.planter.module.attendance.presenter.AttendancePresenter;
 import com.gdufs.planter.widget.UniversalListView;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by peng on 2017/3/16.
@@ -17,36 +24,74 @@ import com.gdufs.planter.widget.UniversalListView;
  *
  */
 
-public class AttendanceView {
+public class AttendanceView implements AttendanceBaseView{
 
     private UniversalListView mView;
-    private AttendanceItemView mItemView;
-
     private Activity mActivity;
 
 
     public AttendanceView(Activity activity, LayoutInflater inflater, ViewGroup container, Bundle savedInstancedState){
         mActivity = activity;
         mView = new UniversalListView(activity, inflater, container, savedInstancedState);
+        initParams();
+        setListeners();
+    }
 
+    private void setListeners(){
         mView.setItemViewListener(new UniversalListView.ItemViewListener() {
 
             @Override
             public RecyclerView.ViewHolder createItemViewHolder(Context context) {
                 View view = LayoutInflater.from(context).inflate(R.layout.fragment_course_attendance_item, null);
-                mItemView = new AttendanceItemView(view, context);
-//                initItemListeners();
+                AttendanceItemView mItemView = new AttendanceItemView(view, context);
                 return mItemView;
             }
 
             @Override
-            public void setItemViewContent(RecyclerView.ViewHolder holder) {
-                ((AttendanceItemView)holder).setViews();
+            public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
+                AttendanceViewModel model = (AttendanceViewModel) mView.getAdapter().getData().get(pos);
+                ((AttendanceItemView)holder).setViews(model);
+            }
+        });
+
+        mView.setRefreshListener(new UniversalListView.OnUniversalListViewRefreshListener() {
+            @Override
+            public void refresh() {
+                showProgress(true);
+                AttendancePresenter.getInstance().requestMoreAttendanceInfo();
             }
         });
     }
 
+    private void initParams(){
+        List<AttendanceViewModel> mModelList = new LinkedList<>();
+        AttendancePresenter.getInstance().addView(this);
+        mModelList.addAll(AttendancePresenter.getInstance().readAllViewModelToList());
+        mView.getAdapter().clearData();
+        mView.getAdapter().addData(mModelList);
+    }
+
     public View getUniversalListView(){
         return mView.getUniversalListView();
+    }
+
+
+    @Override
+    public void notifyUpdate(AttendanceViewModel model) {
+        mView.getAdapter().addData(0, model);
+    }
+
+    private void showProgress(boolean show){
+        mView.showProgress(show);
+    }
+
+    @Override
+    public void onResponseSuccess(DataResponse response) {
+        showProgress(false);
+    }
+
+    @Override
+    public void onResponseFailure(Exception e) {
+        showProgress(false);
     }
 }

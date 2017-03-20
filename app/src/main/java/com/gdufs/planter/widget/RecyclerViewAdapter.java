@@ -2,12 +2,12 @@ package com.gdufs.planter.widget;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gdufs.planter.R;
+import com.gdufs.planter.utils.LogUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,20 +16,16 @@ import java.util.List;
 
 public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private static final String TAG = RecyclerViewAdapter.class.getSimpleName();
+
     private static final int TYPE_ITEM = 0;
     private static final int TYPE_FOOTER = 1;
     private Context mContext;
-    private List<T> mData;
+    private List<T> mDataList;
     private Class mClass;
-    private boolean mShowFooter = true;
+    private boolean mShowFooter = false;
     private OnItemClickListener mOnItemClickListener;
     private OnItemViewListener mOnItemViewListener;
-    private MODE mode = MODE.NO_FOOTER;
-
-    public enum MODE {
-        HAS_FOOTER,
-        NO_FOOTER
-    }
 
     public void setClass(Class t){
         mClass = t;
@@ -37,11 +33,32 @@ public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vi
 
     public RecyclerViewAdapter(Context context) {
         this.mContext = context;
+        mDataList = new ArrayList<>();
     }
 
-    public void setData(List<T> data) {
-        this.mData = data;
-        this.notifyDataSetChanged();
+    public void addData(List<T> data){
+        mDataList.addAll(data);
+        notifyDataSetChanged();
+        LogUtil.e(TAG, "addDataList");
+    }
+
+    public void clearData(){
+        mDataList.clear();
+    }
+
+    public List<T> getData(){
+        LogUtil.e(TAG, "getDataList");
+        return mDataList;
+    }
+
+    public void addData(T data){
+        mDataList.add(data);
+        notifyDataSetChanged();
+    }
+
+    public void addData(int pos, T data){
+        mDataList.add(pos, data);
+        notifyDataSetChanged();
     }
 
     public void setIsShowFooter(boolean showFooter){
@@ -105,17 +122,9 @@ public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vi
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 //        if(holder instanceof ItemViewHolder){//因为这个类中存在FooterViewHolder 和 ItemViewHolder，所以要判断这个holder所属的类是哪个
         if(ItemViewHolder.class.isInstance(holder)){
-//            T data = mData.get(position);
-//            if(data == null){
-//                return;
-//            }
-
             if(mOnItemViewListener != null) {
-                mOnItemViewListener.setItemViewContent(holder);
+                mOnItemViewListener.setItemViewContent(holder, position);
             }
-//            ((ItemViewHolder) holder).tvTitle.setText(audio.getAudioTitle());
-//            ((ItemViewHolder)holder).tvDesc.setText(audio.getAudioDate());
-//            ImageLoaderUtils.display(mContext, ((ItemViewHolder)holder).ivAudioImg, audio.getAudioImageUrl());
 
         }
     }
@@ -132,18 +141,18 @@ public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public int getItemCount() {
 
-        return 10;
-//        int type;
-//        if(mShowFooter){
-//            type = TYPE_FOOTER;
-//        }else{
-//            type = TYPE_ITEM;
-//        }
-//
-//        if(mData == null){
-//            return type;
-//        }
-//        return mData.size() + type;
+//        return 10;
+        int type;
+        if(mShowFooter){
+            type = TYPE_FOOTER;
+        }else{
+            type = TYPE_ITEM;
+        }
+
+        if(mDataList == null){
+            return type;
+        }
+        return mDataList.size() + type;
     }
 
 
@@ -152,8 +161,7 @@ public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     public interface OnItemViewListener{
-//        public void onFindView(View itemView);
         RecyclerView.ViewHolder onCreateItemViewHolder(Context context);
-        void setItemViewContent(RecyclerView.ViewHolder holder);
+        void setItemViewContent(RecyclerView.ViewHolder holder, int pos);
     }
 }

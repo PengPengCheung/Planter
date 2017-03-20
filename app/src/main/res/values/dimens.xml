@@ -29,4 +29,6 @@
     <dimen name="item_margin_left">8dp</dimen>
     <dimen name="item_margin_top">8dp</dimen>
     <dimen name="item_margin_bottom">8dp</dimen>
+
+    <dimen name="item_divider_space">10dp</dimen>
 </resources>

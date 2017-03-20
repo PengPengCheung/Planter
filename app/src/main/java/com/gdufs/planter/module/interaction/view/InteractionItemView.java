@@ -22,6 +22,8 @@ public class InteractionItemView extends ItemViewHolder {
     private TextView mTVBonusSignal;
     private TextView mTVBonusNum;
     private TextView mTVTypeInteractionNotification;
+    private TextView mTVNotification;
+    private TextView mTVTimeLimit;
 
     private OnRequestClickListener mListener;
     private Context mContext;
@@ -44,10 +46,24 @@ public class InteractionItemView extends ItemViewHolder {
         mTVBonusSignal = (TextView) itemView.findViewById(R.id.tv_interaction_bonus_signal);
         mTVBonusNum = (TextView) itemView.findViewById(R.id.tv_interaction_bonus_num);
         mTVTypeInteractionNotification = (TextView) itemView.findViewById(R.id.tv_interaction_type);
+        mTVNotification = (TextView) itemView.findViewById(R.id.tv_interaction_notification);
+        mTVTimeLimit = (TextView) itemView.findViewById(R.id.tv_interaction_limit);
     }
 
-    public void setViews(){
+    public void setViews(int type){
+        switch (type){
+            case Resource.MODULE_COURSE_ATTENDANCE:{
+                String formatStr = getFormatStr(R.string.interaction_notification, "考勤");
+                mTVNotification.setText(formatStr);
+                String str = getFormatStr(R.string.interaction_type_and_limit, 5, "限时");
+                mTVTimeLimit.setText(str);
+            }
+            break;
+            case Resource.MODULE_COURSE_ATTENTION:{
 
+            }
+            break;
+        }
     }
 
     public void setStuResponseViewVisible(int visible){
@@ -76,6 +92,12 @@ public class InteractionItemView extends ItemViewHolder {
         setBonusView(bonusNum);
 
         mRLStuResponse.setVisibility(View.VISIBLE);
+    }
+
+    private String getFormatStr(int strResId, Object... params){
+        String str =  mContext.getResources().getString(strResId);
+        String s = String.format(str, params);
+        return s;
     }
 
     private void setModuleTypeView(int moduleId){

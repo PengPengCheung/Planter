@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_teacher_request"
         android:layout_alignParentRight="true"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_head_student"
