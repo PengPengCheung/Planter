@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gdufs.planter.R;
-import com.gdufs.planter.common.AttendanceBaseView;
+import com.gdufs.planter.common.BaseViewModel;
+import com.gdufs.planter.common.ModuleBaseView;
 import com.gdufs.planter.common.DataResponse;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.module.attendance.presenter.AttendancePresenter;
@@ -24,7 +25,7 @@ import java.util.List;
  *
  */
 
-public class AttendanceView implements AttendanceBaseView{
+public class AttendanceView implements ModuleBaseView {
 
     private UniversalListView mView;
     private Activity mActivity;
@@ -77,8 +78,9 @@ public class AttendanceView implements AttendanceBaseView{
 
 
     @Override
-    public void notifyUpdate(AttendanceViewModel model) {
-        mView.getAdapter().addData(0, model);
+    public void notifyUpdate(BaseViewModel model) {
+        AttendanceViewModel m = (AttendanceViewModel) model;
+        mView.getAdapter().addData(0, m);
     }
 
     private void showProgress(boolean show){

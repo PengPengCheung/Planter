@@ -18,6 +18,8 @@ public class AttendancePushHandler {
 
     private static AttendancePushHandler mInstance = null;
 
+    private AttendancePushHandler(){}
+
     public static AttendancePushHandler getInstance(){
         if(mInstance == null) {
             synchronized (AttendancePushHandler.class) {
@@ -38,7 +40,7 @@ public class AttendancePushHandler {
     }
 
     private void writeModelToFile(Context context, AttendanceViewModel model){
-        ObjectWriter.write(context, model, Resource.MODULE_COURSE_ATTENDANCE_NAME);
+        ObjectWriter.write(model, Resource.MODULE_COURSE_ATTENDANCE_NAME);
         AttendanceViewModel model2 = (AttendanceViewModel) ObjectWriter.read(context, Resource.MODULE_COURSE_ATTENDANCE_NAME);
         LogUtil.e("push", "model2 : " + model2);
     }

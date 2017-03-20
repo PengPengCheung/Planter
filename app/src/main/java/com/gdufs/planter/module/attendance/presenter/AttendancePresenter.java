@@ -1,9 +1,8 @@
 package com.gdufs.planter.module.attendance.presenter;
 
 import android.util.Log;
-import android.widget.Toast;
 
-import com.gdufs.planter.common.AttendanceBaseView;
+import com.gdufs.planter.common.ModuleBaseView;
 import com.gdufs.planter.common.BaseView;
 import com.gdufs.planter.common.DataResponse;
 import com.gdufs.planter.common.Resource;
@@ -14,12 +13,8 @@ import com.gdufs.planter.utils.JsonUtil;
 import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.utils.NetworkUtil;
 import com.gdufs.planter.utils.ObjectWriter;
-import com.gdufs.planter.utils.ParseUtil;
 import com.gdufs.planter.utils.ResultCallback;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -35,7 +30,7 @@ public class AttendancePresenter {
 
     private static final String TAG = AttendancePresenter.class.getSimpleName();
     private int status = Resource.ATTENDANCE.ATTENDANCE_STATUS_DEFAULT;
-    private List<AttendanceBaseView> mViewList;
+    private List<ModuleBaseView> mViewList;
 //    private BaseView mView;
     private static AttendancePresenter mInstance = null;
 
@@ -54,7 +49,7 @@ public class AttendancePresenter {
         return mInstance;
     }
 
-    public void addView(AttendanceBaseView view){
+    public void addView(ModuleBaseView view){
         mViewList.add(view);
     }
 
@@ -156,7 +151,7 @@ public class AttendancePresenter {
         if(mViewList != null) {
             LogUtil.e(TAG, "updateAllViews 2, viewList size = " + mViewList.size());
             for(int i=0;i<mViewList.size();i++){
-                AttendanceBaseView view = mViewList.get(i);
+                ModuleBaseView view = mViewList.get(i);
                 LogUtil.e(TAG, "updateAllViews 3");
                 if(view != null) {
                     LogUtil.e(TAG, "updateAllViews 4");
