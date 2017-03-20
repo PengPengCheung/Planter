@@ -43,6 +43,8 @@
     <string name="course_summary_item_thanks">感谢您的每一次反馈</string>
     <string name="course_summary_item_tips">不写也没关系哦</string>
     <string name="course_summary_item_validating">审核中</string>
+    <string name="course_summary_item_send_success">反馈成功</string>
+    <string name="course_summary_item_summary_details">查看详情</string>
 
     <!--资源模块-->
     <string name="resource_item_download">已下载%1$d次</string>

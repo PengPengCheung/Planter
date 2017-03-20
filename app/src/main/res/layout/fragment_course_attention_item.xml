@@ -5,7 +5,7 @@
     android:background="@color/colorShallowGrey">
 
     <TextView
-        android:id="@+id/tv_course_item_date"
+        android:id="@+id/tv_attention_item_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -21,7 +21,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:layout_below="@id/tv_course_item_date">
+        android:layout_below="@id/tv_attention_item_date">
 
         <LinearLayout
             android:layout_width="wrap_content"

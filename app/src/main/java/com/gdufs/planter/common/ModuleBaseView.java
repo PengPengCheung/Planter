@@ -8,5 +8,5 @@ import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 
 public interface ModuleBaseView extends BaseView {
 //    void onReceiveAttendanceStatus(int status);
-    void notifyUpdate(BaseViewModel model);
+    void update(BaseViewModel model);
 }

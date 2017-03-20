@@ -1,6 +1,5 @@
 package com.gdufs.planter.common;
 
-import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.utils.ObjectWriter;
 
@@ -56,7 +55,7 @@ public abstract class ModuleBasePresenter {
                 LogUtil.e(TAG, "updateAllViews 3");
                 if(view != null) {
                     LogUtil.e(TAG, "updateAllViews 4");
-                    view.notifyUpdate(model);
+                    view.update(model);
                 }
             }
         }

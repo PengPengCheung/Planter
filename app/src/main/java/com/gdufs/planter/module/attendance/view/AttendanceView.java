@@ -78,7 +78,7 @@ public class AttendanceView implements ModuleBaseView {
 
 
     @Override
-    public void notifyUpdate(BaseViewModel model) {
+    public void update(BaseViewModel model) {
         AttendanceViewModel m = (AttendanceViewModel) model;
         mView.getAdapter().addData(0, m);
     }

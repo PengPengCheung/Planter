@@ -59,7 +59,7 @@ public class AttentionView implements ModuleBaseView{
     }
 
     @Override
-    public void notifyUpdate(BaseViewModel model) {
+    public void update(BaseViewModel model) {
         mView.getAdapter().addData(model);
     }
 

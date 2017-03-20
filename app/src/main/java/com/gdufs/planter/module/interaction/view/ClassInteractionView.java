@@ -193,7 +193,7 @@ public class ClassInteractionView implements ModuleBaseView {
     }
 
     @Override
-    public void notifyUpdate(BaseViewModel model) {
+    public void update(BaseViewModel model) {
 
     }
 }

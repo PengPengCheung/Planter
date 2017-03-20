@@ -155,7 +155,7 @@ public class AttendancePresenter {
                 LogUtil.e(TAG, "updateAllViews 3");
                 if(view != null) {
                     LogUtil.e(TAG, "updateAllViews 4");
-                    view.notifyUpdate(model);
+                    view.update(model);
                 }
             }
         }

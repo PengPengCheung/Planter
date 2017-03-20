@@ -30,7 +30,7 @@ public class AttentionItemView extends ItemViewHolder {
 
     @Override
     public void findViews(View itemView) {
-        mTVAttentionDate = (TextView) itemView.findViewById(R.id.tv_course_item_date);
+        mTVAttentionDate = (TextView) itemView.findViewById(R.id.tv_attention_item_date);
         mTVAttentionCount = (TextView) itemView.findViewById(R.id.tv_attention_item_focus_count);
         mTVAttentionDuration = (TextView) itemView.findViewById(R.id.tv_attention_item_limit_time);
         mTVAttentionBonusNum = (TextView) itemView.findViewById(R.id.tv_attention_item_bonus_num);

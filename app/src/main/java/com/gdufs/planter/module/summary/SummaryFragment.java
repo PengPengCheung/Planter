@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gdufs.planter.R;
+import com.gdufs.planter.module.summary.view.SummaryView;
 import com.gdufs.planter.widget.UniversalListView;
 
 /**
@@ -18,7 +19,7 @@ import com.gdufs.planter.widget.UniversalListView;
 
 public class SummaryFragment extends Fragment {
 
-    UniversalListView mListView;
+    private SummaryView mSummaryView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,20 +29,7 @@ public class SummaryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.widget_recycler_view, null);
-        mListView = new UniversalListView(getActivity(), view);
-        mListView.setItemViewListener(new UniversalListView.ItemViewListener() {
-            @Override
-            public RecyclerView.ViewHolder createItemViewHolder(Context context) {
-                View view = LayoutInflater.from(context).inflate(R.layout.fragment_course_summary_item, null);
-                return new SummaryItemView(view, context);
-            }
-
-            @Override
-            public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
-
-            }
-        });
-        return mListView.getUniversalListView();
+        mSummaryView = new SummaryView(getActivity());
+        return mSummaryView.getUniversalView();
     }
 }

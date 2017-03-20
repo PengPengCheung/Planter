@@ -8,11 +8,12 @@ public class Resource {
 
     public static class PlanterURL{
         //http://192.168.1.74:8080
-        private static String HOST_URL = "http://192.168.1.74:8080";
+        private static String HOST_URL = "http://192.168.191.4:8080";
         private static String WEB_URL = HOST_URL + "/web";
         private static String MOBILE_URL = HOST_URL + "/mob";
         public static String JSON_TEST_URL = HOST_URL + "/json";
         public static String ATTENDANCE_CODE_URL = MOBILE_URL + "/attendance/StudentCheck";
+        public static String SUMMARY_SEND_URL = MOBILE_URL + "/summary/summarySend";
     }
 
     public static class KEY{
@@ -40,6 +41,12 @@ public class Resource {
         public static final String KEY_ATTENTION_LOST_FOCUS_COUNT = "attention_lost_focus_count";
         public static final String KEY_ATTENTION_BONUS_NUM = "attention_bonus_num";
         public static final String KEY_ATTENTION_STATUS = "attention_status";
+
+        //Summary, 总结反馈模块
+        public static final String KEY_SUMMARY_REQUEST_TIME = "summary_request_time";
+        public static final String KEY_SUMMARY_BONUS_NUM = "summary_bonus_num";
+        public static final String KEY_SUMMARY_CONTENT = "summary_content";
+        public static final String KEY_SUMMARY_STATUS = "summary_status";
     }
 
     public static class ATTENDANCE{
@@ -56,6 +63,12 @@ public class Resource {
         public static final int ATTENTION_STATUS_FAIL = 0;
         public static final int ATTENTION_STATUS_NOT_PAY_ATTENTION = -1; // 未参与本次专注
         public static final int ATTENTION_STATUS_NOT_IN_TIME = -2; // 不在专注时间
+    }
+
+    public static class SUMMARY{
+        public static final int SUMMARY_WAIT_FOR_SENDING = 0;
+        public static final int SUMMARY_SEND_SUCCESS = 1;
+        public static final int SUMMARY_CHECKING = 2;
     }
 
 

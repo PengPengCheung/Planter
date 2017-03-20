@@ -117,6 +117,8 @@ public class ObjectWriter {
         List<T> objList = new LinkedList<>();
         try {
             File file = new File(FILE_DIRECTORY + fileName);
+
+
             FileInputStream in = new FileInputStream(file);
             ObjectInputStream oin = new ObjectInputStream(in);
             LogUtil.e(TAG, "before read");

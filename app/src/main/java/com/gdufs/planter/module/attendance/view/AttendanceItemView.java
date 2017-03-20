@@ -2,21 +2,14 @@ package com.gdufs.planter.module.attendance.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gdufs.planter.ClassInteractionActivity;
 import com.gdufs.planter.R;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
-import com.gdufs.planter.utils.NetworkUtil;
-import com.gdufs.planter.utils.ResultCallback;
 import com.gdufs.planter.widget.ItemViewHolder;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by peng on 2017/3/15.

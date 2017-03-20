@@ -5,7 +5,7 @@
     android:background="@color/colorShallowGrey">
 
     <TextView
-        android:id="@+id/tv_course_item_date"
+        android:id="@+id/tv_summary_item_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -21,7 +21,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:layout_below="@+id/tv_course_item_date">
+        android:layout_below="@+id/tv_summary_item_date">
 
 
 
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tv_course_item_tips_prefix"
+                    android:id="@+id/tv_summary_item_tips_prefix"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/item_margin_right"
@@ -102,7 +102,7 @@
                     android:src="@drawable/water" />
 
                 <TextView
-                    android:id="@+id/tv_course_item_bonus_num"
+                    android:id="@+id/tv_summary_item_bonus_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorBlack"
@@ -112,6 +112,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_summary_tips_under"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorGrey"
