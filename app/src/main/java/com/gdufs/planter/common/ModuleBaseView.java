@@ -6,7 +6,7 @@ import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
  * Created by peng on 2017/3/18.
  */
 
-public interface AttendanceBaseView extends BaseView {
+public interface ModuleBaseView extends BaseView {
 //    void onReceiveAttendanceStatus(int status);
-    void notifyUpdate(AttendanceViewModel model);
+    void notifyUpdate(BaseViewModel model);
 }

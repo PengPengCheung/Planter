@@ -8,7 +8,7 @@ public class Resource {
 
     public static class PlanterURL{
         //http://192.168.1.74:8080
-        private static String HOST_URL = "http://192.168.191.3:8080";
+        private static String HOST_URL = "http://192.168.1.74:8080";
         private static String WEB_URL = HOST_URL + "/web";
         private static String MOBILE_URL = HOST_URL + "/mob";
         public static String JSON_TEST_URL = HOST_URL + "/json";
@@ -32,6 +32,14 @@ public class Resource {
         public static final String KEY_ATTENDANCE_ATT_COUNT = "attendance_count";
         public static final String KEY_ATTENDANCE_ABS_COUNT = "absence_count";
         public static final String KEY_ATTENDANCE_VALID_DURATION = "attendance_valid_time";
+
+        //Attention, 专注模块
+        public static final String KEY_ATTENTION_TIME = "attention_time";
+        public static final String KEY_ATTENTION_DURATION = "attention_duration";
+        public static final String KEY_ATTENTION_FOCUS_COUNT = "attention_focus_count";
+        public static final String KEY_ATTENTION_LOST_FOCUS_COUNT = "attention_lost_focus_count";
+        public static final String KEY_ATTENTION_BONUS_NUM = "attention_bonus_num";
+        public static final String KEY_ATTENTION_STATUS = "attention_status";
     }
 
     public static class ATTENDANCE{
@@ -41,6 +49,13 @@ public class Resource {
         public static final int ATTENDANCE_STATUS_NOT_IN_TIME = -1;
         public static final int ATTENDANCE_STATUS_CODE_ERROR = -3;
         public static final int ATTENDANCE_STATUS_DEFAULT = -100;
+    }
+
+    public static class ATTENTION {
+        public static final int ATTENTION_STATUS_SUCCESS = 1;
+        public static final int ATTENTION_STATUS_FAIL = 0;
+        public static final int ATTENTION_STATUS_NOT_PAY_ATTENTION = -1; // 未参与本次专注
+        public static final int ATTENTION_STATUS_NOT_IN_TIME = -2; // 不在专注时间
     }
 
 

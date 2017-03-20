@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gdufs.planter.R;
+import com.gdufs.planter.module.attention.view.AttentionView;
 import com.gdufs.planter.widget.UniversalListView;
 
 /**
@@ -17,7 +18,7 @@ import com.gdufs.planter.widget.UniversalListView;
 
 public class AttentionFragment extends Fragment {
 
-    UniversalListView mView;
+    AttentionView mView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,20 +27,7 @@ public class AttentionFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = new UniversalListView(getActivity(), inflater, container, savedInstanceState);
-        mView.setItemViewListener(new UniversalListView.ItemViewListener() {
-
-            @Override
-            public RecyclerView.ViewHolder createItemViewHolder(Context context) {
-                View view = LayoutInflater.from(context).inflate(R.layout.fragment_course_attention_item, null);
-                return new AttentionHolder(view);
-            }
-
-            @Override
-            public void setItemViewContent(RecyclerView.ViewHolder holder) {
-
-            }
-        });
+        mView = new AttentionView(getActivity(), inflater, container, savedInstanceState);
 
         return mView.getUniversalListView();
     }

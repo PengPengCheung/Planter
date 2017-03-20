@@ -1,10 +1,12 @@
 <resources>
+    <!--主界面-->
     <string name="app_name">Planter</string>
     <string name="frame_planter">Planter</string>
     <string name="frame_course_notification">课程通知</string>
     <string name="frame_resource">资源</string>
     <string name="frame_knowledge_share">知享</string>
 
+    <!--课程通知-->
     <string name="course_attendance">考勤</string>
     <string name="course_attention">专注</string>
     <string name="course_summary">总结</string>
@@ -12,6 +14,7 @@
     <string name="course_group">组别</string>
     <string name="course_others">其他</string>
 
+    <!--考勤模块-->
     <string name="course_head_notification">开课啦，点击立即进入</string>
     <string name="course_attendance_item_enter_class">立即进入班级</string>
     <string name="course_attendance_item_attendance_count">%1$d次出勤 %2$d次缺勤</string>
@@ -19,9 +22,12 @@
     <string name="course_attendance_item_tips_prefix">可获</string>
     <string name="course_attendance_item_tips">不考勤会被抽取水滴哦</string>
 
+    <!--专注模块-->
     <string name="course_attention_item_attention_count">%1$d次专注 %2$d次小差</string>
     <string name="course_attention_item_tips">不专注会被抽取水滴哦</string>
+    <!--<string name="course_attention_item_bonus_num"> * %1$d</string>-->
 
+    <!--作业模块-->
     <string name="course_homework_item_submit_success">成功上交</string>
     <string name="course_homework_item_wait_for_score">等待老师评分</string>
     <string name="course_homework_item_ddl">截止至</string>
@@ -29,6 +35,7 @@
     <string name="course_homework_item_rank">第%1$d名</string>
     <string name="course_homework_item_bonus_num"> * %1$d</string>
 
+    <!--总结反馈模块-->
     <string name="course_summary_item_input_hint">不少于50字</string>
     <string name="course_summary_item_open_to_edit">编辑反馈</string>
     <string name="course_summary_item_send_summary">发送</string>
@@ -37,19 +44,24 @@
     <string name="course_summary_item_tips">不写也没关系哦</string>
     <string name="course_summary_item_validating">审核中</string>
 
+    <!--资源模块-->
     <string name="resource_item_download">已下载%1$d次</string>
     <string name="resource_item_like">已点赞%1$d次</string>
 
+    <!--课堂交互模块-->
     <string name="interaction_notification">%1$s通知</string>
     <string name="interaction_type_and_limit">%1$d分钟%2$s</string>
     <string name="interaction_result">%1$s成功</string>
     <string name="interaction_bonus_num"> * %1$d</string>
 
+    <!--分组模块-->
     <string name="group_leader_name">组长</string>
     <string name="group_name">组名</string>
     <string name="group_member_name">组员</string>
     <string name="group_item_submit">提交</string>
-    
+
+    <!--通用字符串-->
     <string name="bonus_signal_plus">+</string>
     <string name="bonus_signal_minus">-</string>
+    <string name="bonus_signal_can_score">可获</string>
 </resources>

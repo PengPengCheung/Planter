@@ -27,12 +27,11 @@ public class ObjectWriter {
     private static String FILE_DIRECTORY = Environment.getExternalStorageDirectory().toString()+File.separator;
       
     /** 
-     * 写入本地文件 
-     * @param context 
-     * @param obj 
-     * @param fileName 
+     * 写入本地文件
+     * @param obj
+     * @param fileName
      */  
-    public static void write(Context context, Object obj, String fileName) {
+    public static void write(Object obj, String fileName) {
         try {  
             ByteArrayOutputStream bout = new ByteArrayOutputStream();
             ObjectOutputStream oout = null;

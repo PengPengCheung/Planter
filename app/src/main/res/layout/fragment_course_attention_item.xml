@@ -21,7 +21,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:layout_below="@+id/tv_course_item_date">
+        android:layout_below="@id/tv_course_item_date">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -31,18 +31,18 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_course_item_limit_time"
+                android:id="@+id/tv_attention_item_limit_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorBlack"
                 android:text="05:00"/>
 
             <TextView
-                android:id="@+id/tv_course_item_attendance_count"
+                android:id="@+id/tv_attention_item_focus_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorGrey"
-                android:text="@string/course_attendance_item_attendance_count"/>
+                android:text="@string/course_attention_item_attention_count"/>
 
         </LinearLayout>
 
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tv_course_item_tips_prefix"
+                    android:id="@+id/tv_attention_item_tips_prefix"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/item_margin_right"
@@ -80,7 +80,7 @@
                     android:src="@drawable/water" />
 
                 <TextView
-                    android:id="@+id/tv_course_item_bonus_num"
+                    android:id="@+id/tv_attention_item_bonus_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorBlack"
@@ -90,6 +90,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_attention_item_notify_tips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorGrey"
@@ -116,7 +117,7 @@
         android:layout_below="@+id/view_group_item_bottom_divider">
 
         <TextView
-            android:id="@+id/tv_course_item_enter_class"
+            android:id="@+id/tv_attention_item_enter_class"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorGreen"

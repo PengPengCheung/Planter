@@ -45,10 +45,16 @@ public class GroupView {
                 EditText editText = new EditText(mActivity);
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mEditMemberInput.getLayoutParams();
                 params.width = mEditMemberInput.getWidth();
-                params.height = mEditMemberInput.getHeight();
+                params.height = 80;//mEditMemberInput.getHeight();
                 params.bottomMargin = 16;
+                editText.setPadding(10, 10, 10, 10);
                 editText.setLayoutParams(params);
                 editText.setBackgroundResource(R.drawable.shape_edittext);
+//                editText.setBackgroundColor(mActivity.getResources().getColor(R.color.colorRed));
+                editText.setTextColor(mActivity.getResources().getColor(R.color.colorBlack));
+                editText.setTextSize(15);
+                editText.setHint("Tips");
+                editText.setHintTextColor(mActivity.getResources().getColor(R.color.colorBlack));
                 mLLMembersInput.addView(editText);
 //                mRLGroupItem.requestLayout();
 //                mRLGroupItem.invalidate();

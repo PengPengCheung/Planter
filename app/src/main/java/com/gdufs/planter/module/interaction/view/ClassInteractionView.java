@@ -9,7 +9,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gdufs.planter.R;
-import com.gdufs.planter.common.AttendanceBaseView;
+import com.gdufs.planter.common.BaseViewModel;
+import com.gdufs.planter.common.ModuleBaseView;
 import com.gdufs.planter.common.DataResponse;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.model.AttendanceInfo;
@@ -25,7 +26,7 @@ import java.util.List;
  * Created by peng on 2017/3/17.
  */
 
-public class ClassInteractionView implements AttendanceBaseView{
+public class ClassInteractionView implements ModuleBaseView {
 
 //    AttendancePresenter mAttendancePresenter;
     UniversalListView mListView;
@@ -192,7 +193,7 @@ public class ClassInteractionView implements AttendanceBaseView{
     }
 
     @Override
-    public void notifyUpdate(AttendanceViewModel model) {
+    public void notifyUpdate(BaseViewModel model) {
 
     }
 }
