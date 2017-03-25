@@ -112,7 +112,7 @@ public class AttendancePresenter {
     }
 
     public void requestMoreAttendanceInfo(){
-        responseAllViewIfSuccess(new DataResponse("", ""));
+        responseAllViewIfSuccess(new DataResponse(200, ""));
     }
 
     private void responseAllViewIfSuccess(DataResponse response){

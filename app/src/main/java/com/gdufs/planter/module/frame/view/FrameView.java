@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.gdufs.planter.R;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.frame.FrameCourseFragment;
+import com.gdufs.planter.module.frame.FramePlanterFragment;
 import com.gdufs.planter.module.frame.FrameResourceFragment;
 import com.gdufs.planter.module.frame.ItemFragment;
 import com.gdufs.planter.module.frame.adapter.ViewPagerAdapter;
@@ -105,10 +106,11 @@ public class FrameView {
 
     private void adaptViewPager(ViewPager viewPager){
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(mActivity.getSupportFragmentManager());
-        viewPagerAdapter.addFragment(ItemFragment.newInstance(Resource.MODULE_FRAME_PLANTER), mActivity.getString(R.string.frame_planter));
+        viewPagerAdapter.addFragment(FramePlanterFragment.newInstance(Resource.MODULE_FRAME_PLANTER), mActivity.getString(R.string.frame_planter));
         viewPagerAdapter.addFragment(FrameCourseFragment.newInstance(Resource.MODULE_FRAME_NOTIFICATION), mActivity.getString(R.string.frame_course_notification));
         viewPagerAdapter.addFragment(FrameResourceFragment.newInstance(Resource.MODULE_FRAME_RESOURCE), mActivity.getString(R.string.frame_resource));
         viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setOffscreenPageLimit(2);
     }
 
     public void setTabLayoutCanClick(boolean canClick){

@@ -154,6 +154,15 @@ public class UniversalListView {
         mRecyclerView.addOnScrollListener(mOnScrollListener);
     }
 
+    public void setVisibility(int visible){
+        if(mSwipeRefreshWidget != null){
+            mSwipeRefreshWidget.setVisibility(visible);
+        }
+        if(mRecyclerView != null){
+            mRecyclerView.setVisibility(visible);
+        }
+    }
+
     private RecyclerViewAdapter.OnItemClickListener mOnItemClickListener = new RecyclerViewAdapter.OnItemClickListener() {
 
         @Override

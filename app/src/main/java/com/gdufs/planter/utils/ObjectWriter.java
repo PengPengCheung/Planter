@@ -24,7 +24,9 @@ public class ObjectWriter {
 
     private static String TAG = ObjectWriter.class.getSimpleName();
 
-    private static String FILE_DIRECTORY = Environment.getExternalStorageDirectory().toString()+File.separator;
+    private static String FILE_ROOT_DIRECTORY = "Planter";
+    private static String DIR_VIEW_DATA = FILE_ROOT_DIRECTORY + File.separator + "ViewData";
+    private static String FILE_DIRECTORY = Environment.getExternalStorageDirectory().toString() + File.separator + DIR_VIEW_DATA + File.separator;
       
     /** 
      * 写入本地文件

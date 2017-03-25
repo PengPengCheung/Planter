@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:paddingRight="@dimen/item_margin_right_large">
+
+    <LinearLayout
+        android:id="@+id/ll_planter_details_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/item_margin_left_large"
+        android:layout_marginTop="@dimen/item_margin_top_large"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:text="排名 15"/>
+
+        <ImageView
+            android:layout_width="@dimen/img_width_25dp"
+            android:layout_height="@dimen/img_height_25dp"
+            android:layout_marginLeft="@dimen/item_margin_left_large"
+            android:src="@drawable/tree_status_good"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:layout_marginLeft="@dimen/item_margin_left_large"
+            android:text="状况良好"/>
+
+        <ImageView
+            android:layout_width="@dimen/img_width_25dp"
+            android:layout_height="@dimen/img_height_25dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/coin"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_margin_left_large"
+            android:textColor="@color/colorBlack"
+            android:text="系统认证称号"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/item_margin_right_large"
+        android:layout_marginTop="@dimen/item_margin_top_large"
+        android:layout_below="@+id/ll_planter_details_head">
+
+        <RelativeLayout
+            android:id="@+id/rl_left_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/img_tree_status">
+
+            <TextView
+                android:id="@+id/tv_tree_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="种子期"/>
+
+            <ImageView
+                android:id="@+id/img_arrow_left_top"
+                android:layout_width="50dp"
+                android:layout_height="@dimen/img_height_25dp"
+                android:layout_below="@+id/tv_tree_status"
+                android:layout_marginLeft="@dimen/item_margin_left_large"
+                android:src="@drawable/arrow_left_top"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_left_top"
+            android:layout_marginTop="@dimen/item_margin_top"
+            android:layout_toLeftOf="@+id/img_tree_status">
+
+            <ImageView
+                android:id="@+id/img_arrow_left_bottom"
+                android:layout_width="40dp"
+                android:layout_height="@dimen/img_height_30dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="45dp"
+                android:src="@drawable/arrow_left_bottom"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/img_arrow_left_bottom"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:text="已投入"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/img_width_20dp"
+                        android:layout_height="@dimen/img_height_20dp"
+                        android:src="@drawable/water_shallow"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlack"
+                        android:text="* 4"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/img_width_20dp"
+                        android:layout_height="@dimen/img_height_20dp"
+                        android:src="@drawable/sunshine_shallow"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlack"
+                        android:text="* 8"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/img_width_20dp"
+                        android:layout_height="@dimen/img_height_20dp"
+                        android:src="@drawable/soil_shallow"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlack"
+                        android:text="* 6"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+        <ImageView
+            android:id="@+id/img_tree_status"
+            android:layout_width="50dp"
+            android:layout_height="90dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/tree_details_seed"/>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_margin_top_large"
+            android:layout_toRightOf="@+id/img_tree_status">
+
+            <ImageView
+                android:id="@+id/img_arrow_right_top"
+                android:layout_width="50dp"
+                android:layout_height="@dimen/img_height_25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/arrow_right_top"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/img_arrow_right_top"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:text="离下阶段需"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/img_width_20dp"
+                        android:layout_height="@dimen/img_height_20dp"
+                        android:src="@drawable/water_shallow"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlack"
+                        android:text="* 4"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/img_width_20dp"
+                        android:layout_height="@dimen/img_height_20dp"
+                        android:src="@drawable/sunshine_shallow"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlack"
+                        android:text="* 8"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/img_width_20dp"
+                        android:layout_height="@dimen/img_height_20dp"
+                        android:src="@drawable/soil_shallow"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlack"
+                        android:text="* 6"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/rl_right_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/item_margin_bottom_large"
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/rl_left_top"
+            android:layout_toRightOf="@+id/img_tree_status">
+
+
+            <ImageView
+                android:id="@+id/img_arrow_right_bottom"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:src="@drawable/arrow_right_bottom"/>
+
+            <TextView
+                android:id="@+id/tv_tree_lack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorBlack"
+                android:layout_marginLeft="@dimen/item_margin_left_large"
+                android:layout_below="@+id/img_arrow_right_bottom"
+                android:text="水因子不足"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -10,6 +10,9 @@ import java.io.Serializable;
 
 public class BaseViewModel implements Serializable{
 
+//    static final long serialVersionUID =-3334164866412534105L;
+    static final long serialVersionUID =5505771155016726606L;
+
     @SerializedName(Resource.KEY.KEY_COURSE_ID)
     private String mCourseId;
 
@@ -18,6 +21,28 @@ public class BaseViewModel implements Serializable{
 
     @SerializedName(Resource.KEY.KEY_ACTION_ID)
     private int mActionId;
+
+    @SerializedName(Resource.KEY.KEY_TEACHER_ID)
+    private String mTeacherId;
+
+    @SerializedName(Resource.KEY.KEY_STUDENT_ID)
+    private String mStudentId;
+
+    public String getmTeacherId() {
+        return mTeacherId;
+    }
+
+    public void setmTeacherId(String mTeacherId) {
+        this.mTeacherId = mTeacherId;
+    }
+
+    public String getmStudentId() {
+        return mStudentId;
+    }
+
+    public void setmStudentId(String mStudentId) {
+        this.mStudentId = mStudentId;
+    }
 
     public String getmCourseId() {
         return mCourseId;

@@ -14,4 +14,10 @@
         android:layout_height="wrap_content"
         android:text="test Dialog"/>
 
+    <ImageView
+        android:id="@+id/img_test"
+        android:layout_width="@dimen/img_width_25dp"
+        android:layout_height="@dimen/img_height_25dp"
+        android:layout_below="@+id/btn_test_dialog" />
+
 </RelativeLayout>

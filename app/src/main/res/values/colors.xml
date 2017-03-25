@@ -15,6 +15,7 @@
     <color name="primary_dark">#D32F2F</color>
     <color name="primary_light">#FFCDD2</color>
     <color name="accent">#CDDC39</color>
+    <color name="colorYellow">#ffe220</color>
 
     <color name="secondary_text">#727272</color>
 </resources>

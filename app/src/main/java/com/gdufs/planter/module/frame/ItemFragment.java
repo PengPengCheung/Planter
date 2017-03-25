@@ -10,8 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.gdufs.planter.PlanterDetailActivity;
 import com.gdufs.planter.R;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.course.view.CourseView;
@@ -51,18 +54,26 @@ public class ItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab_view, null);
         initDialog();
+        initImg(view);
         handleDialogShow();
 
         Button button = (Button) view.findViewById(R.id.btn_test_dialog);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMaterialDialog.show();
+                Intent intent = new Intent(getActivity(), PlanterDetailActivity.class);
+                startActivity(intent);
+//                mMaterialDialog.show();
             }
         });
 //        CourseView courseView = new CourseView(view, this);
 
         return view;
+    }
+
+    private void initImg(View view){
+        ImageView imageView = (ImageView) view.findViewById(R.id.img_test);
+        Glide.with(getActivity()).load(Resource.PlanterURL.TEST_IMG_URL).into(imageView);
     }
 
     private void handleDialogShow(){

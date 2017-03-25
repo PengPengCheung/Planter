@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:id="@+id/ll_planter_item_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/ll_planter_item_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/item_margin_left"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_planter_item_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="种子"
+                android:textColor="@color/colorGrey"/>
+
+            <ImageView
+                android:id="@+id/img_planter_item_type"
+                android:layout_width="@dimen/img_width_30dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="@dimen/item_margin_left_large"
+                android:src="@drawable/seed"/>
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/ll_planter_item_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_margin_left_large"
+            android:layout_marginTop="@dimen/item_margin_top"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_planter_course_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sn_16sp"
+                    android:textColor="@color/colorBlack"
+                    android:text="口译"/>
+
+                <TextView
+                    android:id="@+id/tv_planter_course_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:textSize="@dimen/sn_16sp"
+                    android:textColor="@color/colorBlack"
+                    android:text="周三上午 9:50 "/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_margin_top"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/img_width_20dp"
+                        android:layout_height="@dimen/img_height_20dp"
+                        android:src="@drawable/water_shallow"/>
+
+                    <TextView
+                        android:id="@+id/tv_planter_item_water_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorGrey"
+                        android:text="@string/planter_have_element"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/item_margin_left"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/img_width_20dp"
+                        android:layout_height="@dimen/img_height_20dp"
+                        android:src="@drawable/sunshine_shallow"/>
+
+                    <TextView
+                        android:id="@+id/tv_planter_item_sun_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorGrey"
+                        android:text="@string/planter_have_element"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/item_margin_left"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/img_width_20dp"
+                        android:layout_height="@dimen/img_height_20dp"
+                        android:src="@drawable/soil_shallow"/>
+
+                    <TextView
+                        android:id="@+id/tv_planter_item_soil_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorGrey"
+                        android:text="@string/planter_have_element"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_planter_item_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/item_margin_left"
+                    android:textColor="@color/colorGrey"
+                    android:text="60%"/>
+
+                <ImageView
+                    android:id="@+id/iv_planter_item_used"
+                    android:layout_width="@dimen/img_width_20dp"
+                    android:layout_height="@dimen/img_height_20dp"
+                    android:layout_marginLeft="@dimen/item_margin_left"
+                    android:src="@drawable/planter_tool"/>
+
+                <ImageView
+                    android:layout_width="@dimen/img_width_20dp"
+                    android:layout_height="@dimen/img_height_20dp"
+                    android:layout_marginLeft="@dimen/item_margin_left"
+                    android:src="@drawable/planter_enter_detail"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rl_planter_item_add"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true">-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/img_planter_item_add"-->
+            <!--android:layout_width="@dimen/img_width_30dp"-->
+            <!--android:layout_height="@dimen/img_height_30dp"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:visibility="visible"-->
+            <!--android:src="@drawable/add"/>-->
+
+
+    <!--</RelativeLayout>-->
+
+
+</RelativeLayout>

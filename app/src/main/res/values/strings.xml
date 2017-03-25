@@ -61,6 +61,18 @@
     <string name="group_name">组名</string>
     <string name="group_member_name">组员</string>
     <string name="group_item_submit">提交</string>
+    
+    <string name="tree_details_item_rank">No.1</string>
+    <string name="tree_details_item_duration">幼苗成熟期</string>
+    <string name="tree_details_item_element">共获 %1$d 因子</string>
+
+    <!--Planter首页模块-->
+    <string name="planter_have_element"> * %1$d</string>
+    <string name="planter_seed">种子</string>
+    <string name="planter_seedling">幼苗发育期</string>
+    <string name="planter_seedling_mature">幼苗成熟期</string>
+    <string name="planter_development">大树发育期</string>
+    <string name="planter_mature">大树成熟期</string>
 
     <!--通用字符串-->
     <string name="bonus_signal_plus">+</string>

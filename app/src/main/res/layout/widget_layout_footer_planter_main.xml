@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/item_margin_top"
+    android:paddingBottom="@dimen/item_margin_bottom"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/img_course_add"
+        android:layout_width="@dimen/img_width_30dp"
+        android:layout_height="@dimen/img_height_30dp"
+        android:src="@drawable/add"/>
+
+</RelativeLayout>

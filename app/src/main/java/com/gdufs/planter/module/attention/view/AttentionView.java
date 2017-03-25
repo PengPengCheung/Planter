@@ -47,8 +47,11 @@ public class AttentionView implements ModuleBaseView{
 
             @Override
             public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
-                AttentionViewModel model = (AttentionViewModel) mView.getAdapter().getData().get(pos);
-                ((AttentionItemView) holder).setViews(model);
+                int size = mView.getAdapter().getData().size();
+                if(pos < size){
+                    AttentionViewModel model = (AttentionViewModel) mView.getAdapter().getData().get(pos);
+                    ((AttentionItemView) holder).setViews(model);
+                }
             }
         });
     }

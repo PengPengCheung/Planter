@@ -7,6 +7,7 @@ import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attendance.AttendancePushHandler;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.module.attention.AttentionPushHandler;
+import com.gdufs.planter.module.homework.HomeworkPushHandler;
 import com.gdufs.planter.module.summary.SummaryPushHandler;
 import com.gdufs.planter.utils.JsonUtil;
 import com.gdufs.planter.utils.LogUtil;
@@ -55,6 +56,10 @@ public class PushHandler {
             break;
             case Resource.MODULE_COURSE_SUMMARY:{
                 SummaryPushHandler.getInstance().handlePush(context, event);
+            }
+            break;
+            case Resource.MODULE_COURSE_HOMEWORK:{
+                HomeworkPushHandler.getInstance().handlePush(context, event);
             }
             break;
         }

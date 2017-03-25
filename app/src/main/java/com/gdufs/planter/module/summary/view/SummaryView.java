@@ -26,8 +26,10 @@ public class SummaryView implements ModuleBaseView{
     private static final String TAG = SummaryView.class.getSimpleName();
 
     UniversalListView mListView;
+    Activity mActivity;
 
     public SummaryView(Activity activity){
+        mActivity = activity;
         View view = LayoutInflater.from(activity).inflate(R.layout.widget_recycler_view, null);
         mListView = new UniversalListView(activity, view);
         initParams();
@@ -41,14 +43,15 @@ public class SummaryView implements ModuleBaseView{
             public RecyclerView.ViewHolder createItemViewHolder(Context context) {
                 View view = LayoutInflater.from(context).inflate(R.layout.fragment_course_summary_item, null);
                 SummaryItemView itemView = new SummaryItemView(view, context);
-                setItemViewListener(itemView);
                 return itemView;
             }
 
             @Override
             public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
                 SummaryViewModel model = (SummaryViewModel) mListView.getAdapter().getData().get(pos);
-                ((SummaryItemView) holder).setViews(model);
+                SummaryItemView itemView = (SummaryItemView) holder;
+                itemView.setViews(model);
+                setItemViewListener(itemView, pos);
             }
         });
 
@@ -81,12 +84,16 @@ public class SummaryView implements ModuleBaseView{
 
     }
 
-    public void setItemViewListener(SummaryItemView itemView) {
-        itemView.setOnSendSummaryListener(new SummaryItemView.OnSendSummaryListener() {
-            @Override
-            public void sendSummary(String summary) {
-                SummaryPresenter.getInstance().sendSummary(summary);
-            }
-        });
+    public void setItemViewListener(SummaryItemView itemView, int pos) {
+        // 默认只能填写最新的反馈
+//        if(pos != 0){
+            itemView.setOnSendSummaryListener(new SummaryItemView.OnSendSummaryListener() {
+                @Override
+                public void sendSummary(String summary) {
+                    SummaryPresenter.getInstance().sendSummary(summary, mActivity);
+                }
+            });
+//        }
+
     }
 }

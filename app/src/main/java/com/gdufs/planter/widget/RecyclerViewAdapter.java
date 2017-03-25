@@ -2,9 +2,11 @@ package com.gdufs.planter.widget;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gdufs.planter.R;
 import com.gdufs.planter.utils.LogUtil;
 
 import java.util.ArrayList;
@@ -24,8 +26,10 @@ public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vi
     private List<T> mDataList;
     private Class mClass;
     private boolean mShowFooter = false;
+    private int mFooterViewRes = R.layout.widget_recycler_view_footer;
     private OnItemClickListener mOnItemClickListener;
     private OnItemViewListener mOnItemViewListener;
+    private OnFooterViewListener mOnFooterViewListener;
 
     public void setClass(Class t){
         mClass = t;
@@ -61,6 +65,10 @@ public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vi
         notifyDataSetChanged();
     }
 
+    public void setFooterViewRes(int resId){
+        mFooterViewRes = resId;
+    }
+
     public void setIsShowFooter(boolean showFooter){
         this.mShowFooter = showFooter;
     }
@@ -93,26 +101,35 @@ public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vi
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         //for test
-        RecyclerView.ViewHolder viewHolder = mOnItemViewListener.onCreateItemViewHolder(mContext);
-        ((ItemViewHolder)viewHolder).setOnItemClickListener(mOnItemClickListener);
-        return viewHolder;
+//        RecyclerView.ViewHolder viewHolder = mOnItemViewListener.onCreateItemViewHolder(mContext);
+//        ((ItemViewHolder)viewHolder).setOnItemClickListener(mOnItemClickListener);
+//        return viewHolder;
 
 
-//        if(viewType == TYPE_ITEM){
-////            View v = LayoutInflater.from(mContext).inflate(R.layout.fragment_item_list_audio, null);
-////            ItemViewHolder viewHolder = new ItemViewHolder(v);
-//            RecyclerView.ViewHolder viewHolder = mOnItemViewListener.onCreateItemViewHolder(mContext);
-//            ((ItemViewHolder)viewHolder).setOnItemClickListener(mOnItemClickListener);
-//            return viewHolder;
-//        }else{
-//            View view = LayoutInflater.from(mContext).inflate(R.layout.widget_recycler_view_footer, null);
-//            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-//                    ViewGroup.LayoutParams.WRAP_CONTENT));
-//            return new FooterViewHolder(view);
-//        }
+        if(viewType == TYPE_ITEM){
+//            View v = LayoutInflater.from(mContext).inflate(R.layout.fragment_item_list_audio, null);
+//            ItemViewHolder viewHolder = new ItemViewHolder(v);
+            RecyclerView.ViewHolder viewHolder = mOnItemViewListener.onCreateItemViewHolder(mContext);
+            ((ItemViewHolder)viewHolder).setOnItemClickListener(mOnItemClickListener);
+            return viewHolder;
+        }else{
+            View view = LayoutInflater.from(mContext).inflate(mFooterViewRes, null);
+            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            FooterViewHolder footerViewHolder = null;
+            if(mOnFooterViewListener != null){
+                footerViewHolder = (FooterViewHolder) mOnFooterViewListener.onCreateFooterViewHolder(mContext, view);
+            } else {
+                footerViewHolder = new FooterViewHolder(view);
+            }
+            return footerViewHolder;
+        }
     }
-//
-//
+
+    public void setFooterViewListener(OnFooterViewListener l){
+        mOnFooterViewListener = l;
+    }
+
     /**
      * 所谓绑定viewholder实际上就是将data中的数据取出并设置到对应的控件上
      * @param holder
@@ -163,5 +180,9 @@ public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vi
     public interface OnItemViewListener{
         RecyclerView.ViewHolder onCreateItemViewHolder(Context context);
         void setItemViewContent(RecyclerView.ViewHolder holder, int pos);
+    }
+
+    public interface OnFooterViewListener{
+        RecyclerView.ViewHolder onCreateFooterViewHolder(Context context, View view);
     }
 }

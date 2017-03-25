@@ -1,11 +1,13 @@
 package com.gdufs.planter.module.summary;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gdufs.planter.R;
 import com.gdufs.planter.common.Resource;
@@ -57,7 +59,6 @@ public class SummaryItemView extends ItemViewHolder {
         mBtnSummaryOpenEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createDialog();
                 materialDialog.show();
             }
         });
@@ -65,6 +66,7 @@ public class SummaryItemView extends ItemViewHolder {
 
 
     public void setViews(SummaryViewModel model){
+        createDialog();
         mTVSummaryTime.setText(model.getmSummaryRequestTime());
 
         int status = model.getmSummaryStatus();
@@ -115,6 +117,11 @@ public class SummaryItemView extends ItemViewHolder {
                     public void onClick(View v) {
 
                         String summary = editText.getText().toString().trim();
+
+                        if(TextUtils.isEmpty(summary)){
+                            Toast.makeText(mContext, "发送的反馈不能为空！", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
                         if(mListener != null){
                             mListener.sendSummary(summary);

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gdufs.planter.R;
+import com.gdufs.planter.module.homework.view.HomeworkItemView;
+import com.gdufs.planter.module.homework.view.HomeworkView;
 import com.gdufs.planter.widget.UniversalListView;
 
 /**
@@ -17,7 +19,7 @@ import com.gdufs.planter.widget.UniversalListView;
 
 public class HomeworkFragment extends Fragment {
 
-    UniversalListView mView;
+    HomeworkView mView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,20 +29,7 @@ public class HomeworkFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.widget_recycler_view, null);
-        mView = new UniversalListView(getActivity(), view);
-        mView.setItemViewListener(new UniversalListView.ItemViewListener() {
-
-            @Override
-            public RecyclerView.ViewHolder createItemViewHolder(Context context) {
-                View view = LayoutInflater.from(context).inflate(R.layout.fragment_course_homework_item, null);
-                return new HomeworkItemView(view, context);
-            }
-
-            @Override
-            public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
-
-            }
-        });
+        mView = new HomeworkView(getActivity(), view);
 
         return mView.getUniversalListView();
     }

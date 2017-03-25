@@ -12,18 +12,40 @@ public class Resource {
         private static String WEB_URL = HOST_URL + "/web";
         private static String MOBILE_URL = HOST_URL + "/mob";
         public static String JSON_TEST_URL = HOST_URL + "/json";
+
+        //Launch
+        public static String SIGN_UP_URL = MOBILE_URL + "/signup";
+
+        //Planter
+        public static String PLANTER_ADD_COURSE = MOBILE_URL + "/addCourse";
+
+        //attendance
         public static String ATTENDANCE_CODE_URL = MOBILE_URL + "/attendance/StudentCheck";
-        public static String SUMMARY_SEND_URL = MOBILE_URL + "/summary/summarySend";
+        public static String ATTENDANCE_INFO_GET_URL = MOBILE_URL + "/attendance/AttendanceInfoGet";
+
+        public static String SUMMARY_SEND_URL = MOBILE_URL + "/summary/summaryReceive";
+        public static String TEST_IMG_URL = HOST_URL + "/FileUpload/fileDownload_servlet";
     }
 
     public static class KEY{
+
+        // 启动页注册登录等
+        public static final String KEY_STU_NAME = "student_name";
+        public static final String KEY_STU_NUMBER = "student_id"; // 学生学号，不同于数据库里的记录id
+        public static final String KEY_STU_PASSWORD = "student_password";
+        public static final String KEY_STU_COURSE_CODE = "student_course_code";
 
         public static final String KEY_MODULE_ID = "module_id";
         public static final String KEY_ACTION_ID = "action_id";
 
         public static final String KEY_TEACHER_ID = "t_id";
-        public static final String KEY_STUDENT_ID = "s_id";
+        public static final String KEY_STUDENT_ID = "s_id"; // 数据库里的记录id
         public static final String KEY_COURSE_ID  = "c_id";
+
+        //Course 相关信息
+        public static final String KEY_COURSE_NAME = "course_name";
+        public static final String KEY_COURSE_TIME = "course_time";
+
 
         //Attendance，考勤模块
         public static final String KEY_ATTENDANCE_CODE = "attendance_code";
@@ -47,6 +69,25 @@ public class Resource {
         public static final String KEY_SUMMARY_BONUS_NUM = "summary_bonus_num";
         public static final String KEY_SUMMARY_CONTENT = "summary_content";
         public static final String KEY_SUMMARY_STATUS = "summary_status";
+        public static final String KEY_SUMMARY_SEND_TIME = "summary_send_time";
+
+        //Homework, 作业模块
+        public static final String KEY_HOMEWORK_PUBLISH_TIME = "homework_publish_time";
+        public static final String KEY_HOMEWORK_SUBMIT_DDL = "homework_submit_ddl";
+        public static final String KEY_HOMEWORK_CURRENT_TIME = "homework_current_time";
+        public static final String KEY_HOMEWORK_STATUS = "homework_status";
+        public static final String KEY_HOMEWORK_SCORE = "homework_score";
+        public static final String KEY_HOMEWORK_RANK = "homework_rank";
+        public static final String KEY_HOMEWORK_BONUS_NUM = "homework_bonus_num";
+        public static final String KEY_HOMEWORK_TITLE = "homework_title";
+        public static final String KEY_HOMEWORK_CONTENT = "homework_content";
+
+        // Planter，首页
+        public static final String KEY_PLANTER_STATUS = "planter_status";
+        public static final String KEY_PLANTER_USED_SUNSHINE = "planter_used_sunshine";
+        public static final String KEY_PLANTER_USED_WATER = "planter_used_water";
+        public static final String KEY_PLANTER_USED_SOIL = "planter_used_soil";
+        public static final String KEY_PLANTER_PERCENTAGE = "planter_percentage";
     }
 
     public static class ATTENDANCE{
@@ -71,6 +112,25 @@ public class Resource {
         public static final int SUMMARY_CHECKING = 2;
     }
 
+    public static class HOMEWORK{
+        public static final int HOMEWORK_PUBLISHED = 0;
+        public static final int HOMEWORK_SUBMIT_SUCCESS = 1;
+        public static final int HOMEWORK_SCORED = 2;
+    }
+
+    public static class SIGN_UP_AND_LOGIN{
+            public static int STATUS_COURSE_CODE_UNAVAILABLE = -100;
+            public static int STATUS_COURSE_CODE_VALIDATE_SUCCESS = 1;
+    }
+
+    public static class TREE_STATUS{
+        public static final int TREE_SEED = 0;
+        public static final int TREE_SEEDLING = 1;
+        public static final int TREE_SEEDLING_MATURE = 2;
+        public static final int TREE_DEVELOPMENT = 3;
+        public static final int TREE_MATURE = 4;
+    }
+
 
     public static String JPUSH_ALIAS = "Planter";
 
@@ -87,6 +147,7 @@ public class Resource {
     public static final int MODULE_COURSE_GROUP = 7;
     public static final int MODULE_COURSE_OTHERS = 8;
 
+    public static final String MODULE_PLANTER_NAME = "Planter";
 
     public static final String MODULE_COURSE_ATTENDANCE_NAME = "Attendance";
     public static final String MODULE_COURSE_ATTENTION_NAME = "Attention";
@@ -94,6 +155,8 @@ public class Resource {
     public static final String MODULE_COURSE_HOMEWORK_NAME = "Homework";
     public static final String MODULE_COURSE_GROUP_NAME = "Group";
     public static final String MODULE_COURSE_OTHERS_NAME = "Others";
+
+    public static final String TEST_LONG_TITLE = "作业标题作业标题作业标题作业标题作业标题作业标题作业标题作业标题作业标题";
 
     public static final String TEST_LONG_TEXT = "This is a dialog without title. This is a dialog without title. This is a dialog without title. " +
             "This is a dialog without title. This is a dialog without title." +
