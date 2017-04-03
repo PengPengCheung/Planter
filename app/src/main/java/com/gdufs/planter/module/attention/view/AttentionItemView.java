@@ -75,6 +75,13 @@ public class AttentionItemView extends ItemViewHolder {
                 mTVAttentionBonusNum.setText(bonusStr);
             }
             break;
+            case Resource.ATTENTION.ATTENTION_STATUS_DEFAULT:{
+                mTVAttentionTipsPrefix.setText(R.string.bonus_signal_can_score);
+                mTVAttentionBonusNum.setText(bonusStr);
+            }
+            break;
+            default:
+                break;
         }
 
     }

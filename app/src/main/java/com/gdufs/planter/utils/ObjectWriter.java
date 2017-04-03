@@ -26,8 +26,8 @@ public class ObjectWriter {
 
     private static String FILE_ROOT_DIRECTORY = "Planter";
     private static String DIR_VIEW_DATA = FILE_ROOT_DIRECTORY + File.separator + "ViewData";
-    private static String FILE_DIRECTORY = Environment.getExternalStorageDirectory().toString() + File.separator + DIR_VIEW_DATA + File.separator;
-      
+    public static String FILE_DIRECTORY = Environment.getExternalStorageDirectory().toString() + File.separator + DIR_VIEW_DATA + File.separator;
+    public static String FILE_DIRECTORY_TEST = Environment.getExternalStorageDirectory().toString() + File.separator + DIR_VIEW_DATA + File.separator + "testFile3.gif";
     /** 
      * 写入本地文件
      * @param obj
@@ -38,6 +38,11 @@ public class ObjectWriter {
             ByteArrayOutputStream bout = new ByteArrayOutputStream();
             ObjectOutputStream oout = null;
             File file = new File(FILE_DIRECTORY + fileName);
+            if(!createFile(file)){
+                LogUtil.e(TAG, "createFile");
+                return;
+            }
+
             if(file.length()<1){
                 oout = new ObjectOutputStream(bout);
             }else{
@@ -49,14 +54,14 @@ public class ObjectWriter {
             bout.close();  
             byte[] b = bout.toByteArray();  
 
-            LogUtil.e(TAG, "before createFile");
-            if(createFile(file)){
+
+//            if(createFile(file)){
                 LogUtil.e(TAG, "after createFile");
                 FileOutputStream out = new FileOutputStream(file, true);
                 out.write(b);
                 out.flush();
                 out.close();
-            }
+//            }
         } catch (Exception e) {
             LogUtil.e(TAG, e.toString());
         } finally {  

@@ -48,6 +48,11 @@ public class SummaryView implements ModuleBaseView{
 
             @Override
             public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
+                int size = mListView.getAdapter().getData().size();
+                if(pos >= size){
+                    return;
+                }
+
                 SummaryViewModel model = (SummaryViewModel) mListView.getAdapter().getData().get(pos);
                 SummaryItemView itemView = (SummaryItemView) holder;
                 itemView.setViews(model);

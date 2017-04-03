@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.gdufs.planter.PlanterDetailActivity;
 import com.gdufs.planter.R;
 import com.gdufs.planter.module.frame.view.FrameResourceHolder;
+import com.gdufs.planter.module.resource.view.FrameResourceView;
 import com.gdufs.planter.widget.RecyclerViewAdapter;
 import com.gdufs.planter.widget.UniversalListView;
 
@@ -21,7 +22,7 @@ import com.gdufs.planter.widget.UniversalListView;
 
 public class FrameResourceFragment extends Fragment {
 
-    UniversalListView mListView;
+    FrameResourceView mResourceView;
 
     public static FrameResourceFragment newInstance(int type) {
         FrameResourceFragment fragment = new FrameResourceFragment();
@@ -42,21 +43,9 @@ public class FrameResourceFragment extends Fragment {
 //        View view = inflater.inflate(R.layout.fragment_tab_view, null);
 //        CourseView courseView = new CourseView(view, this);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.widget_recycler_view, null);
-        mListView = new UniversalListView(getActivity(), view);
-        mListView.setItemViewListener(new UniversalListView.ItemViewListener() {
-            @Override
-            public RecyclerView.ViewHolder createItemViewHolder(Context context) {
-                View view = LayoutInflater.from(context).inflate(R.layout.fragment_resource_item, null);
-                return new FrameResourceHolder(view);
-            }
 
-            @Override
-            public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
+        mResourceView = new FrameResourceView(getActivity(), view);
 
-            }
-        });
-
-
-        return mListView.getUniversalListView();
+        return mResourceView.getUniversalListView();
     }
 }

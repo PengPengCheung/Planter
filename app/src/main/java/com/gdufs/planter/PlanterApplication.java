@@ -6,6 +6,7 @@ import android.os.Vibrator;
 import android.util.Log;
 
 import com.gdufs.planter.service.LocationService;
+import com.liulishuo.filedownloader.FileDownloader;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
@@ -24,6 +25,11 @@ public class PlanterApplication extends Application {
         super.onCreate();
         testJMessage();
         initLocationSDK();
+        initFileDownloader();
+    }
+
+    private void initFileDownloader(){
+        FileDownloader.init(getApplicationContext());
     }
 
     private void initLocationSDK(){

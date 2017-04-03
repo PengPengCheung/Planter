@@ -49,6 +49,10 @@ public class HomeworkView implements ModuleBaseView {
 
             @Override
             public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
+                int size = mView.getAdapter().getData().size();
+                if(pos >= size){
+                    return;
+                }
                 HomeworkViewModel model = (HomeworkViewModel) mView.getAdapter().getData().get(pos);
                 ((HomeworkItemView) holder).setViews(model);
             }

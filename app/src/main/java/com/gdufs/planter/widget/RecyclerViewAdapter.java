@@ -158,18 +158,18 @@ public class RecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public int getItemCount() {
 
-//        return 10;
-        int type;
-        if(mShowFooter){
-            type = TYPE_FOOTER;
-        }else{
-            type = TYPE_ITEM;
-        }
-
-        if(mDataList == null){
-            return type;
-        }
-        return mDataList.size() + type;
+        return 10;
+//        int type;
+//        if(mShowFooter){
+//            type = TYPE_FOOTER;
+//        }else{
+//            type = TYPE_ITEM;
+//        }
+//
+//        if(mDataList == null){
+//            return type;
+//        }
+//        return mDataList.size() + type;
     }
 
 

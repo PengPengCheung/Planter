@@ -8,10 +8,13 @@ public class Resource {
 
     public static class PlanterURL{
         //http://192.168.1.74:8080
-        private static String HOST_URL = "http://192.168.191.4:8080";
+        private static String HOST_URL = "http://192.168.235.55:8080";
         private static String WEB_URL = HOST_URL + "/web";
         private static String MOBILE_URL = HOST_URL + "/mob";
         public static String JSON_TEST_URL = HOST_URL + "/json";
+
+        // Title Select
+        public static String COURSE_SELECT_URL = MOBILE_URL + "/course/courseSelect";
 
         //Launch
         public static String SIGN_UP_URL = MOBILE_URL + "/signup";
@@ -25,6 +28,12 @@ public class Resource {
 
         public static String SUMMARY_SEND_URL = MOBILE_URL + "/summary/summaryReceive";
         public static String TEST_IMG_URL = HOST_URL + "/FileUpload/fileDownload_servlet";
+
+        public static String FILE_DOWNLOAD_URL = HOST_URL + "/FileUpload/fileDownload_servlet";
+
+//        public static String FILE_DOWNLOAD_TEST_URL = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491212363&di=c1296bb549fc0e036263555f01d54022&imgtype=jpg&er=1&src=http%3A%2F%2Fimages.17173.com%2F2013%2Fnews%2F2013%2F06%2F03%2Fgxy0603ra12s.jpg";
+
+        public static String FILE_DOWNLOAD_TEST_URL = "http://pic.58pic.com/58pic/13/86/80/95h58PIC5jK_1024.jpg";
     }
 
     public static class KEY{
@@ -101,7 +110,8 @@ public class Resource {
 
     public static class ATTENTION {
         public static final int ATTENTION_STATUS_SUCCESS = 1;
-        public static final int ATTENTION_STATUS_FAIL = 0;
+        public static final int ATTENTION_STATUS_DEFAULT = 0;
+        public static final int ATTENTION_STATUS_FAIL = -3;
         public static final int ATTENTION_STATUS_NOT_PAY_ATTENTION = -1; // 未参与本次专注
         public static final int ATTENTION_STATUS_NOT_IN_TIME = -2; // 不在专注时间
     }

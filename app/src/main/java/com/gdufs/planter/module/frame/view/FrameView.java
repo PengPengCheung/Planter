@@ -1,5 +1,6 @@
 package com.gdufs.planter.module.frame.view;
 
+import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.TabLayout;
@@ -11,18 +12,26 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.gdufs.planter.R;
+import com.gdufs.planter.common.BaseViewModel;
+import com.gdufs.planter.common.DataResponse;
+import com.gdufs.planter.common.ModuleBaseView;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.frame.FrameCourseFragment;
 import com.gdufs.planter.module.frame.FramePlanterFragment;
 import com.gdufs.planter.module.frame.FrameResourceFragment;
 import com.gdufs.planter.module.frame.ItemFragment;
 import com.gdufs.planter.module.frame.adapter.ViewPagerAdapter;
+import com.gdufs.planter.module.frame.presenter.FrameViewPresenter;
+import com.gdufs.planter.module.planter.model.PlanterViewModel;
+import com.gdufs.planter.utils.LogUtil;
+
+import java.util.LinkedList;
 
 /**
  * Created by peng on 2017/3/13.
  */
 
-public class FrameView {
+public class FrameView implements ModuleBaseView{
 
 
     private int[] mIconResourceList = {R.drawable.selector_planter, R.drawable.selector_notification, R.drawable.selector_resource};
@@ -44,9 +53,13 @@ public class FrameView {
         mViewPager = (ViewPager) mActivity.findViewById(R.id.viewpager_content);
         mSpinner = (Spinner) mActivity.findViewById(R.id.sp_title_bar);
 
+        initParams();
         initTitleBar();
         initViewPagerAndTabLayout();
+    }
 
+    private void initParams(){
+        FrameViewPresenter.getInstance().registerView(this);
     }
 
     private void initViewPagerAndTabLayout(){
@@ -77,20 +90,28 @@ public class FrameView {
 //        mTabLayout.setupWithViewPager(mViewPager); // 实现自定义的TABView不能使用这个方法，而需要用到上面两句代码才能实现联动
     }
 
-    private String[] getSpinnerData(){
-        return mActivity.getResources().getStringArray(R.array.spingarr);
+    private LinkedList<String> getSpinnerData(){
+        String[] arrs = mActivity.getResources().getStringArray(R.array.spingarr);
+        LinkedList<String> linkedList = new LinkedList<>();
+        for(int i=0;i<arrs.length;i++){
+            linkedList.add(arrs[i]);
+        }
+        return linkedList;
+//        return new LinkedList<>();
     }
 
     private void initTitleBar(){
         // 建立数据源
-        final String[] mItems = getSpinnerData();
+        final LinkedList<String> mItems = getSpinnerData();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(mActivity, android.R.layout.simple_spinner_item, mItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mActivity, mItems[position], Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, mItems.get(position), Toast.LENGTH_SHORT).show();
+                FrameViewPresenter.getInstance().getStudentCourseInfoFromServer(mItems.get(position), mActivity);
+
             }
 
             @Override
@@ -140,4 +161,28 @@ public class FrameView {
     }
 
 
+    @Override
+    public void update(BaseViewModel model) {
+        if(mSpinner == null){
+            LogUtil.e("ppppp", "spinner null");
+            return;
+        }
+        ArrayAdapter<String> adapter = (ArrayAdapter<String>) mSpinner.getAdapter();
+        PlanterViewModel viewModel = (PlanterViewModel) model;
+        String courseName = viewModel.getmCourseName();
+        LogUtil.e("pppppp", "courseName: " + courseName);
+        adapter.add(courseName);
+        int pos = adapter.getPosition(courseName);
+        mSpinner.setSelection(pos, true);
+    }
+
+    @Override
+    public void onResponseSuccess(DataResponse response) {
+
+    }
+
+    @Override
+    public void onResponseFailure(Exception e) {
+
+    }
 }

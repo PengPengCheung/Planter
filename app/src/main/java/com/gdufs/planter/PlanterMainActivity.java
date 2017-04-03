@@ -2,6 +2,7 @@ package com.gdufs.planter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -10,6 +11,7 @@ import com.gdufs.planter.common.DataResponse;
 import com.gdufs.planter.common.MsgEvent;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.model.AttendanceInfo;
+import com.gdufs.planter.module.frame.presenter.FrameViewPresenter;
 import com.gdufs.planter.module.frame.view.FrameView;
 import com.gdufs.planter.module.planter.model.PlanterViewModel;
 import com.gdufs.planter.module.push.PushHandler;
@@ -46,7 +48,7 @@ public class PlanterMainActivity extends LaunchBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        initOthers();
+//        initOthers();
     }
 
     private void initOthers(){
@@ -74,8 +76,9 @@ public class PlanterMainActivity extends LaunchBaseActivity {
                     int code = responseData.getError_code();
                     if(code == Resource.SIGN_UP_AND_LOGIN.STATUS_COURSE_CODE_VALIDATE_SUCCESS){
                         PlanterViewModel model = responseData.getData();
-                        ObjectWriter.write(model, Resource.MODULE_PLANTER_NAME);
+                        writeObjectToFile(model);
                         storeIntoPrefer(model);
+                        notifyUpdateView(model);
                         LogUtil.e(TAG, "load course tree success");
                     } else if(code == Resource.SIGN_UP_AND_LOGIN.STATUS_COURSE_CODE_UNAVAILABLE){
                         Toast.makeText(PlanterMainActivity.this, responseData.getReason(), Toast.LENGTH_SHORT).show();
@@ -91,9 +94,26 @@ public class PlanterMainActivity extends LaunchBaseActivity {
         }
     }
 
+    private void notifyUpdateView(PlanterViewModel model) {
+        FrameViewPresenter.getInstance().notifyViewUpdate(model);
+    }
+
+    private void writeObjectToFile(PlanterViewModel model){
+        ObjectWriter.write(model, Resource.MODULE_PLANTER_NAME);
+    }
+
     private void storeIntoPrefer(BaseViewModel model) {
+        if(model == null){
+            return;
+        }
 
         PreferenceHelper.getInstance(this).putString(Resource.KEY.KEY_STUDENT_ID, model.getmStudentId());
+        PlanterViewModel viewModel = (PlanterViewModel) model;
+        LogUtil.e(TAG, "before store model Name.");
+        if(TextUtils.isEmpty(viewModel.getmCourseName())){
+            LogUtil.e(TAG, "store course Name");
+            PreferenceHelper.getInstance(this).putString(viewModel.getmCourseName(), viewModel.getmCourseId());
+        }
 
 
 //        List<BaseViewModel> modelList = JsonUtil.deserialize(json, );

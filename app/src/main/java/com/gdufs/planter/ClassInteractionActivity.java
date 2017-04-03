@@ -42,6 +42,9 @@ public class ClassInteractionActivity extends AppCompatActivity {
                     String msg = bundle.getString(JPushInterface.EXTRA_MESSAGE);
                     String push = bundle.getString("from");
                     Log.e("ppp", "msg: " + msg + " " + "Title : " + title + "  " + "Content : " + content + "from: " + push);
+                    
+
+
                     AttendanceViewModel model = JsonUtil.deserialize(msg, AttendanceViewModel.class);
 //                    List<AttendanceViewModel> list = new ArrayList<>();
 //                    list.add(model);

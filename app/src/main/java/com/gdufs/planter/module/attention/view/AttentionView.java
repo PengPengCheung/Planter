@@ -15,6 +15,7 @@ import com.gdufs.planter.common.ModuleBaseView;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attention.model.AttentionViewModel;
 import com.gdufs.planter.module.attention.presenter.AttentionPresenter;
+import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.widget.UniversalListView;
 
 /**
@@ -22,6 +23,8 @@ import com.gdufs.planter.widget.UniversalListView;
  */
 
 public class AttentionView implements ModuleBaseView{
+
+    private static String TAG = AttentionView.class.getSimpleName();
 
     UniversalListView mView;
 
@@ -48,6 +51,7 @@ public class AttentionView implements ModuleBaseView{
             @Override
             public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
                 int size = mView.getAdapter().getData().size();
+                LogUtil.e("ppp", "data Size: " + size);
                 if(pos < size){
                     AttentionViewModel model = (AttentionViewModel) mView.getAdapter().getData().get(pos);
                     ((AttentionItemView) holder).setViews(model);
@@ -59,11 +63,14 @@ public class AttentionView implements ModuleBaseView{
     public void initParams(){
         AttentionPresenter.getInstance().registerView(this);
         mView.getAdapter().addData(AttentionPresenter.getInstance().readAllViewModelToList(Resource.MODULE_COURSE_ATTENTION_NAME));
+        LogUtil.e(TAG, "initParams");
     }
 
     @Override
     public void update(BaseViewModel model) {
-        mView.getAdapter().addData(model);
+        AttentionViewModel itemViewModel = (AttentionViewModel) model;
+        mView.getAdapter().addData(0, itemViewModel);
+        LogUtil.e(TAG, "update Attention View");
     }
 
     @Override
