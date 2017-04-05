@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.daasuu.bl.BubbleLayout;
 import com.gdufs.planter.R;
+import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.Resource;
+import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.widget.ItemViewHolder;
 
 /**
@@ -19,6 +21,7 @@ public class InteractionItemView extends ItemViewHolder {
 
     private BubbleLayout mBLRequest;
     private RelativeLayout mRLStuResponse;
+    private RelativeLayout mRLTeacherRequest;
     private TextView mTVBonusSignal;
     private TextView mTVBonusNum;
     private TextView mTVTypeInteractionNotification;
@@ -42,6 +45,7 @@ public class InteractionItemView extends ItemViewHolder {
     @Override
     public void findViews(View itemView) {
         mBLRequest = (BubbleLayout) itemView.findViewById(R.id.bl_teacher_request);
+        mRLTeacherRequest = (RelativeLayout) itemView.findViewById(R.id.rl_teacher_request);
         mRLStuResponse = (RelativeLayout) itemView.findViewById(R.id.rl_student_response);
         mTVBonusSignal = (TextView) itemView.findViewById(R.id.tv_interaction_bonus_signal);
         mTVBonusNum = (TextView) itemView.findViewById(R.id.tv_interaction_bonus_num);
@@ -50,13 +54,31 @@ public class InteractionItemView extends ItemViewHolder {
         mTVTimeLimit = (TextView) itemView.findViewById(R.id.tv_interaction_limit);
     }
 
-    public void setViews(int type){
+    public void setViews(BaseViewModel model){
+        int moduleId = model.getmModuleId();
+        setViewsByModuleId(model, moduleId);
+    }
+
+    public void setViewsByModuleId(BaseViewModel model, int type){
+
         switch (type){
             case Resource.MODULE_COURSE_ATTENDANCE:{
-                String formatStr = getFormatStr(R.string.interaction_notification, "考勤");
-                mTVNotification.setText(formatStr);
-                String str = getFormatStr(R.string.interaction_type_and_limit, 5, "限时");
-                mTVTimeLimit.setText(str);
+                AttendanceViewModel attendanceViewModel = (AttendanceViewModel) model;
+                if(attendanceViewModel.getmAttendanceStatus() == Resource.ATTENDANCE.ATTENDANCE_STATUS_SUCCESS){
+                    mRLTeacherRequest.setVisibility(View.GONE);
+                    mRLStuResponse.setVisibility(View.VISIBLE);
+                    setModuleTypeView(Resource.MODULE_COURSE_ATTENDANCE);
+                    setBonusView(attendanceViewModel.getmAttendanceBonusNum());
+
+                } else {
+                    mRLTeacherRequest.setVisibility(View.VISIBLE);
+                    mRLStuResponse.setVisibility(View.GONE);
+                    String formatStr = getFormatStr(R.string.interaction_notification, "考勤");
+                    mTVNotification.setText(formatStr);
+                    String str = getFormatStr(R.string.interaction_type_and_limit, 5, "限时");
+                    mTVTimeLimit.setText(str);
+                }
+
             }
             break;
             case Resource.MODULE_COURSE_ATTENTION:{

@@ -156,8 +156,11 @@ public class Resource {
     public static final int MODULE_COURSE_HOMEWORK = 6;
     public static final int MODULE_COURSE_GROUP = 7;
     public static final int MODULE_COURSE_OTHERS = 8;
+    public static final int MODULE_COURSE_INTERACTION = 9;
 
     public static final String MODULE_PLANTER_NAME = "Planter";
+
+    public static final String MODULE_COURSE_INTERACTION_NAME = "Interaction";
 
     public static final String MODULE_COURSE_ATTENDANCE_NAME = "Attendance";
     public static final String MODULE_COURSE_ATTENTION_NAME = "Attention";

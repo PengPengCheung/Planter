@@ -37,6 +37,23 @@ public abstract class ModuleBasePresenter {
         }
     }
 
+    public void unregisterAllViews(){
+        if(mViewList != null){
+            mViewList.clear();
+        }
+    }
+
+    public void unInit(){
+        unregisterAllViews();
+        mViewList = null;
+    }
+
+    public void unregisterView(ModuleBaseView view){
+        if(mViewList != null && !mViewList.isEmpty()){
+            mViewList.remove(view);
+        }
+    }
+
     public void responseAllViewIfFailure(Exception e){
         for(int i=0;i<mViewList.size();i++){
             ModuleBaseView view = mViewList.get(i);

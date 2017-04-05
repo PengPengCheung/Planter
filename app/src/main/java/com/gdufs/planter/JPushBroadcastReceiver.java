@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.gdufs.planter.common.MsgEvent;
 import com.gdufs.planter.common.Resource;
+import com.gdufs.planter.utils.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,17 +34,15 @@ public class JPushBroadcastReceiver extends BroadcastReceiver {
 //        Log.e("ppp", "bundle: " + bundle.toString());
         if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
             event.obj = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-            System.out.println("收到了自定义消息。消息内容是：" + event.obj);
+            LogUtil.e("JPushBroadcastReceiver", "ACTION_MESSAGE_RECEIVED 收到了自定义消息。消息内容是：" + event.obj);
             EventBus.getDefault().postSticky(event);
             // 自定义消息不会展示在通知栏，完全要开发者写代码去处理
 
         }
 
         if(JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())){
-            Log.e("ppp", "收到了自定义消息为：" + bundle.getString(JPushInterface.EXTRA_ALERT));
-            Log.e("ppp", "收到了自定义消息为：" + bundle.getString(JPushInterface.EXTRA_MESSAGE));
-
-
+            LogUtil.e("JPushBroadcastReceiver", " EXTRA_ALERT 收到了自定义消息为：" + bundle.getString(JPushInterface.EXTRA_ALERT));
+            LogUtil.e("JPushBroadcastReceiver", "EXTRA_MESSAGE 收到了自定义消息为：" + bundle.getString(JPushInterface.EXTRA_MESSAGE));
 
 //            event.obj = bundle.getString(JPushInterface.EXTRA_MESSAGE);
 

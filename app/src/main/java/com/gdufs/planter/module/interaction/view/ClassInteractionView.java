@@ -17,6 +17,10 @@ import com.gdufs.planter.model.AttendanceInfo;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.module.attendance.presenter.AttendancePresenter;
 import com.gdufs.planter.module.attendance.widget.AttendanceCodeDialog;
+import com.gdufs.planter.module.attention.model.AttentionViewModel;
+import com.gdufs.planter.module.attention.presenter.AttentionPresenter;
+import com.gdufs.planter.module.interaction.presenter.InteractionPresenter;
+import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.widget.UniversalListView;
 
 import java.util.ArrayList;
@@ -30,7 +34,7 @@ public class ClassInteractionView implements ModuleBaseView {
 
 //    AttendancePresenter mAttendancePresenter;
     UniversalListView mListView;
-    List<InteractionItemView> mItemViewList;
+//    List<InteractionItemView> mItemViewList;
     private AttendanceCodeDialog mDialog;
 
     private Activity mActivity;
@@ -39,63 +43,94 @@ public class ClassInteractionView implements ModuleBaseView {
 
     public ClassInteractionView(Activity activity){
         mActivity = activity;
+        mListView = new UniversalListView(mActivity, R.id.swipe_refresh_widget_interaction, R.id.recycle_view_interaction);
         init();
         initViews();
     }
 
     private void init(){
-//        mAttendancePresenter = new AttendancePresenter(this);
-        AttendancePresenter.getInstance().addView(this);
-        mItemViewList = new ArrayList<>();
-    }
+        InteractionPresenter.getInstance().registerView(this);
+        AttendancePresenter.getInstance().registerView(this);
+        AttentionPresenter.getInstance().registerView(this);
+        List<BaseViewModel> list = InteractionPresenter.getInstance().readAllViewModelToList(Resource.MODULE_COURSE_INTERACTION_NAME);
+        LogUtil.e("InteractionView", "list size = " + list.size());
+        if(list != null && list.size() > 0){
 
-    public void addViewData(AttendanceViewModel model){
-        mListView.getAdapter().addData(model);
-        View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_interaction_item, null);
-        InteractionItemView itemView = new InteractionItemView(view, mActivity);
-        itemView.setViews(Resource.MODULE_COURSE_ATTENDANCE);
-        mItemViewList.add(itemView);
-    }
-
-    public void addListViewData(List<AttendanceViewModel> modelList){
-        mListView.getAdapter().addData(modelList);
-        if(modelList != null){
-            for(int i=0;i<modelList.size();i++){
-                View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_interaction_item, null);
-                InteractionItemView itemView = new InteractionItemView(view, mActivity);
-                itemView.setViews(Resource.MODULE_COURSE_ATTENDANCE);
-                mItemViewList.add(itemView);
-            }
+            mListView.getAdapter().addData(list);
         }
     }
+
+//    public void addViewData(AttendanceViewModel model){
+//        mListView.getAdapter().addData(model);
+//        View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_interaction_item, null);
+//        InteractionItemView itemView = new InteractionItemView(view, mActivity);
+//        itemView.setViews(Resource.MODULE_COURSE_ATTENDANCE);
+//        mItemViewList.add(itemView);
+//    }
+
+//    public void addListViewData(List<AttendanceViewModel> modelList){
+//        mListView.getAdapter().addData(modelList);
+//        if(modelList != null){
+//            for(int i=0;i<modelList.size();i++){
+//                View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_interaction_item, null);
+//                InteractionItemView itemView = new InteractionItemView(view, mActivity);
+//                itemView.setViews(Resource.MODULE_COURSE_ATTENDANCE);
+//                mItemViewList.add(itemView);
+//            }
+//        }
+//    }
 
 
 
     private void initViews(){
-        mListView = new UniversalListView(mActivity, R.id.swipe_refresh_widget_interaction, R.id.recycle_view_interaction);
+
         mDialog = new AttendanceCodeDialog(mActivity);
 
 
         mListView.setItemViewListener(new UniversalListView.ItemViewListener() {
             @Override
             public RecyclerView.ViewHolder createItemViewHolder(Context context) {
-                View view = LayoutInflater.from(context).inflate(R.layout.layout_interaction_item, null);
+                final View view = LayoutInflater.from(context).inflate(R.layout.layout_interaction_item, null);
                 final InteractionItemView mItemView = new InteractionItemView(view, mActivity);
                 mItemView.setAttendanceListener(new InteractionItemView.OnRequestClickListener() {
                     @Override
                     public void onRequestClick() {
-                        pos = mItemView.getPosition();
-                        showDialog();
+                        pos = mItemView.getAdapterPosition();
+                        List<BaseViewModel> list = mListView.getAdapter().getData();
+                        if(list != null && !list.isEmpty()){
+                            BaseViewModel model = list.get(pos);
+                            int module = model.getmModuleId();
+                            switch (module){
+                                case Resource.MODULE_COURSE_ATTENDANCE:{
+                                    AttendanceViewModel viewModel = (AttendanceViewModel) model;
+                                    int status = viewModel.getmAttendanceStatus();
+                                    if(status == Resource.ATTENDANCE.ATTENDANCE_STATUS_DEFAULT){
+                                        showDialog();
+                                        return;
+                                    }
+                                    showTipsByStatus(status, viewModel.getmAttendanceBonusNum());
+                                }
+                                break;
+                                case Resource.MODULE_COURSE_ATTENTION:{
+
+                                }
+                                break;
+                            }
+                        }
+
                     }
                 });
 
-                mItemViewList.add(mItemView);
+//                mItemViewList.add(mItemView);
                 return mItemView;
             }
 
             @Override
             public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
-                ((InteractionItemView)holder).setViews(Resource.MODULE_COURSE_ATTENDANCE);
+                List<BaseViewModel> modelList = mListView.getAdapter().getData();
+                if(modelList != null && pos < modelList.size()){
+                    ((InteractionItemView)holder).setViews(modelList.get(pos));
+                }
             }
         });
 
@@ -128,12 +163,12 @@ public class ClassInteractionView implements ModuleBaseView {
     }
 
     private void showViewIfCheckSuccess(int bonusNum){
-        Log.e("ppp", "showViewIfCheckSuccess pos= " + pos + " list size = " + mItemViewList.size());
-        if(pos == 0){
-            mItemViewList.get(mItemViewList.size() - 1).showResponseView(bonusNum, Resource.MODULE_COURSE_ATTENDANCE);
-        } else {
-            mItemViewList.get(pos).showResponseView(bonusNum, Resource.MODULE_COURSE_ATTENDANCE);
-        }
+//        Log.e("ppp", "showViewIfCheckSuccess pos= " + pos + " list size = " + mItemViewList.size());
+//        if(pos == 0){
+//            mItemViewList.get(mItemViewList.size() - 1).showResponseView(bonusNum, Resource.MODULE_COURSE_ATTENDANCE);
+//        } else {
+//            mItemViewList.get(pos).showResponseView(bonusNum, Resource.MODULE_COURSE_ATTENDANCE);
+//        }
 
     }
 
@@ -163,7 +198,7 @@ public class ClassInteractionView implements ModuleBaseView {
             }
             break;
             default:
-                Toast.makeText(mActivity, "系统异常！", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mActivity, "系统异常！", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -172,13 +207,16 @@ public class ClassInteractionView implements ModuleBaseView {
     @Override
     public void onResponseSuccess(DataResponse response) {
         if(response != null) {
-            AttendanceInfo info = (AttendanceInfo) response.getData();
-            if(info != null) {
-                int status = info.getmAttendanceStatus();
-                Log.e("ppp", "status: " + status);
-                int bonus = info.getmAttendanceBonusNum();
-                showTipsByStatus(status, bonus);
-            }
+            BaseViewModel model = (BaseViewModel) response.getData();
+
+            update(model);
+//            AttendanceInfo info = (AttendanceInfo) response.getData();
+//            if(info != null) {
+//                int status = info.getmAttendanceStatus();
+//                Log.e("ppp", "status: " + status);
+//                int bonus = info.getmAttendanceBonusNum();
+//                showTipsByStatus(status, bonus);
+//            }
         }
 
     }
@@ -192,8 +230,51 @@ public class ClassInteractionView implements ModuleBaseView {
         showTipsByStatus(status, 0);
     }
 
+    private void modifyViewListData(List<BaseViewModel> list, BaseViewModel model, int pos){
+        int module = model.getmModuleId();
+        switch (module){
+            case Resource.MODULE_COURSE_ATTENDANCE:{
+                AttendanceViewModel viewModel = (AttendanceViewModel) model;
+                if(viewModel.getmAttendanceStatus() == Resource.ATTENDANCE.ATTENDANCE_STATUS_SUCCESS){
+                    ((AttendanceViewModel) list.get(pos)).setmAttendanceStatus(Resource.ATTENDANCE.ATTENDANCE_STATUS_ALREADY_CHECK_SUCCESS);
+                } else {
+                    ((AttendanceViewModel) list.get(pos)).setmAttendanceStatus(viewModel.getmAttendanceStatus());
+                }
+
+
+
+//                ((AttendanceViewModel)list.get(pos)).setmAttendanceStatus(viewModel.getmAttendanceStatus());
+            }
+            break;
+            case Resource.MODULE_COURSE_ATTENTION:{}break;
+        }
+    }
+
     @Override
     public void update(BaseViewModel model) {
+        dismissDialog();
+        if(model == null){
+            return;
+        }
+
+
+
+        int moduleId = model.getmModuleId();
+        switch (moduleId){
+            case Resource.MODULE_COURSE_ATTENDANCE:{
+                AttendanceViewModel viewModel = (AttendanceViewModel) model;
+                InteractionPresenter.getInstance().modifyData(pos, viewModel);
+                InteractionPresenter.getInstance().addDataToFile(viewModel);
+                modifyViewListData(mListView.getAdapter().getData(), viewModel, pos);
+                mListView.getAdapter().addData(viewModel);
+            }
+            break;
+            case Resource.MODULE_COURSE_ATTENTION:{
+                AttentionViewModel viewModel = (AttentionViewModel) model;
+                mListView.getAdapter().addData(viewModel);
+            }
+            break;
+        }
 
     }
 }

@@ -84,4 +84,5 @@ public class AttendanceViewModel extends BaseViewModel {
     public void setmAttendanceCode(String mAttendanceCode) {
         this.mAttendanceCode = mAttendanceCode;
     }
+
 }

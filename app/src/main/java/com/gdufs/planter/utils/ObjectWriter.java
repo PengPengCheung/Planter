@@ -125,18 +125,19 @@ public class ObjectWriter {
         try {
             File file = new File(FILE_DIRECTORY + fileName);
 
-
-            FileInputStream in = new FileInputStream(file);
-            ObjectInputStream oin = new ObjectInputStream(in);
-            LogUtil.e(TAG, "before read");
-            while(oin.available() == 0){
-                LogUtil.e(TAG, "reading");
-                obj = (T) oin.readObject();
-                objList.add(0, obj);
+            if(createFile(file)){
+                FileInputStream in = new FileInputStream(file);
+                ObjectInputStream oin = new ObjectInputStream(in);
+                LogUtil.e(TAG, "before read");
+                while(oin.available() == 0){
+                    LogUtil.e(TAG, "reading");
+                    obj = (T) oin.readObject();
+                    objList.add(0, obj);
+                }
+                LogUtil.e(TAG, "after read 1, list size = " + objList.size());
+                in.close();
+                oin.close();
             }
-            LogUtil.e(TAG, "after read 1, list size = " + objList.size());
-            in.close();
-            oin.close();
         } catch (Exception e) {
             e.printStackTrace();
 //            LogUtil.e(TAG, e.toString());

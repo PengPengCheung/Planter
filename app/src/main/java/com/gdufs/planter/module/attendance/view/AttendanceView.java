@@ -12,6 +12,7 @@ import com.gdufs.planter.R;
 import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.ModuleBaseView;
 import com.gdufs.planter.common.DataResponse;
+import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.module.attendance.presenter.AttendancePresenter;
 import com.gdufs.planter.widget.UniversalListView;
@@ -65,9 +66,9 @@ public class AttendanceView implements ModuleBaseView {
     }
 
     private void initParams(){
-        List<AttendanceViewModel> mModelList = new LinkedList<>();
-        AttendancePresenter.getInstance().addView(this);
-        mModelList.addAll(AttendancePresenter.getInstance().readAllViewModelToList());
+        List<BaseViewModel> mModelList = new LinkedList<>();
+        AttendancePresenter.getInstance().registerView(this);
+        mModelList.addAll(AttendancePresenter.getInstance().readAllViewModelToList(Resource.MODULE_COURSE_ATTENDANCE_NAME));
         mView.getAdapter().clearData();
         mView.getAdapter().addData(mModelList);
     }

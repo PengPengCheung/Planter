@@ -38,7 +38,6 @@ public class AttendancePushHandler {
     }
 
     public void handlePush(Context context, MsgEvent event){
-
         String jsonStr = (String) event.obj;
         AttendanceViewModel model = JsonUtil.deserialize(jsonStr, AttendanceViewModel.class);
         requestAttendanceAndAbsenceCount(model);

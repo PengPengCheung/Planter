@@ -8,6 +8,7 @@ import com.gdufs.planter.module.attendance.AttendancePushHandler;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.module.attention.AttentionPushHandler;
 import com.gdufs.planter.module.homework.HomeworkPushHandler;
+import com.gdufs.planter.module.interaction.InteractionPushHandler;
 import com.gdufs.planter.module.summary.SummaryPushHandler;
 import com.gdufs.planter.utils.JsonUtil;
 import com.gdufs.planter.utils.LogUtil;
@@ -48,10 +49,12 @@ public class PushHandler {
         switch (moduleId) {
             case Resource.MODULE_COURSE_ATTENDANCE:{
                 AttendancePushHandler.getInstance().handlePush(context, event);
+                InteractionPushHandler.getInstance().handlePush(context, event, moduleId);
             }
             break;
             case Resource.MODULE_COURSE_ATTENTION:{
                 AttentionPushHandler.getInstance().handlePush(context, event);
+                InteractionPushHandler.getInstance().handlePush(context, event, moduleId);
             }
             break;
             case Resource.MODULE_COURSE_SUMMARY:{
@@ -62,6 +65,10 @@ public class PushHandler {
                 HomeworkPushHandler.getInstance().handlePush(context, event);
             }
             break;
+//            case Resource.MODULE_COURSE_INTERACTION:{
+//                InteractionPushHandler.getInstance().handlePush(context, event);
+//            }
+//            break;
         }
 //        switch (event.what){
 //            case Resource.MODULE_COURSE_ATTENDANCE:{
@@ -85,10 +92,12 @@ public class PushHandler {
         Map<String, Object> map = JsonUtil.deserialize(jsonStr, HashMap.class);
         double moduleId = -1;
         if(map != null){
-           moduleId = (Double) map.get(Resource.KEY.KEY_MODULE_ID);
+            double id = (Double) map.get(Resource.KEY.KEY_MODULE_ID);
+            LogUtil.e("PushHandler", "id: " + id);
+            moduleId = id;
         }
         LogUtil.e("PushHandler", "moduleId = " + moduleId);
-        return (int) moduleId;
+        return (int)moduleId;
     }
 
     private void handleAttendanceEvent(MsgEvent event, Context context){

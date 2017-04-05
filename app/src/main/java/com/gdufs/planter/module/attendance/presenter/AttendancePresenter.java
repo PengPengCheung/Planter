@@ -2,6 +2,8 @@ package com.gdufs.planter.module.attendance.presenter;
 
 import android.util.Log;
 
+import com.gdufs.planter.common.BaseViewModel;
+import com.gdufs.planter.common.ModuleBasePresenter;
 import com.gdufs.planter.common.ModuleBaseView;
 import com.gdufs.planter.common.BaseView;
 import com.gdufs.planter.common.DataResponse;
@@ -26,16 +28,22 @@ import java.util.Map;
  * Created by peng on 2017/3/18.
  */
 
-public class AttendancePresenter {
+public class AttendancePresenter extends ModuleBasePresenter{
 
     private static final String TAG = AttendancePresenter.class.getSimpleName();
     private int status = Resource.ATTENDANCE.ATTENDANCE_STATUS_DEFAULT;
-    private List<ModuleBaseView> mViewList;
+//    private List<ModuleBaseView> mViewList;
 //    private BaseView mView;
     private static AttendancePresenter mInstance = null;
 
     private AttendancePresenter(){
-        mViewList = new ArrayList<>();
+        super();
+//        mViewList = new ArrayList<>();
+    }
+
+    @Override
+    public void notifyViewUpdate(BaseViewModel model) {
+        updateAllViews(model);
     }
 
     public static AttendancePresenter getInstance(){
@@ -49,16 +57,16 @@ public class AttendancePresenter {
         return mInstance;
     }
 
-    public void addView(ModuleBaseView view){
-        mViewList.add(view);
-    }
+//    public void addView(ModuleBaseView view){
+//        mViewList.add(view);
+//    }
 
     public void sendAttendanceCode(String inputCode){
         if(inputCode != null) {
             if(inputCode.length() < 6 || inputCode.length() > 6) {
                 status = Resource.ATTENDANCE.ATTENDANCE_STATUS_CODE_ERROR;
-                for(int i=0;i<mViewList.size();i++) {
-                    BaseView view = mViewList.get(i);
+                for(int i=0;i<getViewList().size();i++) {
+                    BaseView view = getViewList().get(i);
                     if(view != null && view instanceof ClassInteractionView){
                         ((ClassInteractionView)view).onReceiveAttendanceStatus(status);
                         return;
@@ -75,10 +83,10 @@ public class AttendancePresenter {
 //                    DataResponse<AttendanceInfo> r = parser.parseToObj(response);
 
                     Log.i("-----------response",response);
-                    Type classTypeData = new TypeToken<DataResponse<AttendanceInfo>>(){}.getType();
+                    Type classTypeData = new TypeToken<DataResponse<AttendanceViewModel>>(){}.getType();
                     //解析数据
                     Log.i("-----------data",classTypeData.toString());
-                    DataResponse<AttendanceInfo> r = JsonUtil.deserialize(response, classTypeData);
+                    DataResponse<AttendanceViewModel> r = JsonUtil.deserialize(response, classTypeData);
                     Log.i("-----------dataApiAudio","" + r.getData().getmAttendanceStatus());
 
 
@@ -115,50 +123,50 @@ public class AttendancePresenter {
         responseAllViewIfSuccess(new DataResponse(200, ""));
     }
 
-    private void responseAllViewIfSuccess(DataResponse response){
-        for(int i=0;i<mViewList.size();i++){
-            BaseView view = mViewList.get(i);
-            if(view != null) {
-                view.onResponseSuccess(response);
-            }
-        }
-    }
+//    private void responseAllViewIfSuccess(DataResponse response){
+//        for(int i=0;i<mViewList.size();i++){
+//            BaseView view = mViewList.get(i);
+//            if(view != null) {
+//                view.onResponseSuccess(response);
+//            }
+//        }
+//    }
 
-    private void responseAllViewIfFailure(Exception e){
-        for(int i=0;i<mViewList.size();i++){
-            BaseView view = mViewList.get(i);
-            if(view != null) {
-                view.onResponseFailure(e);
-            }
-        }
-    }
+//    private void responseAllViewIfFailure(Exception e){
+//        for(int i=0;i<mViewList.size();i++){
+//            BaseView view = mViewList.get(i);
+//            if(view != null) {
+//                view.onResponseFailure(e);
+//            }
+//        }
+//    }
 
-    public void notifyViewUpdate(AttendanceViewModel model){
-        updateAllViews(model);
-    }
+//    public void notifyViewUpdate(AttendanceViewModel model){
+//        updateAllViews(model);
+//    }
 
-    public List<AttendanceViewModel> readAllViewModelToList(){
-        List<AttendanceViewModel> list = ObjectWriter.readAll(Resource.MODULE_COURSE_ATTENDANCE_NAME);
-        LogUtil.e("ppp", "model list size = " + list.size());
-        for(int i=0;i<list.size();i++){
-            LogUtil.e("ppp", "model = " + list.get(i).getmAbsenceCount());
-        }
-        return list;
-    }
+//    public List<AttendanceViewModel> readAllViewModelToList(){
+//        List<AttendanceViewModel> list = ObjectWriter.readAll(Resource.MODULE_COURSE_ATTENDANCE_NAME);
+//        LogUtil.e("ppp", "model list size = " + list.size());
+//        for(int i=0;i<list.size();i++){
+//            LogUtil.e("ppp", "model = " + list.get(i).getmAbsenceCount());
+//        }
+//        return list;
+//    }
 
-    private void updateAllViews(AttendanceViewModel model){
-        LogUtil.e(TAG, "updateAllViews 1");
-        if(mViewList != null) {
-            LogUtil.e(TAG, "updateAllViews 2, viewList size = " + mViewList.size());
-            for(int i=0;i<mViewList.size();i++){
-                ModuleBaseView view = mViewList.get(i);
-                LogUtil.e(TAG, "updateAllViews 3");
-                if(view != null) {
-                    LogUtil.e(TAG, "updateAllViews 4");
-                    view.update(model);
-                }
-            }
-        }
-    }
+//    private void updateAllViews(AttendanceViewModel model){
+//        LogUtil.e(TAG, "updateAllViews 1");
+//        if(mViewList != null) {
+//            LogUtil.e(TAG, "updateAllViews 2, viewList size = " + mViewList.size());
+//            for(int i=0;i<mViewList.size();i++){
+//                ModuleBaseView view = mViewList.get(i);
+//                LogUtil.e(TAG, "updateAllViews 3");
+//                if(view != null) {
+//                    LogUtil.e(TAG, "updateAllViews 4");
+//                    view.update(model);
+//                }
+//            }
+//        }
+//    }
 
 }
