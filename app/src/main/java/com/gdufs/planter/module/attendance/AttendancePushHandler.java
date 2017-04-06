@@ -3,6 +3,7 @@ package com.gdufs.planter.module.attendance;
 import android.content.Context;
 
 import com.gdufs.planter.common.MsgEvent;
+import com.gdufs.planter.common.PersistenceManager;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.module.attendance.presenter.AttendancePresenter;
@@ -20,6 +21,8 @@ import java.util.Map;
  */
 
 public class AttendancePushHandler {
+
+    private String TAG = AttendancePushHandler.class.getSimpleName();
 
     private static AttendancePushHandler mInstance = null;
 
@@ -40,7 +43,7 @@ public class AttendancePushHandler {
     public void handlePush(Context context, MsgEvent event){
         String jsonStr = (String) event.obj;
         AttendanceViewModel model = JsonUtil.deserialize(jsonStr, AttendanceViewModel.class);
-        requestAttendanceAndAbsenceCount(model);
+//        requestAttendanceAndAbsenceCount(model);
         writeModelToFile(context, model);
         AttendancePresenter.getInstance().notifyViewUpdate(model);
     }
@@ -69,8 +72,11 @@ public class AttendancePushHandler {
     }
 
     private void writeModelToFile(Context context, AttendanceViewModel model){
-        ObjectWriter.write(model, Resource.MODULE_COURSE_ATTENDANCE_NAME);
-        AttendanceViewModel model2 = (AttendanceViewModel) ObjectWriter.read(context, Resource.MODULE_COURSE_ATTENDANCE_NAME);
-        LogUtil.e("push", "model2 : " + model2);
+
+        PersistenceManager.getInstance().insertViewModel(model, model.getmModuleId());
+
+//        ObjectWriter.write(model, Resource.MODULE_COURSE_ATTENDANCE_NAME);
+//        AttendanceViewModel model2 = (AttendanceViewModel) ObjectWriter.read(context, Resource.MODULE_COURSE_ATTENDANCE_NAME);
+        LogUtil.e(TAG, "attendance model : " + model.getAttendanceId());
     }
 }

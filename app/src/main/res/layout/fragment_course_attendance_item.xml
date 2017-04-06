@@ -20,14 +20,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
-        android:gravity="center"
         android:layout_below="@+id/tv_course_item_date">
 
         <LinearLayout
+            android:id="@+id/ll_course_item_mid_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="@dimen/item_margin_left_large"
             android:orientation="vertical">
 
             <TextView
@@ -47,23 +47,29 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/view_divider_center"
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/ll_course_item_mid_left"
+            android:layout_marginLeft="32dp"
             android:layout_marginBottom="@dimen/item_margin_bottom"
             android:background="@color/colorBlack"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp">
+            android:layout_toRightOf="@+id/view_divider_center"
+            android:layout_marginLeft="@dimen/item_margin_left_large"
+            >
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginRight="16dp">-->
 
             <LinearLayout
+                android:id="@+id/ll_course_item_mid_right_bonus"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_horizontal">
 
                 <TextView
                     android:id="@+id/tv_course_item_tips_prefix"
@@ -90,12 +96,15 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_course_item_attendance_tips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorGrey"
+                android:visibility="visible"
+                android:layout_below="@+id/ll_course_item_mid_right_bonus"
                 android:text="@string/course_attendance_item_tips"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 

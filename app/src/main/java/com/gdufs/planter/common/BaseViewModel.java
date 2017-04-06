@@ -13,20 +13,31 @@ public class BaseViewModel implements Serializable{
 //    static final long serialVersionUID =-3334164866412534105L;
     static final long serialVersionUID =5505771155016726606L;
 
+    @SerializedName(Resource.KEY.KEY_DATA_GET_METHOD)
+    public int mDataFrom;
+
     @SerializedName(Resource.KEY.KEY_COURSE_ID)
-    private String mCourseId;
+    public String mCourseId;
 
     @SerializedName(Resource.KEY.KEY_MODULE_ID)
-    private int mModuleId;
+    public int mModuleId;
 
     @SerializedName(Resource.KEY.KEY_ACTION_ID)
-    private int mActionId;
+    public int mActionId;
 
     @SerializedName(Resource.KEY.KEY_TEACHER_ID)
-    private String mTeacherId;
+    public String mTeacherId;
 
     @SerializedName(Resource.KEY.KEY_STUDENT_ID)
-    private String mStudentId;
+    public String mStudentId;
+
+    public int getmDataFrom() {
+        return mDataFrom;
+    }
+
+    public void setmDataFrom(int mDataFrom) {
+        this.mDataFrom = mDataFrom;
+    }
 
     public String getmTeacherId() {
         return mTeacherId;

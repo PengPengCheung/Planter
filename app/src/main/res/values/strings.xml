@@ -21,6 +21,8 @@
     <string name="course_attendance_item_bonus_num"> * %1$d</string>
     <string name="course_attendance_item_tips_prefix">可获</string>
     <string name="course_attendance_item_tips">不考勤会被抽取水滴哦</string>
+    <string name="course_attendance_item_success">考勤成功</string>
+    <string name="course_attendance_item_fail">考勤失败</string>
 
     <!--专注模块-->
     <string name="course_attention_item_attention_count">%1$d次专注 %2$d次小差</string>
@@ -52,7 +54,7 @@
 
     <!--课堂交互模块-->
     <string name="interaction_notification">%1$s通知</string>
-    <string name="interaction_type_and_limit">%1$d分钟%2$s</string>
+    <string name="interaction_type_and_limit">%1$s%2$s</string>
     <string name="interaction_result">%1$s成功</string>
     <string name="interaction_bonus_num"> * %1$d</string>
 

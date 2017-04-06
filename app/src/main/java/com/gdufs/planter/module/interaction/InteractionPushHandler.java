@@ -2,7 +2,9 @@ package com.gdufs.planter.module.interaction;
 
 import android.content.Context;
 
+import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.MsgEvent;
+import com.gdufs.planter.common.PersistenceManager;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.module.attention.model.AttentionViewModel;
@@ -36,15 +38,21 @@ public class InteractionPushHandler {
         switch (module){
             case Resource.MODULE_COURSE_ATTENDANCE:{
                 AttendanceViewModel attendanceViewModel = JsonUtil.deserialize(jsonStr, AttendanceViewModel.class);
-                ObjectWriter.write(attendanceViewModel, Resource.MODULE_COURSE_INTERACTION_NAME);
+                writeDataToDisk(attendanceViewModel);
+//                ObjectWriter.write(attendanceViewModel, Resource.MODULE_COURSE_INTERACTION_NAME);
             }
             break;
             case Resource.MODULE_COURSE_ATTENTION:{
                 AttentionViewModel attentionViewModel = JsonUtil.deserialize(jsonStr, AttentionViewModel.class);
-                ObjectWriter.write(attentionViewModel, Resource.MODULE_COURSE_INTERACTION_NAME);
+                writeDataToDisk(attentionViewModel);
+//                ObjectWriter.write(attentionViewModel, Resource.MODULE_COURSE_INTERACTION_NAME);
             }
             break;
         }
+    }
+
+    private void writeDataToDisk(BaseViewModel model){
+//        PersistenceManager.getInstance().insertViewModel(model, model.getmModuleId());
     }
 
 }

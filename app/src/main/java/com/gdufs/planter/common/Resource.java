@@ -6,9 +6,15 @@ package com.gdufs.planter.common;
 
 public class Resource {
 
+    private static final boolean DEBUG = true;
+
+    public static class DBInfo{
+        public static final String SCHEMA_NAME = (DEBUG ? "PlanterDev" : "PlanterRelease");
+    }
+
     public static class PlanterURL{
         //http://192.168.1.74:8080
-        private static String HOST_URL = "http://192.168.235.55:8080";
+        private static String HOST_URL = (DEBUG ? "http://192.168.235.55:8080" : "http://releaseURL:port");
         private static String WEB_URL = HOST_URL + "/web";
         private static String MOBILE_URL = HOST_URL + "/mob";
         public static String JSON_TEST_URL = HOST_URL + "/json";
@@ -44,6 +50,8 @@ public class Resource {
         public static final String KEY_STU_PASSWORD = "student_password";
         public static final String KEY_STU_COURSE_CODE = "student_course_code";
 
+        public static final String KEY_DATA_GET_METHOD = "data_get_from";
+
         public static final String KEY_MODULE_ID = "module_id";
         public static final String KEY_ACTION_ID = "action_id";
 
@@ -57,6 +65,7 @@ public class Resource {
 
 
         //Attendance，考勤模块
+        public static final String KEY_ATTENDANCE_ID = "attendance_id";
         public static final String KEY_ATTENDANCE_CODE = "attendance_code";
         public static final String KEY_ATTENDANCE_STATUS = "attendance_status";
         public static final String KEY_ATTENDANCE_BONUS_NUM = "attendance_bonus_num";
@@ -66,6 +75,7 @@ public class Resource {
         public static final String KEY_ATTENDANCE_VALID_DURATION = "attendance_valid_time";
 
         //Attention, 专注模块
+        public static final String KEY_ATTENTION_ID = "attention_id";
         public static final String KEY_ATTENTION_TIME = "attention_time";
         public static final String KEY_ATTENTION_DURATION = "attention_duration";
         public static final String KEY_ATTENTION_FOCUS_COUNT = "attention_focus_count";
@@ -97,6 +107,11 @@ public class Resource {
         public static final String KEY_PLANTER_USED_WATER = "planter_used_water";
         public static final String KEY_PLANTER_USED_SOIL = "planter_used_soil";
         public static final String KEY_PLANTER_PERCENTAGE = "planter_percentage";
+    }
+
+    public static class DATA_FROM {
+        public static final int DATA_FROM_PUSH = 1;
+        public static final int DATA_FROM_REQUEST = 2;
     }
 
     public static class ATTENDANCE{

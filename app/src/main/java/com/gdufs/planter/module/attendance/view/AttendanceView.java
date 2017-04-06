@@ -68,7 +68,7 @@ public class AttendanceView implements ModuleBaseView {
     private void initParams(){
         List<BaseViewModel> mModelList = new LinkedList<>();
         AttendancePresenter.getInstance().registerView(this);
-        mModelList.addAll(AttendancePresenter.getInstance().readAllViewModelToList(Resource.MODULE_COURSE_ATTENDANCE_NAME));
+        mModelList.addAll(getViewModelDataList());
         mView.getAdapter().clearData();
         mView.getAdapter().addData(mModelList);
     }
@@ -78,19 +78,29 @@ public class AttendanceView implements ModuleBaseView {
     }
 
 
+    private List<BaseViewModel> getViewModelDataList(){
+        return AttendancePresenter.getInstance().readAllViewModelToList(Resource.MODULE_COURSE_ATTENDANCE_NAME);
+    }
+
     @Override
     public void update(BaseViewModel model) {
-        AttendanceViewModel m = (AttendanceViewModel) model;
-        mView.getAdapter().addData(0, m);
+//        AttendanceViewModel m = (AttendanceViewModel) model;
+//        mView.getAdapter().addData(0, m);
+
+        mView.getAdapter().clearData();
+        mView.getAdapter().addData(getViewModelDataList());
     }
 
     private void showProgress(boolean show){
         mView.showProgress(show);
+        mView.getAdapter().clearData();
+        mView.getAdapter().addData(getViewModelDataList());
     }
 
     @Override
     public void onResponseSuccess(DataResponse response) {
         showProgress(false);
+
     }
 
     @Override

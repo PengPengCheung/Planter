@@ -8,8 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.gdufs.planter.R;
+import com.gdufs.planter.widget.MaterialDialog;
 
-import me.drakeet.materialdialog.MaterialDialog;
 
 /**
  * Created by peng on 2017/3/18.

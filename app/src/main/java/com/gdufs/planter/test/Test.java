@@ -1,5 +1,6 @@
 package com.gdufs.planter.test;
 
+import com.gdufs.planter.PlanterApplication;
 import com.gdufs.planter.utils.TimeUtil;
 
 /**
@@ -8,8 +9,11 @@ import com.gdufs.planter.utils.TimeUtil;
 
 public class Test {
 
-//    public static void main(String[] args){
-//        String timeStr = TimeUtil.getTimeFromMillisecond(100000);
-//        System.out.println(timeStr);
-//    }
+    public static void main(String[] args){
+
+        String timeStr = TimeUtil.getTimeFromMillisecond(100000);
+        System.out.println(timeStr);
+    }
+
+
 }

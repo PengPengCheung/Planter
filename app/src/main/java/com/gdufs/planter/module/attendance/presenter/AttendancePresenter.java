@@ -2,13 +2,16 @@ package com.gdufs.planter.module.attendance.presenter;
 
 import android.util.Log;
 
+import com.gdufs.planter.common.BaseViewDBModel;
 import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.ModuleBasePresenter;
 import com.gdufs.planter.common.ModuleBaseView;
 import com.gdufs.planter.common.BaseView;
 import com.gdufs.planter.common.DataResponse;
+import com.gdufs.planter.common.PersistenceManager;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.model.AttendanceInfo;
+import com.gdufs.planter.module.attendance.model.AttendanceViewDBModel;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.module.interaction.view.ClassInteractionView;
 import com.gdufs.planter.utils.JsonUtil;
@@ -20,7 +23,9 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +66,41 @@ public class AttendancePresenter extends ModuleBasePresenter{
 //        mViewList.add(view);
 //    }
 
-    public void sendAttendanceCode(String inputCode){
+    private void handleModelWhenSuccess(DataResponse<AttendanceViewModel> response){
+        AttendanceViewModel responseModel = response.getData();
+//        List<BaseViewModel> models = PersistenceManager.getInstance().findAllViewModel(Resource.MODULE_COURSE_ATTENDANCE);
+
+        // 选取具有相同attendanceId的实体
+        List<BaseViewDBModel> models = PersistenceManager.getInstance().findViewDBModelByViewModel(responseModel);
+
+        // 根据被点击的AttendanceId修改对应的数据
+        for(BaseViewDBModel model:models){
+            AttendanceViewDBModel viewModel = (AttendanceViewDBModel) model;
+//            if(viewModel.getAttendanceId() != null && viewModel.getAttendanceId().equals(responseModel.getAttendanceId())){
+                if(viewModel.getmDataFrom() == Resource.DATA_FROM.DATA_FROM_PUSH){ // 修改属于教师推送的请求
+                    viewModel.setmAttendanceStatus(responseModel.getmAttendanceStatus());
+
+                    PersistenceManager.getInstance().updateViewModel(viewModel, Resource.MODULE_COURSE_ATTENDANCE);
+                    break;
+//                }
+            }
+        }
+
+        PersistenceManager.getInstance().insertViewModel(responseModel, Resource.MODULE_COURSE_ATTENDANCE);
+
+    }
+
+    private Map<String, Object> constructRequestParams(AttendanceViewModel model){
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put(Resource.KEY.KEY_ATTENDANCE_CODE, model.getmAttendanceCode());
+        params.put(Resource.KEY.KEY_ATTENDANCE_ID, model.getAttendanceId());
+        params.put(Resource.KEY.KEY_STUDENT_ID, model.getmStudentId());
+
+        return params;
+    }
+
+    public void sendAttendanceCode(AttendanceViewModel model){
+        String inputCode = model.getmAttendanceCode();
         if(inputCode != null) {
             if(inputCode.length() < 6 || inputCode.length() > 6) {
                 status = Resource.ATTENDANCE.ATTENDANCE_STATUS_CODE_ERROR;
@@ -73,8 +112,9 @@ public class AttendancePresenter extends ModuleBasePresenter{
                     }
                 }
             }
-            Map<String, Object> params = new HashMap<String, Object>();
-            params.put(Resource.KEY.KEY_ATTENDANCE_CODE, inputCode);
+
+            Map<String, Object> params = constructRequestParams(model);
+
             NetworkUtil.post(Resource.PlanterURL.ATTENDANCE_CODE_URL, params, new ResultCallback<String>() {
                 @Override
                 public void onSuccess(String response) {
@@ -90,7 +130,11 @@ public class AttendancePresenter extends ModuleBasePresenter{
                     Log.i("-----------dataApiAudio","" + r.getData().getmAttendanceStatus());
 
 
-                    responseAllViewIfSuccess(r);
+                    if(r != null){
+                        handleModelWhenSuccess(r);
+                        responseAllViewIfSuccess(r);
+                    }
+
 //                    if(mView != null){
 //                        mView.onResponseSuccess(r);
 //                    }
@@ -117,6 +161,34 @@ public class AttendancePresenter extends ModuleBasePresenter{
                 }
             });
         }
+    }
+
+
+    @Override
+    public List<BaseViewModel> readAllViewModelToList(String moduleFileName) {
+//        return super.readAllViewModelToList(moduleFileName);
+        if(moduleFileName.equals(Resource.MODULE_COURSE_ATTENDANCE_NAME)){
+            List<BaseViewModel> modelList = PersistenceManager.getInstance().findAllViewModel(Resource.MODULE_COURSE_ATTENDANCE);
+            List<BaseViewModel> viewModelList = new LinkedList<>();
+            viewModelList.addAll(filterModelList(modelList));
+//            filterModelList(modelList);
+            LogUtil.e(TAG, "list size: " + modelList.size());
+            return PersistenceManager.getInstance().sort(viewModelList, false);
+        }
+
+        return null;
+    }
+
+    private List<BaseViewModel> filterModelList(List<BaseViewModel> modelList) {
+        List<BaseViewModel> viewModelList = new LinkedList<>();
+        for(BaseViewModel model : modelList){
+            AttendanceViewModel viewModel = (AttendanceViewModel) model;
+            if(viewModel.getmDataFrom() == Resource.DATA_FROM.DATA_FROM_PUSH){
+                viewModelList.add(viewModel); // 如果直接对不符合条件的BaseViewModel进行删除，会导致读取和删除线程不安全，java.util.ConcurrentModificationException
+            }
+        }
+
+        return viewModelList;
     }
 
     public void requestMoreAttendanceInfo(){
