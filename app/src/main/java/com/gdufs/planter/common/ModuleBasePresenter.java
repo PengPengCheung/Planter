@@ -81,11 +81,11 @@ public abstract class ModuleBasePresenter {
 
     public List<BaseViewModel> readAllViewModelToList(String moduleFileName){
 
-        if(moduleFileName.equals(Resource.MODULE_COURSE_ATTENDANCE_NAME)){
-            List<BaseViewModel> modelList = PersistenceManager.getInstance().findAllViewModel(Resource.MODULE_COURSE_ATTENDANCE);
-
-            return PersistenceManager.getInstance().sort(modelList, false);
-        }
+//        if(moduleFileName.equals(Resource.MODULE_COURSE_ATTENDANCE_NAME)){
+//            List<BaseViewModel> modelList = PersistenceManager.getInstance().findAllViewModel(Resource.MODULE_COURSE_ATTENDANCE);
+//
+//            return PersistenceManager.getInstance().sort(modelList, false);
+//        }
 
         List<BaseViewModel> list = ObjectWriter.readAll(moduleFileName);
         LogUtil.e("ppp", "model list size = " + list.size());
