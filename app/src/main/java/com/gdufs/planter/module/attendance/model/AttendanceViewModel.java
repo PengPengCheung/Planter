@@ -33,7 +33,17 @@ public class AttendanceViewModel extends BaseViewModel {
     @SerializedName(Resource.KEY.KEY_ATTENDANCE_STATUS)
     private int mAttendanceStatus;
 
+    @SerializedName(Resource.KEY.KEY_BONUS_TYPE)
+    private int mAttendanceBonusType;
 
+
+    public int getmAttendanceBonusType() {
+        return mAttendanceBonusType;
+    }
+
+    public void setmAttendanceBonusType(int mAttendanceBonusType) {
+        this.mAttendanceBonusType = mAttendanceBonusType;
+    }
 
     public String getAttendanceId() {
         return attendanceId;

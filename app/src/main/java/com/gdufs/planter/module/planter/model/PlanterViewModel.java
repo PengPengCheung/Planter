@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by peng on 2017/3/24.
  */
-
 public class PlanterViewModel extends BaseViewModel {
 
     @SerializedName(Resource.KEY.KEY_PLANTER_STATUS)
@@ -19,13 +18,13 @@ public class PlanterViewModel extends BaseViewModel {
     @SerializedName(Resource.KEY.KEY_COURSE_TIME)
     private String mCourseTime;
 
-    @SerializedName(Resource.KEY.KEY_PLANTER_USED_SUNSHINE)
+    @SerializedName(Resource.KEY.KEY_PLANTER_HAD_SUNSHINE)
     private int mPlanterSunshine;
 
-    @SerializedName(Resource.KEY.KEY_PLANTER_USED_WATER)
+    @SerializedName(Resource.KEY.KEY_PLANTER_HAD_WATER)
     private int mPlanterWater;
 
-    @SerializedName(Resource.KEY.KEY_PLANTER_USED_SOIL)
+    @SerializedName(Resource.KEY.KEY_PLANTER_HAD_SOIL)
     private int mPlanterSoil;
 
     @SerializedName(Resource.KEY.KEY_PLANTER_PERCENTAGE)

@@ -93,4 +93,6 @@ public abstract class ModuleBasePresenter {
     }
 
     public abstract void notifyViewUpdate(BaseViewModel model);
+
+    public void notifyBonusUpdate(String courseId){}
 }

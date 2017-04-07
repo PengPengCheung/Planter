@@ -93,13 +93,12 @@ public class AttendanceView implements ModuleBaseView {
 
     private void showProgress(boolean show){
         mView.showProgress(show);
-        mView.getAdapter().clearData();
-        mView.getAdapter().addData(getViewModelDataList());
     }
 
     @Override
     public void onResponseSuccess(DataResponse response) {
         showProgress(false);
+        update((BaseViewModel) response.getData());
 
     }
 

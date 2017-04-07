@@ -24,8 +24,8 @@ public class CourseView {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private RelativeLayout mRLCourseHead;
-    private static int[] TYPE_LIST = {Resource.MODULE_COURSE_ATTENDANCE, Resource.MODULE_COURSE_ATTENTION, Resource.MODULE_COURSE_SUMMARY, Resource.MODULE_COURSE_HOMEWORK, Resource.MODULE_COURSE_GROUP, Resource.MODULE_COURSE_OTHERS};
-    private static int[] STRING_LIST = {R.string.course_attendance, R.string.course_attention, R.string.course_summary, R.string.course_homework, R.string.course_group, R.string.course_others};
+    private static int[] TYPE_LIST = {Resource.MODULE_COURSE_ATTENDANCE, Resource.MODULE_COURSE_ATTENTION, Resource.MODULE_COURSE_SUMMARY, Resource.MODULE_COURSE_HOMEWORK, Resource.MODULE_COURSE_GROUP}; // Resource.MODULE_COURSE_OTHERS
+    private static int[] STRING_LIST = {R.string.course_attendance, R.string.course_attention, R.string.course_summary, R.string.course_homework, R.string.course_group}; // R.string.course_others
     private Fragment mParent;
     private Context mContext;
 

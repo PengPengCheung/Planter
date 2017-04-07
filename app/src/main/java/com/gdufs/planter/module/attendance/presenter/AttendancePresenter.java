@@ -14,6 +14,7 @@ import com.gdufs.planter.model.AttendanceInfo;
 import com.gdufs.planter.module.attendance.model.AttendanceViewDBModel;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.module.interaction.view.ClassInteractionView;
+import com.gdufs.planter.module.planter.PlanterDataManager;
 import com.gdufs.planter.utils.JsonUtil;
 import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.utils.NetworkUtil;
@@ -95,8 +96,14 @@ public class AttendancePresenter extends ModuleBasePresenter{
         params.put(Resource.KEY.KEY_ATTENDANCE_CODE, model.getmAttendanceCode());
         params.put(Resource.KEY.KEY_ATTENDANCE_ID, model.getAttendanceId());
         params.put(Resource.KEY.KEY_STUDENT_ID, model.getmStudentId());
+        params.put(Resource.KEY.KEY_COURSE_ID, model.getmCourseId());
 
         return params;
+    }
+
+    private void notifyPlanterTreeModule(DataResponse<AttendanceViewModel> response){
+        AttendanceViewModel model = response.getData();
+        PlanterDataManager.getInstance().getDataFromModules(model);
     }
 
     public void sendAttendanceCode(AttendanceViewModel model){
@@ -132,6 +139,7 @@ public class AttendancePresenter extends ModuleBasePresenter{
 
                     if(r != null){
                         handleModelWhenSuccess(r);
+                        notifyPlanterTreeModule(r);
                         responseAllViewIfSuccess(r);
                     }
 

@@ -58,7 +58,6 @@ public class ClassInteractionView implements ModuleBaseView {
             mListView.getAdapter().addData(list);
         }
     }
-
 //    public void addViewData(AttendanceViewModel model){
 //        mListView.getAdapter().addData(model);
 //        View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_interaction_item, null);
@@ -135,6 +134,8 @@ public class ClassInteractionView implements ModuleBaseView {
             }
         });
 
+        mListView.scrollToBottom();
+
 
         mDialog.setOnAttendanceCodeSubmitListener(new AttendanceCodeDialog.OnAttendanceCodeSubmitListener() {
 
@@ -176,7 +177,7 @@ public class ClassInteractionView implements ModuleBaseView {
     private void showTipsByStatus(int status, int bonusNum){
         switch (status) {
             case Resource.ATTENDANCE.ATTENDANCE_STATUS_SUCCESS:{
-                Toast.makeText(mActivity, "考勤成功！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, "已经考勤！", Toast.LENGTH_SHORT).show();
                 dismissDialog();
                 showViewIfCheckSuccess(bonusNum);
             }

@@ -3,9 +3,14 @@ package com.gdufs.planter.common;
 import com.gdufs.planter.PlanterApplication;
 import com.gdufs.planter.gen.AttendanceViewDBModelDao;
 import com.gdufs.planter.gen.AttentionViewModelDao;
+import com.gdufs.planter.gen.PlanterDetailViewDBModelDao;
+import com.gdufs.planter.gen.PlanterViewDBModelDao;
 import com.gdufs.planter.module.attendance.model.AttendanceViewDBModel;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.module.attention.model.AttentionViewModel;
+import com.gdufs.planter.module.planter.model.PlanterDetailViewDBModel;
+import com.gdufs.planter.module.planter.model.PlanterViewDBModel;
+import com.gdufs.planter.module.planter.model.PlanterViewModel;
 import com.gdufs.planter.utils.TimeUtil;
 
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -28,6 +33,10 @@ public class PersistenceManager {
 
     private AttentionViewModelDao mAttentionDAO;
 
+    private PlanterViewDBModelDao mPlanterDAO;
+
+    private PlanterDetailViewDBModelDao mPlanterDetailDAO;
+
     private PersistenceManager(){
         initDAO();
     }
@@ -35,6 +44,8 @@ public class PersistenceManager {
     private void initDAO(){
         mAttendanceDAO = PlanterApplication.getInstances().getDaoSession().getAttendanceViewDBModelDao();
         mAttentionDAO = PlanterApplication.getInstances().getDaoSession().getAttentionViewModelDao();
+        mPlanterDAO = PlanterApplication.getInstances().getDaoSession().getPlanterViewDBModelDao();
+        mPlanterDetailDAO = PlanterApplication.getInstances().getDaoSession().getPlanterDetailViewDBModelDao();
     }
 
     public static PersistenceManager getInstance(){
@@ -49,18 +60,51 @@ public class PersistenceManager {
         return mInstance;
     }
 
+    public void insertViewDBModel(BaseViewDBModel model, int moduleId){
+        switch (moduleId){
+            case Resource.MODULE_COURSE_ATTENDANCE:{
+                mAttendanceDAO.save((AttendanceViewDBModel) model);
+            }
+            break;
+            case Resource.MODULE_COURSE_ATTENTION:{
+//                AttentionViewModel viewModel = (AttentionViewModel) model;
+//                mAttentionDAO.insert(viewModel);
+            }
+            break;
+            case Resource.MODULE_FRAME_PLANTER:{
+                PlanterViewDBModel viewModel = (PlanterViewDBModel) model;
+                mPlanterDAO.save(viewModel);
+            }
+            break;
+            case Resource.MODULE_PLANTER_DETAIL:{
+                PlanterDetailViewDBModel dbModel = (PlanterDetailViewDBModel) model;
+                mPlanterDetailDAO.save(dbModel);
+            }
+            break;
+        }
+    }
+
     public void insertViewModel(BaseViewModel model, int moduleId){
         switch (moduleId){
             case Resource.MODULE_COURSE_ATTENDANCE:{
                 AttendanceViewModel viewModel = (AttendanceViewModel) model;
 
-                mAttendanceDAO.save(convertAttendanceViewModelToDBModel(viewModel));
+                mAttendanceDAO.save(ModelConverter.convertAttendanceViewModelToDBModel(viewModel));
 //                mAttendanceDAO.insert(viewModel);
             }
             break;
             case Resource.MODULE_COURSE_ATTENTION:{
                 AttentionViewModel viewModel = (AttentionViewModel) model;
                 mAttentionDAO.insert(viewModel);
+            }
+            break;
+            case Resource.MODULE_FRAME_PLANTER:{
+                PlanterViewModel viewModel = (PlanterViewModel) model;
+                mPlanterDAO.save(ModelConverter.convertPlanterViewModelToDBModel(viewModel));
+            }
+            break;
+            case Resource.MODULE_PLANTER_DETAIL:{
+
             }
             break;
         }
@@ -76,6 +120,16 @@ public class PersistenceManager {
             case Resource.MODULE_COURSE_ATTENTION:{
 //                AttentionViewModel viewModel = (AttentionViewModel) model;
 //                mAttentionDAO.update(viewModel);
+            }
+            break;
+            case Resource.MODULE_FRAME_PLANTER:{
+                PlanterViewDBModel dbModel = (PlanterViewDBModel) model;
+                mPlanterDAO.update(dbModel);
+            }
+            break;
+            case Resource.MODULE_PLANTER_DETAIL:{
+                PlanterDetailViewDBModel dbModel = (PlanterDetailViewDBModel) model;
+                mPlanterDetailDAO.update(dbModel);
             }
             break;
         }
@@ -139,7 +193,7 @@ public class PersistenceManager {
         switch (moduleId){
             case Resource.MODULE_COURSE_ATTENDANCE:{
                 AttendanceViewDBModel dbModel = mAttendanceDAO.load(id);
-                model = convertAttendanceDBModelToViewModel(dbModel);
+                model = ModelConverter.convertAttendanceDBModelToViewModel(dbModel);
             }
             break;
             case Resource.MODULE_COURSE_ATTENTION:{
@@ -151,56 +205,9 @@ public class PersistenceManager {
         return model;
     }
 
-    private AttendanceViewDBModel convertAttendanceViewModelToDBModel(AttendanceViewModel viewModel){
-        AttendanceViewDBModel dbModel = new AttendanceViewDBModel();
-        dbModel.setmDataFrom(viewModel.getmDataFrom());
-        dbModel.setmModuleId(viewModel.getmModuleId());
-        dbModel.setmStudentId(viewModel.getmStudentId());
-        dbModel.setmTeacherId(viewModel.getmTeacherId());
-        dbModel.setmCourseId(viewModel.getmCourseId());
-        dbModel.setmActionId(viewModel.getmActionId());
-        dbModel.setAttendanceId(viewModel.getAttendanceId());
-        dbModel.setmAttendanceStatus(viewModel.getmAttendanceStatus());
-        dbModel.setmAttendanceBonusNum(viewModel.getmAttendanceBonusNum());
-        dbModel.setmAbsenceCount(viewModel.getmAbsenceCount());
-        dbModel.setmAttendanceCount(viewModel.getmAttendanceCount());
-        dbModel.setmAttendanceCode(viewModel.getmAttendanceCode());
-        dbModel.setmAttendanceTime(viewModel.getmAttendanceTime());
-        dbModel.setmAttendanceValidDuration(viewModel.getmAttendanceValidDuration());
-
-        return dbModel;
-    }
-
-    private AttendanceViewModel convertAttendanceDBModelToViewModel(AttendanceViewDBModel dbModel){
-        AttendanceViewModel viewModel = new AttendanceViewModel();
-        viewModel.setmDataFrom(dbModel.getmDataFrom());
-        viewModel.setmModuleId(dbModel.getmModuleId());
-        viewModel.setmStudentId(dbModel.getmStudentId());
-        viewModel.setmTeacherId(dbModel.getmTeacherId());
-        viewModel.setmCourseId(dbModel.getmCourseId());
-        viewModel.setmActionId(dbModel.getmActionId());
-        viewModel.setAttendanceId(dbModel.getAttendanceId());
-        viewModel.setmAttendanceStatus(dbModel.getmAttendanceStatus());
-        viewModel.setmAttendanceBonusNum(dbModel.getmAttendanceBonusNum());
-        viewModel.setmAbsenceCount(dbModel.getmAbsenceCount());
-        viewModel.setmAttendanceCount(dbModel.getmAttendanceCount());
-        viewModel.setmAttendanceCode(dbModel.getmAttendanceCode());
-        viewModel.setmAttendanceTime(dbModel.getmAttendanceTime());
-        viewModel.setmAttendanceValidDuration(dbModel.getmAttendanceValidDuration());
-
-        return viewModel;
 
 
-//        AttendanceViewModel viewModel = new AttendanceViewModel();
-//        Method[] viewModelMethods = viewModel.getClass().getMethods();
-//        Method[] dbModelMethods = dbModel.getClass().getMethods();
-//        for(Method method:viewModelMethods){
-//            String methodName = method.getName();
-//            if(methodName.startsWith("set")){
-//
-//            }
-//        }
-    }
+
 
 //    public BaseViewDBModel convertViewModelToDBModel(){
 //
@@ -210,10 +217,23 @@ public class PersistenceManager {
         BaseViewModel viewModel = null;
         if(dbModel instanceof AttendanceViewDBModel){
             AttendanceViewDBModel attendanceDBModel = (AttendanceViewDBModel) dbModel;
-            viewModel = convertAttendanceDBModelToViewModel(attendanceDBModel);
+            viewModel = ModelConverter.convertAttendanceDBModelToViewModel(attendanceDBModel);
         }
 
         return viewModel;
+    }
+
+    public List<BaseViewDBModel> findViewDBModelByCustomId(String id, int moduleId){
+        List<BaseViewDBModel> list = new LinkedList<>();
+        switch (moduleId){
+            case Resource.MODULE_PLANTER_DETAIL:{
+                QueryBuilder<PlanterDetailViewDBModel> qb = mPlanterDetailDAO.queryBuilder().where(PlanterDetailViewDBModelDao.Properties.MCourseId.eq(id));
+                list.addAll(qb.list());
+            }
+            break;
+        }
+
+        return list;
     }
 
     public List<BaseViewDBModel> findViewDBModelByViewModel(BaseViewModel viewModel){
@@ -226,9 +246,38 @@ public class PersistenceManager {
                 list.addAll(qb.list());
             }
             break;
+            case Resource.MODULE_FRAME_PLANTER:{
+                // 寻找课程id相同的
+//                PlanterViewModel planterViewModel = (PlanterViewModel) viewModel;
+                QueryBuilder qb = mPlanterDAO.queryBuilder().where(PlanterViewDBModelDao.Properties.MCourseId.eq(viewModel.getmCourseId()));
+                list.addAll(qb.list());
+            }
+            break;
         }
 
         return list;
+    }
+
+    public List<BaseViewDBModel> findAllViewDBModel(int moduleId){
+        List<BaseViewDBModel> modelList = new LinkedList<>();
+        switch (moduleId){
+            case Resource.MODULE_COURSE_ATTENDANCE:{
+                List<AttendanceViewDBModel> models = mAttendanceDAO.loadAll();
+                modelList.addAll(models);
+            }
+            break;
+            case Resource.MODULE_COURSE_ATTENTION:{
+//                modelList.addAll(mAttentionDAO.loadAll());
+            }
+            break;
+            case Resource.MODULE_FRAME_PLANTER:{
+                List<PlanterViewDBModel> models = mPlanterDAO.loadAll();
+                modelList.addAll(models);
+            }
+            break;
+        }
+
+        return modelList;
     }
 
     public List<BaseViewModel> findAllViewModel(int moduleId){
@@ -237,13 +286,21 @@ public class PersistenceManager {
             case Resource.MODULE_COURSE_ATTENDANCE:{
                 List<AttendanceViewDBModel> models = mAttendanceDAO.loadAll();
                 for(AttendanceViewDBModel dbModel : models){
-                    AttendanceViewModel viewModel = convertAttendanceDBModelToViewModel(dbModel);
+                    AttendanceViewModel viewModel = ModelConverter.convertAttendanceDBModelToViewModel(dbModel);
                     modelList.add(viewModel);
                 }
             }
             break;
             case Resource.MODULE_COURSE_ATTENTION:{
                 modelList.addAll(mAttentionDAO.loadAll());
+            }
+            break;
+            case Resource.MODULE_FRAME_PLANTER:{
+                List<PlanterViewDBModel> models = mPlanterDAO.loadAll();
+                for(PlanterViewDBModel model : models){
+                    PlanterViewModel viewModel = ModelConverter.convertPlanterViewDBModelToViewModel(model);
+                    modelList.add(viewModel);
+                }
             }
             break;
         }

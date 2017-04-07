@@ -15,10 +15,11 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_planter_detail_head_rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
-            android:text="排名 15"/>
+            android:text="@string/planter_detail_rank"/>
 
         <ImageView
             android:layout_width="@dimen/img_width_25dp"
@@ -27,6 +28,7 @@
             android:src="@drawable/tree_status_good"/>
 
         <TextView
+            android:id="@+id/tv_planter_detail_evaluation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
@@ -40,6 +42,7 @@
             android:src="@drawable/coin"/>
 
         <TextView
+            android:id="@+id/tv_planter_detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/item_margin_left_large"
@@ -63,17 +66,17 @@
             android:layout_toLeftOf="@+id/img_tree_status">
 
             <TextView
-                android:id="@+id/tv_tree_status"
+                android:id="@+id/tv_planter_detail_tree_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorBlack"
-                android:text="种子期"/>
+                android:text="@string/planter_seed"/>
 
             <ImageView
                 android:id="@+id/img_arrow_left_top"
                 android:layout_width="50dp"
                 android:layout_height="@dimen/img_height_25dp"
-                android:layout_below="@+id/tv_tree_status"
+                android:layout_below="@+id/tv_planter_detail_tree_status"
                 android:layout_marginLeft="@dimen/item_margin_left_large"
                 android:src="@drawable/arrow_left_top"/>
 
@@ -119,10 +122,11 @@
                         android:src="@drawable/water_shallow"/>
 
                     <TextView
+                        android:id="@+id/tv_planter_detail_used_water"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlack"
-                        android:text="* 4"/>
+                        android:text="@string/planter_detail_used_element"/>
 
                 </LinearLayout>
 
@@ -136,10 +140,11 @@
                         android:src="@drawable/sunshine_shallow"/>
 
                     <TextView
+                        android:id="@+id/tv_planter_detail_used_sunshine"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlack"
-                        android:text="* 8"/>
+                        android:text="@string/planter_detail_used_element"/>
 
                 </LinearLayout>
 
@@ -153,10 +158,11 @@
                         android:src="@drawable/soil_shallow"/>
 
                     <TextView
+                        android:id="@+id/tv_planter_detail_used_soil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlack"
-                        android:text="* 6"/>
+                        android:text="@string/planter_detail_used_element"/>
 
                 </LinearLayout>
 
@@ -213,10 +219,11 @@
                         android:src="@drawable/water_shallow"/>
 
                     <TextView
+                        android:id="@+id/tv_planter_detail_need_water"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlack"
-                        android:text="* 4"/>
+                        android:text="@string/planter_detail_used_element"/>
 
                 </LinearLayout>
 
@@ -230,10 +237,11 @@
                         android:src="@drawable/sunshine_shallow"/>
 
                     <TextView
+                        android:id="@+id/tv_planter_detail_need_sunshine"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlack"
-                        android:text="* 8"/>
+                        android:text="@string/planter_detail_used_element"/>
 
                 </LinearLayout>
 
@@ -247,10 +255,11 @@
                         android:src="@drawable/soil_shallow"/>
 
                     <TextView
+                        android:id="@+id/tv_planter_detail_need_soil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlack"
-                        android:text="* 6"/>
+                        android:text="@string/planter_detail_used_element"/>
 
                 </LinearLayout>
 
@@ -285,7 +294,7 @@
                 android:textColor="@color/colorBlack"
                 android:layout_marginLeft="@dimen/item_margin_left_large"
                 android:layout_below="@+id/img_arrow_right_bottom"
-                android:text="水因子不足"/>
+                android:text="@string/planter_detail_water_not_enough"/>
 
         </RelativeLayout>
 

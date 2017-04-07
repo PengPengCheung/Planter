@@ -88,6 +88,12 @@ public class UniversalListView {
         mRecyclerView = (RecyclerView) view.findViewById(recycleViewId);
     }
 
+    public void scrollToBottom(){
+        if(mRecyclerView != null && mRecyclerViewAdapter != null){
+//            mRecyclerView.smoothScrollToPosition(mRecyclerViewAdapter.getItemCount() - 1);
+        }
+    }
+
     public void setRefreshListener(OnUniversalListViewRefreshListener l){
         mRefreshListener = l;
     }

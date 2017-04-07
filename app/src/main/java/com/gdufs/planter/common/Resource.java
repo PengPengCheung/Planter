@@ -14,7 +14,8 @@ public class Resource {
 
     public static class PlanterURL{
         //http://192.168.1.74:8080
-        private static String HOST_URL = (DEBUG ? "http://192.168.235.55:8080" : "http://releaseURL:port");
+        //192.168.235.55
+        private static String HOST_URL = (DEBUG ? "http://192.168.191.3:8080" : "http://releaseURL:port");
         private static String WEB_URL = HOST_URL + "/web";
         private static String MOBILE_URL = HOST_URL + "/mob";
         public static String JSON_TEST_URL = HOST_URL + "/json";
@@ -51,6 +52,8 @@ public class Resource {
         public static final String KEY_STU_COURSE_CODE = "student_course_code";
 
         public static final String KEY_DATA_GET_METHOD = "data_get_from";
+
+        public static final String KEY_BONUS_TYPE = "bonus_type";
 
         public static final String KEY_MODULE_ID = "module_id";
         public static final String KEY_ACTION_ID = "action_id";
@@ -103,10 +106,18 @@ public class Resource {
 
         // Planter，首页
         public static final String KEY_PLANTER_STATUS = "planter_status";
+        public static final String KEY_PLANTER_HAD_SUNSHINE = "planter_had_sunshine";
+        public static final String KEY_PLANTER_HAD_WATER = "planter_had_water";
+        public static final String KEY_PLANTER_HAD_SOIL = "planter_had_soil";
+        public static final String KEY_PLANTER_PERCENTAGE = "planter_percentage";
+
+        // Planter, 详情页
         public static final String KEY_PLANTER_USED_SUNSHINE = "planter_used_sunshine";
         public static final String KEY_PLANTER_USED_WATER = "planter_used_water";
         public static final String KEY_PLANTER_USED_SOIL = "planter_used_soil";
-        public static final String KEY_PLANTER_PERCENTAGE = "planter_percentage";
+        public static final String KEY_PLANTER_RANK = "planter_rank"; // 详情页排名
+        public static final String KEY_PLANTER_EVALUATION = "planter_evaluation"; // 成长树成长情况评估
+        public static final String KEY_PLANTER_TITLE = "planter_title"; // 成长树系统认证称号
     }
 
     public static class DATA_FROM {
@@ -154,6 +165,65 @@ public class Resource {
         public static final int TREE_SEEDLING_MATURE = 2;
         public static final int TREE_DEVELOPMENT = 3;
         public static final int TREE_MATURE = 4;
+        public static final int TREE_FINAL = 5;
+
+        public static final int TREE_MORE_THAN_FINAL = 6;
+    }
+
+    public static class BONUS_TYPE{
+        public static final int BONUS_SUNSHINE = 1;
+        public static final int BONUS_WATER = 2;
+        public static final int BONUS_SOIL = 3;
+    }
+
+    public static class EVALUATION{
+        public static final int EVAL_GOOD = 1;
+    }
+
+    public static class TREE{
+
+        public static class SEED{
+            public static final int SEED_TOTAL_SUNSHINE = 0;
+            public static final int SEED_TOTAL_WATER = 0;
+            public static final int SEED_TOTAL_SOIL = 0;
+            public static final int SEED_TOTAL_ELEM_NUM = SEED_TOTAL_SOIL + SEED_TOTAL_SUNSHINE + SEED_TOTAL_WATER;
+        }
+
+        public static class SEEDLING{
+            public static final int SEEDLING_TOTAL_SUNSHINE = 25;
+            public static final int SEEDLING_TOTAL_WATER = 25;
+            public static final int SEEDLING_TOTAL_SOIL = 25;
+            public static final int SEEDLING_TOTAL_ELEM_NUM = SEEDLING_TOTAL_SUNSHINE + SEEDLING_TOTAL_WATER + SEEDLING_TOTAL_SOIL;
+        }
+
+        public static class SEEDLING_MATURE{
+            public static final int SEEDLING_MATURE_TOTAL_SUNSHINE = 50;
+            public static final int SEEDLING_MATURE_TOTAL_WATER = 50;
+            public static final int SEEDLING_MATURE_TOTAL_SOIL = 50;
+            public static final int SEEDLING_MATURE_TOTAL_ELEM_NUM = SEEDLING_MATURE_TOTAL_SUNSHINE + SEEDLING_MATURE_TOTAL_WATER + SEEDLING_MATURE_TOTAL_SOIL;
+        }
+
+        public static class TREE_DEVELOPMENT{
+            public static final int TREE_DEVELOPMENT_TOTAL_SUNSHINE = 100;
+            public static final int TREE_DEVELOPMENT_TOTAL_WATER = 100;
+            public static final int TREE_DEVELOPMENT_TOTAL_SOIL = 100;
+            public static final int TREE_DEVELOPMENT_TOTAL_ELEM_NUM = TREE_DEVELOPMENT_TOTAL_SUNSHINE + TREE_DEVELOPMENT_TOTAL_WATER + TREE_DEVELOPMENT_TOTAL_SOIL;
+        }
+
+        public static class TREE_MATURE{
+            public static final int TREE_MATURE_TOTAL_SUNSHINE = 150;
+            public static final int TREE_MATURE_TOTAL_WATER = 150;
+            public static final int TREE_MATURE_TOTAL_SOIL = 150;
+            public static final int TREE_MATURE_TOTAL_ELEM_NUM = TREE_MATURE_TOTAL_SUNSHINE + TREE_MATURE_TOTAL_WATER + TREE_MATURE_TOTAL_SOIL;
+        }
+
+        public static class TREE_FINAL{
+            public static final int TREE_FINAL_TOTAL_SUNSHINE = 200;
+            public static final int TREE_FINAL_TOTAL_WATER = 200;
+            public static final int TREE_FINAL_TOTAL_SOIL = 200;
+            public static final int TREE_FINAL_TOTAL_ELEM_NUM = TREE_FINAL_TOTAL_SUNSHINE + TREE_FINAL_TOTAL_WATER + TREE_FINAL_TOTAL_SOIL;
+        }
+
     }
 
 
@@ -161,9 +231,10 @@ public class Resource {
 
 
     public String TYPE = "type";
-    public static int MODULE_FRAME_PLANTER = 0;
-    public static int MODULE_FRAME_NOTIFICATION = 1;
-    public static int MODULE_FRAME_RESOURCE = 2;
+    public static final int MODULE_FRAME_PLANTER = 10;
+    public static final int MODULE_PLANTER_DETAIL = 11;
+    public static final int MODULE_FRAME_NOTIFICATION = 1;
+    public static final int MODULE_FRAME_RESOURCE = 2;
 
     public static final int MODULE_COURSE_ATTENDANCE = 3;
     public static final int MODULE_COURSE_ATTENTION = 4;

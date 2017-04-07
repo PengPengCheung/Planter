@@ -71,10 +71,18 @@
     <!--Planter首页模块-->
     <string name="planter_have_element"> * %1$d</string>
     <string name="planter_seed">种子</string>
-    <string name="planter_seedling">幼苗发育期</string>
-    <string name="planter_seedling_mature">幼苗成熟期</string>
-    <string name="planter_development">大树发育期</string>
-    <string name="planter_mature">大树成熟期</string>
+    <string name="planter_seedling">幼苗\n发育期</string>
+    <string name="planter_seedling_mature">幼苗\n成熟期</string>
+    <string name="planter_development">大树\n发育期</string>
+    <string name="planter_mature">大树\n成熟期</string>
+    <string name="planter_final">收获期</string>
+
+    <!--Planter详情页模块-->
+    <string name="planter_detail_rank">排名 %1$d</string>
+    <string name="planter_detail_water_not_enough">水因子不足</string>
+    <string name="planter_detail_sunshine_not_enough">阳光因子不足</string>
+    <string name="planter_detail_soil_not_enough">土壤因子不足</string>
+    <string name="planter_detail_used_element"> * %1$d</string>
 
     <!--通用字符串-->
     <string name="bonus_signal_plus">+</string>
