@@ -35,7 +35,7 @@ public class PlanterDetailPresenter extends ModuleBasePresenter {
     public List<BaseViewDBModel> readPlanterDetailByCourseId(String courseId){
         List<BaseViewDBModel> modelList = PersistenceManager.getInstance().findViewDBModelByCustomId(courseId, Resource.MODULE_PLANTER_DETAIL);
 
-        if(modelList != null && modelList.size() == 1){
+        if(modelList != null && modelList.size() > 0){
             return modelList;
         }
 

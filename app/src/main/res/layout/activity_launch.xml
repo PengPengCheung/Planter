@@ -3,13 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@color/colorWhite"
+    android:background="@color/colorGreen"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/planter_light"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Planter"
+            android:layout_marginTop="@dimen/item_margin_top"
+            android:textSize="20sp"
+            android:textColor="@color/colorWhite"/>
+
+
+    </LinearLayout>
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginTop="@dimen/item_margin_top_large"
         android:orientation="horizontal">
 
         <TextView
@@ -25,6 +51,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
             android:background="@drawable/shape_edittext"
+            android:padding="3dp"
             android:layout_marginLeft="@dimen/item_margin_left_large" />
 
     </LinearLayout>
@@ -48,6 +75,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
             android:background="@drawable/shape_edittext"
+            android:padding="3dp"
+            android:inputType="number"
             android:layout_marginLeft="@dimen/item_margin_left_large" />
 
 
@@ -72,6 +101,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
             android:background="@drawable/shape_edittext"
+            android:padding="3dp"
+            android:inputType="numberPassword"
             android:layout_marginLeft="@dimen/item_margin_left_large" />
 
 
@@ -96,7 +127,9 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
             android:background="@drawable/shape_edittext"
-            android:layout_marginLeft="@dimen/item_margin_left" />
+            android:padding="3dp"
+            android:inputType="number"
+            android:layout_marginLeft="4dp" />
 
 
     </LinearLayout>

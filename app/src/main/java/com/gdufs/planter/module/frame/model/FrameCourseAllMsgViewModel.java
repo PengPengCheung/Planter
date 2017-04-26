@@ -4,7 +4,7 @@ import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.module.attention.model.AttentionViewModel;
-import com.gdufs.planter.module.homework.mode.HomeworkViewModel;
+import com.gdufs.planter.module.homework.model.HomeworkViewModel;
 import com.gdufs.planter.module.summary.model.SummaryViewModel;
 import com.google.gson.annotations.SerializedName;
 

@@ -14,6 +14,7 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.Poi;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.service.LocationService;
+import com.gdufs.planter.utils.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -76,7 +77,7 @@ public class LaunchBaseActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.e("ppp", "onStart");
+        LogUtil.e("ppp", "onStart");
     }
 
     private void initLocation(){

@@ -44,6 +44,7 @@
             android:layout_marginTop="@dimen/item_margin_top_large">
 
             <EditText
+                android:id="@+id/edit_attention_score"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:hint="评个分吧"

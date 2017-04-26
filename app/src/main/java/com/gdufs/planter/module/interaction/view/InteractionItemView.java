@@ -11,6 +11,7 @@ import com.gdufs.planter.R;
 import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
+import com.gdufs.planter.module.attention.model.AttentionViewModel;
 import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.widget.ItemViewHolder;
 
@@ -40,7 +41,7 @@ public class InteractionItemView extends ItemViewHolder {
         initViewListeners();
     }
 
-    public void setAttendanceListener(OnRequestClickListener l){
+    public void setOnRequestClickListener(OnRequestClickListener l){
         mListener = l;
     }
 
@@ -78,6 +79,22 @@ public class InteractionItemView extends ItemViewHolder {
         setBonusView(model.getmAttendanceBonusNum());
     }
 
+    private void setTeacherAttentionRequestView(AttentionViewModel model){
+        mRLTeacherRequest.setVisibility(View.VISIBLE);
+        mRLStuResponse.setVisibility(View.GONE);
+        String formatStr = getFormatStr(R.string.interaction_notification, "专注");
+        mTVNotification.setText(formatStr);
+        String str = getFormatStr(R.string.interaction_type_and_limit, model.getmAttentionDuration(), "专注");
+        mTVTimeLimit.setText(str);
+    }
+
+    private void setStudentAttentionResponseView(AttentionViewModel model){
+        mRLTeacherRequest.setVisibility(View.GONE);
+        mRLStuResponse.setVisibility(View.VISIBLE);
+        setModuleTypeView(Resource.MODULE_COURSE_ATTENTION);
+        setBonusView(model.getmAttentionBonusNum());
+    }
+
     public void setViewsByModuleId(BaseViewModel model, int type){
         LogUtil.e(TAG, "moduleId: " + model.getmModuleId());
         switch (type){
@@ -96,7 +113,17 @@ public class InteractionItemView extends ItemViewHolder {
             }
             break;
             case Resource.MODULE_COURSE_ATTENTION:{
-
+                AttentionViewModel attentionViewModel = (AttentionViewModel) model;
+                LogUtil.e(TAG, "status: " + attentionViewModel.getmAttentionStatus() + ", id: " + attentionViewModel.getmAttentionId());
+                if(attentionViewModel.getmDataFrom() == Resource.DATA_FROM.DATA_FROM_PUSH){
+                    setTeacherAttentionRequestView(attentionViewModel);
+                } else {
+                    if(attentionViewModel.getmAttentionStatus() == Resource.ATTENTION.ATTENTION_STATUS_DEFAULT){
+                        setTeacherAttentionRequestView(attentionViewModel);
+                    } else {
+                        setStudentAttentionResponseView(attentionViewModel);
+                    }
+                }
             }
             break;
         }
@@ -155,14 +182,15 @@ public class InteractionItemView extends ItemViewHolder {
     }
 
     private void setBonusView(int bonusNum){
-        Log.e("ppp", "setBonusView");
+        LogUtil.e("ppp", "setBonusView");
+        LogUtil.e(TAG, "setBonusViews bonusNum: " + bonusNum);
         String bonus = mContext.getResources().getString(R.string.interaction_bonus_num);
         if(bonusNum < 0) {
             mTVBonusSignal.setText(R.string.bonus_signal_minus);
             int num = -bonusNum;
             String bonusStr = String.format(bonus, num);
             mTVBonusNum.setText(bonusStr);
-        } else if(bonusNum > 0){
+        } else if(bonusNum >= 0){
             mTVBonusSignal.setText(R.string.bonus_signal_plus);
             String bonusStr = String.format(bonus, bonusNum);
             mTVBonusNum.setText(bonusStr);

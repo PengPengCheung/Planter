@@ -4,11 +4,13 @@ import android.content.Context;
 
 import com.gdufs.planter.common.BasePushHandler;
 import com.gdufs.planter.common.MsgEvent;
+import com.gdufs.planter.common.PersistenceManager;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attention.model.AttentionViewModel;
 import com.gdufs.planter.module.attention.presenter.AttentionPresenter;
 import com.gdufs.planter.module.push.PushHandler;
 import com.gdufs.planter.utils.JsonUtil;
+import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.utils.ObjectWriter;
 
 /**
@@ -16,6 +18,8 @@ import com.gdufs.planter.utils.ObjectWriter;
  */
 
 public class AttentionPushHandler implements BasePushHandler {
+
+    private static final String TAG = AttentionPushHandler.class.getSimpleName();
 
     private static AttentionPushHandler mInstance = null;
 
@@ -42,7 +46,9 @@ public class AttentionPushHandler implements BasePushHandler {
     }
 
     private void writeModelToFile(AttentionViewModel model) {
-        ObjectWriter.write(model, Resource.MODULE_COURSE_ATTENTION_NAME);
+        PersistenceManager.getInstance().insertViewModel(model, Resource.MODULE_COURSE_ATTENTION);
+        LogUtil.e(TAG, "attention model : " + model.getmAttentionId());
+//        ObjectWriter.write(model, Resource.MODULE_COURSE_ATTENTION_NAME);
 
     }
 }

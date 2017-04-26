@@ -7,15 +7,17 @@ package com.gdufs.planter.common;
 public class Resource {
 
     private static final boolean DEBUG = true;
+    private static final String TAG = "Resource";
 
     public static class DBInfo{
         public static final String SCHEMA_NAME = (DEBUG ? "PlanterDev" : "PlanterRelease");
     }
 
     public static class PlanterURL{
-        //http://192.168.1.74:8080
-        //192.168.235.55
-        private static String HOST_URL = (DEBUG ? "http://192.168.191.3:8080" : "http://releaseURL:port");
+        // http://192.168.1.74:8080
+        // http://192.168.235.50:8080
+        // http://172.17.198.7:8080
+        private static String HOST_URL = (DEBUG ? "http://172.17.198.7:8080" : "http://118.89.48.183:8080");
         private static String WEB_URL = HOST_URL + "/web";
         private static String MOBILE_URL = HOST_URL + "/mob";
         public static String JSON_TEST_URL = HOST_URL + "/json";
@@ -33,12 +35,19 @@ public class Resource {
         public static String ATTENDANCE_CODE_URL = MOBILE_URL + "/attendance/StudentCheck";
         public static String ATTENDANCE_INFO_GET_URL = MOBILE_URL + "/attendance/AttendanceInfoGet";
 
+        // Attention
+        public static String ATTENTION_REPORT_URL = MOBILE_URL + "/attention/AttentionResultCheck";
+
         public static String SUMMARY_SEND_URL = MOBILE_URL + "/summary/summaryReceive";
         public static String TEST_IMG_URL = HOST_URL + "/FileUpload/fileDownload_servlet";
 
         public static String FILE_DOWNLOAD_URL = HOST_URL + "/FileUpload/fileDownload_servlet";
 
 //        public static String FILE_DOWNLOAD_TEST_URL = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491212363&di=c1296bb549fc0e036263555f01d54022&imgtype=jpg&er=1&src=http%3A%2F%2Fimages.17173.com%2F2013%2Fnews%2F2013%2F06%2F03%2Fgxy0603ra12s.jpg";
+
+        public static String RESOURCE_LIST_URL = HOST_URL + "/web/resource/getStudentResourceList";
+
+        public static String GROUP_INFO_SEND_URL = MOBILE_URL + "/group/studentOpenGroup";
 
         public static String FILE_DOWNLOAD_TEST_URL = "http://pic.58pic.com/58pic/13/86/80/95h58PIC5jK_1024.jpg";
     }
@@ -66,6 +75,10 @@ public class Resource {
         public static final String KEY_COURSE_NAME = "course_name";
         public static final String KEY_COURSE_TIME = "course_time";
 
+        public static final String KEY_CLASS_OPEN_ID = "open_class_id"; // 开课信息id
+
+        public static final String KEY_COURSE_INFO_LIST = "course_info_list";
+
 
         //Attendance，考勤模块
         public static final String KEY_ATTENDANCE_ID = "attendance_id";
@@ -80,13 +93,18 @@ public class Resource {
         //Attention, 专注模块
         public static final String KEY_ATTENTION_ID = "attention_id";
         public static final String KEY_ATTENTION_TIME = "attention_time";
+        public static final String KEY_ATTENTION_END_TIME = "attention_end_time";
         public static final String KEY_ATTENTION_DURATION = "attention_duration";
         public static final String KEY_ATTENTION_FOCUS_COUNT = "attention_focus_count";
         public static final String KEY_ATTENTION_LOST_FOCUS_COUNT = "attention_lost_focus_count";
         public static final String KEY_ATTENTION_BONUS_NUM = "attention_bonus_num";
         public static final String KEY_ATTENTION_STATUS = "attention_status";
+        public static final String KEY_ATTENTION_INSIST_TIME = "attention_insist_time"; // 专注时长
+        public static final String KEY_ATTENTION_SCORE = "attention_score"; // 小组专注时才有打分, 此处的键对应的值是学生个体打出的具体分数
+        public static final String KEY_ATTENTION_TYPE = "attention_type";
 
         //Summary, 总结反馈模块
+        public static final String KEY_SUMMARY_ID = "summary_id";
         public static final String KEY_SUMMARY_REQUEST_TIME = "summary_request_time";
         public static final String KEY_SUMMARY_BONUS_NUM = "summary_bonus_num";
         public static final String KEY_SUMMARY_CONTENT = "summary_content";
@@ -94,6 +112,7 @@ public class Resource {
         public static final String KEY_SUMMARY_SEND_TIME = "summary_send_time";
 
         //Homework, 作业模块
+        public static final String KEY_HOMEWORK_ID = "homework_id";
         public static final String KEY_HOMEWORK_PUBLISH_TIME = "homework_publish_time";
         public static final String KEY_HOMEWORK_SUBMIT_DDL = "homework_submit_ddl";
         public static final String KEY_HOMEWORK_CURRENT_TIME = "homework_current_time";
@@ -118,6 +137,44 @@ public class Resource {
         public static final String KEY_PLANTER_RANK = "planter_rank"; // 详情页排名
         public static final String KEY_PLANTER_EVALUATION = "planter_evaluation"; // 成长树成长情况评估
         public static final String KEY_PLANTER_TITLE = "planter_title"; // 成长树系统认证称号
+
+        //Resource, 资源模块
+        public static final String KEY_RESOURCE_ID = "resource_id";
+        public static final String KEY_RESOURCE_NAME = "resource_name"; // 资源名称
+        public static final String KEY_RESOURCE_UPLOAD_DATE = "resource_upload_date"; // 上传日期
+        public static final String KEY_RESOURCE_DOWNLOAD_COUNT = "resource_download_count"; // 下载次数
+        public static final String KEY_RESOURCE_LIKE_COUNT = "resource_like_count"; // 点赞数
+        public static final String KEY_RESOURCE_DOWNLOAD_URL = "resource_download_url"; // 下载url
+
+        public static final String KEY_RESOURCE_DELETE_STATUS = "resource_file_delete_status"; // 删除状态
+
+
+
+        //Group, 分组模块
+        public static final String KEY_GROUP_OPEN = "group_open";
+        public static final String KEY_GROUP_ID = "group_id";
+        public static final String KEY_TEACHER_OPEN_GROUP_ID = "group_teacher_open_id";
+        public static final String KEY_GROUP_NAME = "group_name";
+        public static final String KEY_GROUP_LEADER_NAME = "group_leader_name";
+        public static final String KEY_GROUP_OPEN_TIME = "group_open_time";
+        public static final String KEY_GROUP_LIMIT = "group_limit";
+        public static final String KEY_GROUP_PUSH_TYPE = "group_push_type";
+
+        public static final String KEY_GROUP_STUDENT_SCORE = "group_student_score";
+        public static final String KEY_GROUP_TEACHER_SCORE = "group_teacher_score";
+        public static final String KEY_GROUP_MEMBERS = "group_members";
+        public static final String KEY_GROUP_INFO_LIST = "group_info_list";
+        public static final String KEY_GROUP_TASK_ADD_STATUS = "group_task_publish";
+
+        public static final String KEY_GROUP_TASK_CONTENT = "group_task_content";
+        public static final String KEY_GROUP_TASK_PUBLISH_DATE = "group_publish_date";
+        public static final String KEY_GROUP_TASK_DDL = "group_task_ddl";
+
+        public static final String KEY_GROUP_MIN = "group_member_min";
+        public static final String KEY_GROUP_MAX = "group_member_max";
+
+        public static final String KEY_GROUP_TEACHER_SCORE_STATUS = "group_teacher_score_status";
+
     }
 
     public static class DATA_FROM {
@@ -134,9 +191,14 @@ public class Resource {
         public static final int ATTENDANCE_STATUS_DEFAULT = -100;
     }
 
+    public static class EVENTBUS_TYPE {
+        public static final int EVENTBUS_TYPE_FROM_ATTENTION = 1;
+        public static final int EVENTBUS_TYPE_FROM_PUSH = 2;
+    }
+
     public static class ATTENTION {
         public static final int ATTENTION_STATUS_SUCCESS = 1;
-        public static final int ATTENTION_STATUS_DEFAULT = 0;
+        public static final int ATTENTION_STATUS_DEFAULT = 0; // 默认状态，即教师发来专注请求时的状态
         public static final int ATTENTION_STATUS_FAIL = -3;
         public static final int ATTENTION_STATUS_NOT_PAY_ATTENTION = -1; // 未参与本次专注
         public static final int ATTENTION_STATUS_NOT_IN_TIME = -2; // 不在专注时间
@@ -152,6 +214,11 @@ public class Resource {
         public static final int HOMEWORK_PUBLISHED = 0;
         public static final int HOMEWORK_SUBMIT_SUCCESS = 1;
         public static final int HOMEWORK_SCORED = 2;
+    }
+
+    public static class GROUP {
+        public static final int GROUP_TYPE_OPEN_GROUP_NOTIFICATION = 1;
+        public static final int GROUP_TYPE_STUDENT_OPEN_GROUP_ALREADY = 2;
     }
 
     public static class SIGN_UP_AND_LOGIN{
@@ -174,6 +241,15 @@ public class Resource {
         public static final int BONUS_SUNSHINE = 1;
         public static final int BONUS_WATER = 2;
         public static final int BONUS_SOIL = 3;
+    }
+
+    public static class BONUS_NUM{
+        public static final int SUMMARY_BONUS_NUM = 5;
+        public static final int ATTENDANCE_BONUS_NUM = 5;
+        public static final int ATTENTION_BONUS_NUM = 5;
+        public static final int HOMEWORK_BONUS_NUM = 5;
+        public static final int GROUP_BONUS_NUM = 5;
+        public static final int SURPRISE_BONUS_NUM = 3;
     }
 
     public static class EVALUATION{

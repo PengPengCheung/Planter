@@ -9,11 +9,13 @@ import android.widget.Toast;
 import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.DataResponse;
 import com.gdufs.planter.common.MsgEvent;
+import com.gdufs.planter.common.PersistenceManager;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.model.AttendanceInfo;
 import com.gdufs.planter.module.frame.presenter.FrameViewPresenter;
 import com.gdufs.planter.module.frame.view.FrameView;
 import com.gdufs.planter.module.planter.model.PlanterViewModel;
+import com.gdufs.planter.module.planter.presenter.PlanterMainPresenter;
 import com.gdufs.planter.module.push.PushHandler;
 import com.gdufs.planter.utils.JsonUtil;
 import com.gdufs.planter.utils.LogUtil;
@@ -48,18 +50,13 @@ public class PlanterMainActivity extends LaunchBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-//        initOthers();
+        initOthers();
     }
 
     private void initOthers(){
         Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
+        final Bundle bundle = intent.getExtras();
         if(bundle != null){
-
-
-            PreferenceHelper.getInstance(this).putString(Resource.KEY.KEY_STU_NAME, bundle.getString(Resource.KEY.KEY_STU_NAME));
-            PreferenceHelper.getInstance(this).putString(Resource.KEY.KEY_STU_PASSWORD, bundle.getString(Resource.KEY.KEY_STU_PASSWORD));
-
             Map<String, Object> map = new HashMap<>();
             map.put(Resource.KEY.KEY_STU_NUMBER, bundle.getString(Resource.KEY.KEY_STU_NUMBER));
             map.put(Resource.KEY.KEY_STU_NAME, bundle.getString(Resource.KEY.KEY_STU_NAME));
@@ -76,6 +73,8 @@ public class PlanterMainActivity extends LaunchBaseActivity {
                     int code = responseData.getError_code();
                     if(code == Resource.SIGN_UP_AND_LOGIN.STATUS_COURSE_CODE_VALIDATE_SUCCESS){
                         PlanterViewModel model = responseData.getData();
+                        PreferenceHelper.getInstance(PlanterMainActivity.this).putString(Resource.KEY.KEY_STU_NAME, bundle.getString(Resource.KEY.KEY_STU_NAME));
+                        PreferenceHelper.getInstance(PlanterMainActivity.this).putString(Resource.KEY.KEY_STU_PASSWORD, bundle.getString(Resource.KEY.KEY_STU_PASSWORD));
                         writeObjectToFile(model);
                         storeIntoPrefer(model);
                         notifyUpdateView(model);
@@ -96,10 +95,12 @@ public class PlanterMainActivity extends LaunchBaseActivity {
 
     private void notifyUpdateView(PlanterViewModel model) {
         FrameViewPresenter.getInstance().notifyViewUpdate(model);
+        PlanterMainPresenter.getInstance().notifyViewUpdate(model);
     }
 
     private void writeObjectToFile(PlanterViewModel model){
-        ObjectWriter.write(model, Resource.MODULE_PLANTER_NAME);
+//        ObjectWriter.write(model, Resource.MODULE_PLANTER_NAME);
+        PersistenceManager.getInstance().insertViewModel(model, Resource.MODULE_FRAME_PLANTER);
     }
 
     private void storeIntoPrefer(BaseViewModel model) {
@@ -132,6 +133,10 @@ public class PlanterMainActivity extends LaunchBaseActivity {
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onEventRecieved(MsgEvent event){
         Log.e("ppp", "onMessage: " + event.getMsg() + "obj: " + event.obj);
+        if(event.what == Resource.EVENTBUS_TYPE.EVENTBUS_TYPE_FROM_ATTENTION){
+            EventBus.getDefault().removeStickyEvent(event);
+            return;
+        }
         PushHandler.getInstance().handlePush(getApplicationContext(), event);
         EventBus.getDefault().removeStickyEvent(event);
 //        if(mPushHandler != null) {

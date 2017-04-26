@@ -24,11 +24,14 @@ public class ObjectWriter {
 
     private static String TAG = ObjectWriter.class.getSimpleName();
 
-    private static String FILE_ROOT_DIRECTORY = "Planter";
+    private static String FILE_ROOT_DIRECTORY = "/Planter";
     private static String DIR_VIEW_DATA = FILE_ROOT_DIRECTORY + File.separator + "ViewData";
-    public static String FILE_DIRECTORY = Environment.getExternalStorageDirectory().toString() + File.separator + DIR_VIEW_DATA + File.separator;
-    public static String FILE_DIRECTORY_TEST = Environment.getExternalStorageDirectory().toString() + File.separator + DIR_VIEW_DATA + File.separator + "testFile3.gif";
-    /** 
+    public static String FILE_DIRECTORY = Environment.getExternalStorageDirectory().toString() + DIR_VIEW_DATA + File.separator;
+    public static String FILE_DIRECTORY_TEST = Environment.getExternalStorageDirectory().toString() + DIR_VIEW_DATA + File.separator + "testFile4.doc";
+
+    public static String ROOT_DIRECTORY = Environment.getExternalStorageDirectory().toString() + FILE_ROOT_DIRECTORY;
+
+    /**
      * 写入本地文件
      * @param obj
      * @param fileName

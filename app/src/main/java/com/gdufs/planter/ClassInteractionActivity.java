@@ -6,14 +6,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.gdufs.planter.common.BaseViewModel;
+import com.gdufs.planter.common.MsgEvent;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
+import com.gdufs.planter.module.attention.model.AttentionGoingModel;
 import com.gdufs.planter.module.attention.model.AttentionViewModel;
+import com.gdufs.planter.module.attention.presenter.AttentionPresenter;
 import com.gdufs.planter.module.interaction.presenter.InteractionPresenter;
 import com.gdufs.planter.module.interaction.view.ClassInteractionView;
+import com.gdufs.planter.module.push.PushHandler;
 import com.gdufs.planter.module.push.PushResponseModel;
 import com.gdufs.planter.utils.JsonUtil;
 import com.gdufs.planter.utils.LogUtil;
+import com.gdufs.planter.utils.PreferenceHelper;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +97,34 @@ public class ClassInteractionActivity extends AppCompatActivity {
         LogUtil.e(TAG, "onRestart");
     }
 
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onEventReceived(MsgEvent event){
+        LogUtil.e("ppp", "onEventReceived");
+        if(event != null){
+            LogUtil.e("ppp", "onEventReceived onMessage: " + event.getMsg() + ", obj: " + event.obj);
+            if(event.what == Resource.EVENTBUS_TYPE.EVENTBUS_TYPE_FROM_ATTENTION){
+                LogUtil.e(TAG, "attention end, onEventReceived");
+                AttentionGoingModel model = (AttentionGoingModel) event.obj;
+                if(model != null){
+                    LogUtil.e(TAG, "attention end, model not null, sId = " + model.getmStudentId());
+                    AttentionPresenter.getInstance().sendCurrentAttentionResult(model);
+                }
+            }
+
+            EventBus.getDefault().removeStickyEvent(event);
+        }
+
+
+    }
+
     private void init(){
+        EventBus.getDefault().register(this);
         mInteractionView = new ClassInteractionView(this);
     }
 }

@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.gdufs.planter.R;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attention.model.AttentionViewModel;
+import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.widget.ItemViewHolder;
 
 /**
@@ -48,6 +49,7 @@ public class AttentionItemView extends ItemViewHolder {
         String notFormatStr = mContext.getResources().getString(R.string.course_attention_item_attention_count);
         String formatStr = String.format(notFormatStr, model.getmAttentionFocusCount(), model.getmAttentionLostFocusCount());
         mTVAttentionCount.setText(formatStr);
+        mTVAttentionCount.setVisibility(View.INVISIBLE);
 
         int status = model.getmAttentionStatus();
         int bonus = model.getmAttentionBonusNum();

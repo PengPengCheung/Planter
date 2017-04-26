@@ -1,16 +1,17 @@
 package com.gdufs.planter.module.frame.view;
 
-import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bigkoo.pickerview.OptionsPickerView;
+import com.bigkoo.pickerview.listener.CustomListener;
 import com.gdufs.planter.R;
 import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.DataResponse;
@@ -19,19 +20,23 @@ import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.frame.FrameCourseFragment;
 import com.gdufs.planter.module.frame.FramePlanterFragment;
 import com.gdufs.planter.module.frame.FrameResourceFragment;
-import com.gdufs.planter.module.frame.ItemFragment;
 import com.gdufs.planter.module.frame.adapter.ViewPagerAdapter;
+import com.gdufs.planter.module.frame.model.CourseInfoModel;
 import com.gdufs.planter.module.frame.presenter.FrameViewPresenter;
 import com.gdufs.planter.module.planter.model.PlanterViewModel;
+import com.gdufs.planter.module.planter.presenter.PlanterMainPresenter;
 import com.gdufs.planter.utils.LogUtil;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by peng on 2017/3/13.
  */
 
 public class FrameView implements ModuleBaseView{
+
+    private static final String TAG = FrameView.class.getSimpleName();
 
 
     private int[] mIconResourceList = {R.drawable.selector_planter, R.drawable.selector_notification, R.drawable.selector_resource};
@@ -40,7 +45,9 @@ public class FrameView implements ModuleBaseView{
     private TabLayout mTabLayout;
     private AppCompatActivity mActivity;
     private ViewPager mViewPager;
-    private Spinner mSpinner;
+//    private Spinner mSpinner;
+
+    private TitleBarView mTitlebar;
 
 
     public FrameView(AppCompatActivity activity){
@@ -51,15 +58,30 @@ public class FrameView implements ModuleBaseView{
     public void init(){
         mTabLayout = (TabLayout) mActivity.findViewById(R.id.tablayout_type);
         mViewPager = (ViewPager) mActivity.findViewById(R.id.viewpager_content);
-        mSpinner = (Spinner) mActivity.findViewById(R.id.sp_title_bar);
+//        mSpinner = (Spinner) mActivity.findViewById(R.id.sp_title_bar);
+        mTitlebar = new TitleBarView(mActivity);
 
         initParams();
-        initTitleBar();
+//        initTitleBar();
         initViewPagerAndTabLayout();
     }
 
+
+
+//    private List<CourseInfoModel> getCourseInfoModelList(){
+//
+//        if(mTitlebar == null){
+//            return new LinkedList<>();
+//        }
+//
+//        return mTitlebar.getPickerDataList();
+//    }
+
+
+
     private void initParams(){
         FrameViewPresenter.getInstance().registerView(this);
+        PlanterMainPresenter.getInstance().registerView(this);
     }
 
     private void initViewPagerAndTabLayout(){
@@ -75,6 +97,13 @@ public class FrameView implements ModuleBaseView{
             public void onTabSelected(TabLayout.Tab tab) {
                 mViewPager.setCurrentItem(tab.getPosition());
                 setCustomViewStyle(tab, mIconResourceList[tab.getPosition()]);
+                if(mTitlebar != null){
+                    if(mViewPager.getCurrentItem() == 0){
+                        mTitlebar.showNormalTitleText();
+                    } else {
+                        mTitlebar.showPickerText();
+                    }
+                }
             }
 
             @Override
@@ -87,6 +116,7 @@ public class FrameView implements ModuleBaseView{
 
             }
         });
+
 //        mTabLayout.setupWithViewPager(mViewPager); // 实现自定义的TABView不能使用这个方法，而需要用到上面两句代码才能实现联动
     }
 
@@ -100,25 +130,26 @@ public class FrameView implements ModuleBaseView{
 //        return new LinkedList<>();
     }
 
+
     private void initTitleBar(){
         // 建立数据源
         final LinkedList<String> mItems = getSpinnerData();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(mActivity, android.R.layout.simple_spinner_item, mItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinner.setAdapter(adapter);
-        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mActivity, mItems.get(position), Toast.LENGTH_SHORT).show();
-                FrameViewPresenter.getInstance().getStudentCourseInfoFromServer(mItems.get(position), mActivity);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        mSpinner.setAdapter(adapter);
+//        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(mActivity, mItems.get(position), Toast.LENGTH_SHORT).show();
+//                FrameViewPresenter.getInstance().getStudentCourseInfoFromServer(mItems.get(position), mActivity);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
     }
 
     private void setCustomViewStyle(TabLayout.Tab tab, int imageResId){
@@ -163,22 +194,30 @@ public class FrameView implements ModuleBaseView{
 
     @Override
     public void update(BaseViewModel model) {
-        if(mSpinner == null){
-            LogUtil.e("ppppp", "spinner null");
-            return;
+        LogUtil.e(TAG, "update");
+        if(mTitlebar != null){
+            mTitlebar.refreshPickerData();
         }
-        ArrayAdapter<String> adapter = (ArrayAdapter<String>) mSpinner.getAdapter();
-        PlanterViewModel viewModel = (PlanterViewModel) model;
-        String courseName = viewModel.getmCourseName();
-        LogUtil.e("pppppp", "courseName: " + courseName);
-        adapter.add(courseName);
-        int pos = adapter.getPosition(courseName);
-        mSpinner.setSelection(pos, true);
+
+
+//        if(mSpinner == null){
+//            LogUtil.e("ppppp", "spinner null");
+//            return;
+//        }
+//        ArrayAdapter<String> adapter = (ArrayAdapter<String>) mSpinner.getAdapter();
+//        PlanterViewModel viewModel = (PlanterViewModel) model;
+//        String courseName = viewModel.getmCourseName();
+//        LogUtil.e("pppppp", "courseName: " + courseName);
+//        adapter.add(courseName);
+//        int pos = adapter.getPosition(courseName);
+//        mSpinner.setSelection(pos, true);
     }
 
     @Override
     public void onResponseSuccess(DataResponse response) {
-
+        if(response != null){
+            update(new BaseViewModel());
+        }
     }
 
     @Override

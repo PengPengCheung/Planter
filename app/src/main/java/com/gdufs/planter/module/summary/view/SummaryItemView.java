@@ -1,4 +1,4 @@
-package com.gdufs.planter.module.summary;
+package com.gdufs.planter.module.summary.view;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.gdufs.planter.R;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.summary.model.SummaryViewModel;
+import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.widget.ItemViewHolder;
 
 import me.drakeet.materialdialog.MaterialDialog;
@@ -21,6 +22,8 @@ import me.drakeet.materialdialog.MaterialDialog;
  */
 
 public class SummaryItemView extends ItemViewHolder {
+
+    private static final String TAG = SummaryItemView.class.getSimpleName();
 
     private Button mBtnSummaryOpenEdit;
     MaterialDialog materialDialog;
@@ -71,32 +74,40 @@ public class SummaryItemView extends ItemViewHolder {
 
         int status = model.getmSummaryStatus();
         int bonus = model.getmSummaryBonusNum();
+        LogUtil.e(TAG, "status: " + status + ", bonus: " + bonus);
         String bonusStr = mContext.getResources().getString(R.string.course_attendance_item_bonus_num);
         String bonusFormatStr = String.format(bonusStr, bonus);
+        mTVSummaryBonusNum.setText(bonusFormatStr);
         switch (status){
             case Resource.SUMMARY.SUMMARY_SEND_SUCCESS:{
-                mTVSummaryTipsPrefix.setText(R.string.bonus_signal_plus);
-                mTVSummaryTipsUnder.setText(R.string.course_summary_item_send_success);
-                mBtnSummaryOpenEdit.setText(R.string.course_summary_item_summary_details);
-                mTVSummaryTipsBottom.setText(R.string.course_summary_item_thanks);
-                mTVSummaryBonusNum.setText(bonusFormatStr);
+                setSendSuccessView();
             }
             break;
             case Resource.SUMMARY.SUMMARY_CHECKING:{
                 setCheckingView();
-                mTVSummaryBonusNum.setText(bonusFormatStr);
+
             }
             break;
             case Resource.SUMMARY.SUMMARY_WAIT_FOR_SENDING:{
-                mTVSummaryTipsPrefix.setText(R.string.bonus_signal_can_score);
-                mTVSummaryTipsUnder.setText(R.string.course_summary_item_tips);
-                mBtnSummaryOpenEdit.setText(R.string.course_summary_item_open_to_edit);
-                mTVSummaryTipsBottom.setText(R.string.course_summary_item_edit_tips);
-                mTVSummaryBonusNum.setText(bonusFormatStr);
+                setDefaultView();
             }
             break;
         }
 
+    }
+
+    private void setDefaultView(){
+        mTVSummaryTipsPrefix.setText(R.string.bonus_signal_can_score);
+        mTVSummaryTipsUnder.setText(R.string.course_summary_item_tips);
+        mBtnSummaryOpenEdit.setText(R.string.course_summary_item_open_to_edit);
+        mTVSummaryTipsBottom.setText(R.string.course_summary_item_edit_tips);
+    }
+
+    private void setSendSuccessView(){
+        mTVSummaryTipsPrefix.setText(R.string.bonus_signal_plus);
+        mTVSummaryTipsUnder.setText(R.string.course_summary_item_send_success);
+        mBtnSummaryOpenEdit.setText(R.string.course_summary_item_summary_details);
+        mTVSummaryTipsBottom.setText(R.string.course_summary_item_thanks);
     }
 
     private void setCheckingView(){
@@ -129,7 +140,7 @@ public class SummaryItemView extends ItemViewHolder {
 
                         editText.setText("");
                         materialDialog.dismiss();
-                        setCheckingView();
+//                        setCheckingView();
                     }
                 })
                 .setNegativeButton("取消", new View.OnClickListener() {

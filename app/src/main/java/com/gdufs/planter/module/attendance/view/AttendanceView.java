@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import com.gdufs.planter.common.DataResponse;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
 import com.gdufs.planter.module.attendance.presenter.AttendancePresenter;
+import com.gdufs.planter.utils.LogUtil;
+import com.gdufs.planter.utils.PreferenceHelper;
 import com.gdufs.planter.widget.UniversalListView;
 
 import java.util.LinkedList;
@@ -27,6 +30,8 @@ import java.util.List;
  */
 
 public class AttendanceView implements ModuleBaseView {
+
+    private static final String TAG = AttendanceView.class.getSimpleName();
 
     private UniversalListView mView;
     private Activity mActivity;
@@ -51,6 +56,10 @@ public class AttendanceView implements ModuleBaseView {
 
             @Override
             public void setItemViewContent(RecyclerView.ViewHolder holder, int pos) {
+                int size = mView.getAdapter().getData().size();
+                if(pos >= size){
+                    return;
+                }
                 AttendanceViewModel model = (AttendanceViewModel) mView.getAdapter().getData().get(pos);
                 ((AttendanceItemView)holder).setViews(model);
             }
@@ -79,16 +88,23 @@ public class AttendanceView implements ModuleBaseView {
 
 
     private List<BaseViewModel> getViewModelDataList(){
-        return AttendancePresenter.getInstance().readAllViewModelToList(Resource.MODULE_COURSE_ATTENDANCE_NAME);
+        String currentCourseId = PreferenceHelper.getInstance(mActivity).getString(Resource.KEY.KEY_COURSE_ID, "");
+        if(currentCourseId != null && !TextUtils.isEmpty(currentCourseId)){
+            LogUtil.e(TAG, "studentId: " + PreferenceHelper.getInstance(mActivity).getString(Resource.KEY.KEY_STUDENT_ID, ""));
+            return AttendancePresenter.getInstance().readAllViewModelToList(currentCourseId);
+        }
+
+        return new LinkedList<>();
     }
 
     @Override
     public void update(BaseViewModel model) {
 //        AttendanceViewModel m = (AttendanceViewModel) model;
 //        mView.getAdapter().addData(0, m);
-
-        mView.getAdapter().clearData();
-        mView.getAdapter().addData(getViewModelDataList());
+        if(mView != null){
+            mView.getAdapter().clearData();
+            mView.getAdapter().addData(getViewModelDataList());
+        }
     }
 
     private void showProgress(boolean show){

@@ -12,6 +12,9 @@ public class AttendanceViewModel extends BaseViewModel {
     @SerializedName(Resource.KEY.KEY_ATTENDANCE_ID)
     private String attendanceId;
 
+    @SerializedName(Resource.KEY.KEY_CLASS_OPEN_ID)
+    private String mOpenClassId;
+
     @SerializedName(Resource.KEY.KEY_ATTENDANCE_TIME)
     private String mAttendanceTime;
 
@@ -36,6 +39,15 @@ public class AttendanceViewModel extends BaseViewModel {
     @SerializedName(Resource.KEY.KEY_BONUS_TYPE)
     private int mAttendanceBonusType;
 
+
+
+    public String getmOpenClassId() {
+        return mOpenClassId;
+    }
+
+    public void setmOpenClassId(String mOpenClassId) {
+        this.mOpenClassId = mOpenClassId;
+    }
 
     public int getmAttendanceBonusType() {
         return mAttendanceBonusType;

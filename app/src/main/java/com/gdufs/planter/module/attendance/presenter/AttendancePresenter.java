@@ -1,5 +1,7 @@
 package com.gdufs.planter.module.attendance.presenter;
 
+import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.gdufs.planter.common.BaseViewDBModel;
@@ -19,12 +21,15 @@ import com.gdufs.planter.utils.JsonUtil;
 import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.utils.NetworkUtil;
 import com.gdufs.planter.utils.ObjectWriter;
+import com.gdufs.planter.utils.PreferenceHelper;
 import com.gdufs.planter.utils.ResultCallback;
+import com.gdufs.planter.utils.TimeUtil;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -91,12 +96,20 @@ public class AttendancePresenter extends ModuleBasePresenter{
 
     }
 
-    private Map<String, Object> constructRequestParams(AttendanceViewModel model){
+    private Map<String, Object> constructRequestParams(AttendanceViewModel model, Context context){
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(Resource.KEY.KEY_ATTENDANCE_CODE, model.getmAttendanceCode());
         params.put(Resource.KEY.KEY_ATTENDANCE_ID, model.getAttendanceId());
-        params.put(Resource.KEY.KEY_STUDENT_ID, model.getmStudentId());
+//        String studentId = model.getmStudentId();
+        String studentId = PreferenceHelper.getInstance(context).getString(Resource.KEY.KEY_STUDENT_ID, "");
+        LogUtil.e(TAG, "studentId: " + studentId);
+        params.put(Resource.KEY.KEY_STUDENT_ID, studentId);
         params.put(Resource.KEY.KEY_COURSE_ID, model.getmCourseId());
+        LogUtil.e(TAG, "openClassId: " + model.getmOpenClassId());
+        params.put(Resource.KEY.KEY_CLASS_OPEN_ID, model.getmOpenClassId());
+        Date date = new Date();
+        String timeStr = TimeUtil.timeToStr(date, TimeUtil.ENG_PATTERN_YMD_HMS);
+        params.put(Resource.KEY.KEY_ATTENDANCE_TIME, timeStr);
 
         return params;
     }
@@ -106,7 +119,7 @@ public class AttendancePresenter extends ModuleBasePresenter{
         PlanterDataManager.getInstance().getDataFromModules(model);
     }
 
-    public void sendAttendanceCode(AttendanceViewModel model){
+    public void sendAttendanceCode(AttendanceViewModel model, Context context){
         String inputCode = model.getmAttendanceCode();
         if(inputCode != null) {
             if(inputCode.length() < 6 || inputCode.length() > 6) {
@@ -120,7 +133,7 @@ public class AttendancePresenter extends ModuleBasePresenter{
                 }
             }
 
-            Map<String, Object> params = constructRequestParams(model);
+            Map<String, Object> params = constructRequestParams(model, context);
 
             NetworkUtil.post(Resource.PlanterURL.ATTENDANCE_CODE_URL, params, new ResultCallback<String>() {
                 @Override
@@ -129,12 +142,9 @@ public class AttendancePresenter extends ModuleBasePresenter{
 //                    ParseUtil<AttendanceInfo> parser = new ParseUtil<>();
 //                    DataResponse<AttendanceInfo> r = parser.parseToObj(response);
 
-                    Log.i("-----------response",response);
                     Type classTypeData = new TypeToken<DataResponse<AttendanceViewModel>>(){}.getType();
                     //解析数据
-                    Log.i("-----------data",classTypeData.toString());
                     DataResponse<AttendanceViewModel> r = JsonUtil.deserialize(response, classTypeData);
-                    Log.i("-----------dataApiAudio","" + r.getData().getmAttendanceStatus());
 
 
                     if(r != null){
@@ -173,18 +183,16 @@ public class AttendancePresenter extends ModuleBasePresenter{
 
 
     @Override
-    public List<BaseViewModel> readAllViewModelToList(String moduleFileName) {
-//        return super.readAllViewModelToList(moduleFileName);
-        if(moduleFileName.equals(Resource.MODULE_COURSE_ATTENDANCE_NAME)){
-            List<BaseViewModel> modelList = PersistenceManager.getInstance().findAllViewModel(Resource.MODULE_COURSE_ATTENDANCE);
+    public List<BaseViewModel> readAllViewModelToList(String courseId) {
+        if(courseId != null && !TextUtils.isEmpty(courseId)){
+            List<BaseViewModel> modelList = PersistenceManager.getInstance().findViewModelByCustomId(courseId, Resource.MODULE_COURSE_ATTENDANCE);
             List<BaseViewModel> viewModelList = new LinkedList<>();
             viewModelList.addAll(filterModelList(modelList));
-//            filterModelList(modelList);
             LogUtil.e(TAG, "list size: " + modelList.size());
             return PersistenceManager.getInstance().sort(viewModelList, false);
         }
 
-        return null;
+        return new LinkedList<>();
     }
 
     private List<BaseViewModel> filterModelList(List<BaseViewModel> modelList) {

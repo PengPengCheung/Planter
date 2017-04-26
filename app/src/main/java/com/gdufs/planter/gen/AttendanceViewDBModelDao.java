@@ -39,6 +39,7 @@ public class AttendanceViewDBModelDao extends AbstractDao<AttendanceViewDBModel,
         public final static Property MAttendanceBonusNum = new Property(12, int.class, "mAttendanceBonusNum", false, "M_ATTENDANCE_BONUS_NUM");
         public final static Property MAttendanceCode = new Property(13, String.class, "mAttendanceCode", false, "M_ATTENDANCE_CODE");
         public final static Property MAttendanceStatus = new Property(14, int.class, "mAttendanceStatus", false, "M_ATTENDANCE_STATUS");
+        public final static Property MOpenClassId = new Property(15, String.class, "mOpenClassId", false, "M_OPEN_CLASS_ID");
     }
 
 
@@ -68,7 +69,8 @@ public class AttendanceViewDBModelDao extends AbstractDao<AttendanceViewDBModel,
                 "\"M_ATTENDANCE_VALID_DURATION\" TEXT," + // 11: mAttendanceValidDuration
                 "\"M_ATTENDANCE_BONUS_NUM\" INTEGER NOT NULL ," + // 12: mAttendanceBonusNum
                 "\"M_ATTENDANCE_CODE\" TEXT," + // 13: mAttendanceCode
-                "\"M_ATTENDANCE_STATUS\" INTEGER NOT NULL );"); // 14: mAttendanceStatus
+                "\"M_ATTENDANCE_STATUS\" INTEGER NOT NULL ," + // 14: mAttendanceStatus
+                "\"M_OPEN_CLASS_ID\" TEXT);"); // 15: mOpenClassId
     }
 
     /** Drops the underlying database table. */
@@ -127,6 +129,11 @@ public class AttendanceViewDBModelDao extends AbstractDao<AttendanceViewDBModel,
             stmt.bindString(14, mAttendanceCode);
         }
         stmt.bindLong(15, entity.getMAttendanceStatus());
+ 
+        String mOpenClassId = entity.getMOpenClassId();
+        if (mOpenClassId != null) {
+            stmt.bindString(16, mOpenClassId);
+        }
     }
 
     @Override
@@ -179,6 +186,11 @@ public class AttendanceViewDBModelDao extends AbstractDao<AttendanceViewDBModel,
             stmt.bindString(14, mAttendanceCode);
         }
         stmt.bindLong(15, entity.getMAttendanceStatus());
+ 
+        String mOpenClassId = entity.getMOpenClassId();
+        if (mOpenClassId != null) {
+            stmt.bindString(16, mOpenClassId);
+        }
     }
 
     @Override
@@ -203,7 +215,8 @@ public class AttendanceViewDBModelDao extends AbstractDao<AttendanceViewDBModel,
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // mAttendanceValidDuration
             cursor.getInt(offset + 12), // mAttendanceBonusNum
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // mAttendanceCode
-            cursor.getInt(offset + 14) // mAttendanceStatus
+            cursor.getInt(offset + 14), // mAttendanceStatus
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15) // mOpenClassId
         );
         return entity;
     }
@@ -225,6 +238,7 @@ public class AttendanceViewDBModelDao extends AbstractDao<AttendanceViewDBModel,
         entity.setMAttendanceBonusNum(cursor.getInt(offset + 12));
         entity.setMAttendanceCode(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
         entity.setMAttendanceStatus(cursor.getInt(offset + 14));
+        entity.setMOpenClassId(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
      }
     
     @Override

@@ -2,10 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_group_item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="200dp"
     android:background="@color/colorShallowGrey"
     android:paddingLeft="@dimen/item_margin_left"
-    android:paddingRight="@dimen/item_margin_right">
+    android:paddingRight="@dimen/item_margin_right"
+    android:visibility="visible">
+
 
     <LinearLayout
         android:id="@+id/ll_group_item_head"
@@ -21,7 +23,7 @@
             android:src="@drawable/group_item" />
 
         <TextView
-            android:id="@+id/tv_course_item_date"
+            android:id="@+id/tv_group_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/item_margin_left"
@@ -52,20 +54,36 @@
                 android:textColor="@color/colorBlack" />
 
             <EditText
-                android:layout_width="match_parent"
+                android:id="@+id/edit_group_leader_name"
+                android:layout_width="150dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="@dimen/item_margin_left_large"
+                android:padding="2dp"
+                android:hint="请输入组长id"
+                android:singleLine="true"
+                android:textColorHint="@color/colorGrey"
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp"
+                android:visibility="visible"
+                android:background="@drawable/shape_edittext" />
+
+            <TextView
+                android:id="@+id/tv_group_leader_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/item_margin_left_large"
                 android:textColor="@color/colorBlack"
-                android:background="@drawable/shape_edittext" />
+                android:textSize="15sp"
+                android:text="组长名字"
+                android:visibility="gone"/>
 
 
         </LinearLayout>
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/item_margin_left"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -77,11 +95,25 @@
                 android:textColor="@color/colorBlack" />
 
             <EditText
+                android:id="@+id/edit_group_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/item_margin_left_large"
+                android:padding="2dp"
+                android:singleLine="true"
                 android:textColor="@color/colorBlack"
+                android:visibility="visible"
                 android:background="@drawable/shape_edittext" />
+
+            <TextView
+                android:id="@+id/tv_group_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_margin_left_large"
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp"
+                android:text="组名"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
@@ -115,8 +147,10 @@
                 android:layout_width="150dp"
                 android:layout_height="25dp"
                 android:padding="5dp"
-                android:textSize="@dimen/sn_14sp"
+                android:textSize="15sp"
                 android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorGrey"
+                android:hint="请输入组员id"
                 android:background="@drawable/shape_edittext" />
 
         </LinearLayout>
@@ -142,7 +176,7 @@
         android:background="@color/colorBlack" />
 
     <RelativeLayout
-        android:id="@+id/rl_course_item_enter_class"
+        android:id="@+id/rl_course_item_submit"
         android:layout_width="match_parent"
         android:layout_height="28dp"
         android:layout_below="@+id/view_group_item_bottom_divider"

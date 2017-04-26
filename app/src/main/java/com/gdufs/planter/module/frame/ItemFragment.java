@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.gdufs.planter.PlanterDetailActivity;
 import com.gdufs.planter.R;
 import com.gdufs.planter.common.Resource;
@@ -73,7 +72,7 @@ public class ItemFragment extends Fragment {
 
     private void initImg(View view){
         ImageView imageView = (ImageView) view.findViewById(R.id.img_test);
-        Glide.with(getActivity()).load(Resource.PlanterURL.TEST_IMG_URL).into(imageView);
+//        Glide.with(getActivity()).load(Resource.PlanterURL.TEST_IMG_URL).into(imageView);
     }
 
     private void handleDialogShow(){

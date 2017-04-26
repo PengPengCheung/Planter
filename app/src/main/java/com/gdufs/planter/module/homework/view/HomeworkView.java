@@ -7,13 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.gdufs.planter.R;
+import com.gdufs.planter.common.BaseViewDBModel;
 import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.DataResponse;
 import com.gdufs.planter.common.ModuleBaseView;
 import com.gdufs.planter.common.Resource;
-import com.gdufs.planter.module.homework.mode.HomeworkViewModel;
+import com.gdufs.planter.module.homework.model.HomeworkViewModel;
 import com.gdufs.planter.module.homework.presenter.HomeworkPresenter;
+import com.gdufs.planter.utils.CommonUtil;
 import com.gdufs.planter.widget.UniversalListView;
+
+import java.util.List;
 
 /**
  * Created by peng on 2017/3/21.
@@ -35,7 +39,7 @@ public class HomeworkView implements ModuleBaseView {
 
     private void initParams(){
         HomeworkPresenter.getInstance().registerView(this);
-        mView.getAdapter().addData(HomeworkPresenter.getInstance().readAllViewModelToList(Resource.MODULE_COURSE_HOMEWORK_NAME));
+        mView.getAdapter().addData(getHomeworkViewModelList());
     }
 
     private void setListeners(){
@@ -63,16 +67,25 @@ public class HomeworkView implements ModuleBaseView {
         return mView.getUniversalListView();
     }
 
+    private List<BaseViewModel> getHomeworkViewModelList(){
+        return HomeworkPresenter.getInstance().readAllViewModelToList(CommonUtil.getCurrentSelectedCourseId(mActivity));
+    }
 
     @Override
     public void update(BaseViewModel model) {
-        HomeworkViewModel homeworkViewModel = (HomeworkViewModel) model;
-        mView.getAdapter().addData(0, homeworkViewModel);
+
+        if(mView != null){
+            mView.getAdapter().clearData();
+            mView.getAdapter().addData(getHomeworkViewModelList());
+        }
+
+//        HomeworkViewModel homeworkViewModel = (HomeworkViewModel) model;
+//        mView.getAdapter().addData(0, homeworkViewModel);
     }
 
     @Override
     public void onResponseSuccess(DataResponse response) {
-
+        update((BaseViewModel) response.getData());
     }
 
     @Override

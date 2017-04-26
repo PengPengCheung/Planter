@@ -27,7 +27,7 @@ public class JPushBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
         Log.e("ppp", "receive：" + intent.getAction());
-        Toast.makeText(context, "test", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "test", Toast.LENGTH_SHORT).show();
 
         Log.e("ppp", "msg: "+bundle.getString(JPushInterface.EXTRA_MESSAGE));
 

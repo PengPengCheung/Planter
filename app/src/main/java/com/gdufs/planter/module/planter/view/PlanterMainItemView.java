@@ -15,6 +15,7 @@ import com.gdufs.planter.module.planter.PlanterViewSignal;
 import com.gdufs.planter.module.planter.model.PlanterViewModel;
 import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.widget.ItemViewHolder;
+import com.race604.drawable.wave.WaveDrawable;
 
 /**
  * Created by peng on 2017/3/24.
@@ -124,38 +125,52 @@ public class PlanterMainItemView extends ItemViewHolder {
         });
     }
 
+    private void setImageWaveDrawable(ImageView iv, int drawableRes, int level){
+        WaveDrawable waveDrawable = new WaveDrawable(mContext, drawableRes);
+        iv.setImageDrawable(waveDrawable);
+        waveDrawable.setWaveAmplitude(5);
+        waveDrawable.setIndeterminate(false);
+        waveDrawable.setLevel(level);
+    }
 
     public void setStyleByStatus(PlanterViewModel model) {
+        int percent = model.getmPlanterPercent();
         int status = model.getmPlanterStatus();
         switch (status){
             case Resource.TREE_STATUS.TREE_SEED:{
                 mTVTreeStatus.setText(R.string.planter_seed);
-                mIVTreeStatus.setImageResource(R.drawable.seed);
+                setImageWaveDrawable(mIVTreeStatus, R.drawable.seed, percent * 100);
+//                mIVTreeStatus.setImageResource(R.drawable.seed);
             }
             break;
             case Resource.TREE_STATUS.TREE_SEEDLING:{
                 mTVTreeStatus.setText(R.string.planter_seedling);
-                mIVTreeStatus.setImageResource(R.drawable.seedling);
+                setImageWaveDrawable(mIVTreeStatus, R.drawable.seedling, percent * 100);
+//                mIVTreeStatus.setImageResource(R.drawable.seedling);
             }
             break;
             case Resource.TREE_STATUS.TREE_SEEDLING_MATURE:{
                 mTVTreeStatus.setText(R.string.planter_seedling_mature);
-                mIVTreeStatus.setImageResource(R.drawable.seedling_mature);
+                setImageWaveDrawable(mIVTreeStatus, R.drawable.seedling_mature, percent * 100);
+//                mIVTreeStatus.setImageResource(R.drawable.seedling_mature);
             }
             break;
             case Resource.TREE_STATUS.TREE_DEVELOPMENT:{
                 mTVTreeStatus.setText(R.string.planter_development);
-                mIVTreeStatus.setImageResource(R.drawable.development);
+                setImageWaveDrawable(mIVTreeStatus, R.drawable.development, percent * 100);
+//                mIVTreeStatus.setImageResource(R.drawable.development);
             }
             break;
             case Resource.TREE_STATUS.TREE_MATURE:{
                 mTVTreeStatus.setText(R.string.planter_mature);
-                mIVTreeStatus.setImageResource(R.drawable.mature);
+                setImageWaveDrawable(mIVTreeStatus, R.drawable.mature, percent * 100);
+//                mIVTreeStatus.setImageResource(R.drawable.mature);
             }
             break;
             case Resource.TREE_STATUS.TREE_FINAL:{
                 mTVTreeStatus.setText(R.string.planter_final);
-                mIVTreeStatus.setImageResource(R.drawable.tree_final);
+                setImageWaveDrawable(mIVTreeStatus, R.drawable.tree_final, percent * 100);
+//                mIVTreeStatus.setImageResource(R.drawable.tree_final);
             }
             break;
         }

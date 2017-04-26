@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.gdufs.planter.common.BasePushHandler;
 import com.gdufs.planter.common.MsgEvent;
+import com.gdufs.planter.common.PersistenceManager;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.summary.model.SummaryViewModel;
 import com.gdufs.planter.module.summary.presenter.SummaryPresenter;
@@ -46,6 +47,7 @@ public class SummaryPushHandler implements BasePushHandler {
     }
 
     private void writeObjectToFile(SummaryViewModel model) {
-        ObjectWriter.write(model, Resource.MODULE_COURSE_SUMMARY_NAME);
+        PersistenceManager.getInstance().insertViewModel(model, model.getmModuleId());
+//        ObjectWriter.write(model, Resource.MODULE_COURSE_SUMMARY_NAME);
     }
 }

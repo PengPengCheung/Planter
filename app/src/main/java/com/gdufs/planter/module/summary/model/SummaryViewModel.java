@@ -10,17 +10,39 @@ import com.google.gson.annotations.SerializedName;
 
 public class SummaryViewModel extends BaseViewModel {
 
+    @SerializedName(Resource.KEY.KEY_SUMMARY_ID)
+    private String mSummaryId;
+
     @SerializedName(Resource.KEY.KEY_SUMMARY_REQUEST_TIME)
     private String mSummaryRequestTime;
 
     @SerializedName(Resource.KEY.KEY_SUMMARY_BONUS_NUM)
     private int mSummaryBonusNum;
 
+    @SerializedName(Resource.KEY.KEY_BONUS_TYPE)
+    private int mSummaryBonusType;
+
     @SerializedName(Resource.KEY.KEY_SUMMARY_CONTENT)
     private String mSummaryContent;
 
     @SerializedName(Resource.KEY.KEY_SUMMARY_STATUS)
     private int mSummaryStatus;
+
+    public int getmSummaryBonusType() {
+        return mSummaryBonusType;
+    }
+
+    public void setmSummaryBonusType(int mSummaryBonusType) {
+        this.mSummaryBonusType = mSummaryBonusType;
+    }
+
+    public String getmSummaryId() {
+        return mSummaryId;
+    }
+
+    public void setmSummaryId(String mSummaryId) {
+        this.mSummaryId = mSummaryId;
+    }
 
     public String getmSummaryRequestTime() {
         return mSummaryRequestTime;

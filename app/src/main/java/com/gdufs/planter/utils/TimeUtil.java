@@ -9,9 +9,14 @@ import java.util.Date;
  */
 public class TimeUtil {
 
+    private static String TAG = TimeUtil.class.getSimpleName();
+
     public static final String CHN_PATTERN_YMD_HMS = "yyyy年MM月dd日 HH时mm分ss秒";
     public static final String CHN_PATTERN_YMD_HM = "yyyy年MM月dd日 HH时mm分";
+    public static final String ENG_PATTERN_YMD_HMS = "yyyy/MM/dd HH:mm:ss";
     public static final String ENG_PATTERN_MS = "mm:ss";
+    public static final String ENG_PATTERN_YMD = "yyyy/MM/dd";
+    public static final String ENG_PATTERN_YMD_CONTACT = "yyyyMMdd";
 
 
     public static final int ONE_SECOND_MILLIS = 1000; // 表示1秒长度的毫秒数
@@ -22,6 +27,45 @@ public class TimeUtil {
         String timeStr = formatter.format(date);
         System.out.println("time: " + timeStr);
         return timeStr;
+    }
+
+    public static String getCurrentTimeInENGFormat(){
+        Date date = new Date();
+        String dateStr = timeToStr(date, TimeUtil.ENG_PATTERN_YMD_HMS);
+        return dateStr;
+    }
+
+    public static int durationStrToMilliSeconds(String duration){
+        String[] durations = duration.split(":");
+        int total = 0;
+        if(durations.length > 1){
+            int min = Integer.parseInt(durations[0]);
+            int second = Integer.parseInt(durations[1]);
+            int minToMilli = minutesToMilliSeconds(min);
+            int secToMilli = secondsToMilliSeconds(second);
+            LogUtil.e(TAG, "minutes: " + minToMilli + ", seconds: " + secToMilli);
+            total = minToMilli + secToMilli;
+        }
+
+        LogUtil.e(TAG, "total: " + total);
+        return total;
+
+    }
+
+    private static int minutesToMilliSeconds(int minutes){
+        if(minutes > 0){
+            return minutes * secondsToMilliSeconds(60);
+        }
+
+        return 0;
+    }
+
+    private static int secondsToMilliSeconds(int seconds){
+        if(seconds >= 0){
+            return seconds * 1000;
+        }
+
+        return 0;
     }
 
 
@@ -42,7 +86,7 @@ public class TimeUtil {
 
     /**
      *
-     * @param 要转换的毫秒数
+     *
      * @return 该毫秒数转换为 * days * hours * minutes * seconds 后的格式
      * @author fy.zhang
      */

@@ -49,12 +49,21 @@ public class InteractionPresenter extends ModuleBasePresenter{
 
 
     @Override
-    public List<BaseViewModel> readAllViewModelToList(String moduleFileName) {
-        List<BaseViewModel> modelList = PersistenceManager.getInstance().findAllViewModel(Resource.MODULE_COURSE_ATTENDANCE);
+    public List<BaseViewModel> readAllViewModelToList(String courseId) {
+        List<BaseViewModel> attendanceViewModelList = PersistenceManager.getInstance().findViewModelByCustomId(courseId, Resource.MODULE_COURSE_ATTENDANCE);
+        List<BaseViewModel> attentionViewModelList = PersistenceManager.getInstance().findViewModelByCustomId(courseId, Resource.MODULE_COURSE_ATTENTION);
+        List<BaseViewModel> modelList = new LinkedList<>();
+        modelList.addAll(attendanceViewModelList);
+        modelList.addAll(attentionViewModelList);
         List<BaseViewModel> sortList = PersistenceManager.getInstance().sort(modelList, true);
         for(int i=0;i<sortList.size();i++){
             BaseViewModel model = sortList.get(i);
-            LogUtil.e(TAG, ((AttendanceViewModel) model).getmAttendanceTime());
+            if(model.getmModuleId() == Resource.MODULE_COURSE_ATTENDANCE){
+                LogUtil.e(TAG, "attendanceTime: " + ((AttendanceViewModel) model).getmAttendanceTime());
+            } else if(model.getmModuleId() == Resource.MODULE_COURSE_ATTENTION){
+                LogUtil.e(TAG, "attentionTime: " + ((AttentionViewModel) model).getmAttentionTime());
+            }
+
         }
         return sortList;
     }

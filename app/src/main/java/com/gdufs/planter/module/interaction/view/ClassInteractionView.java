@@ -2,11 +2,13 @@ package com.gdufs.planter.module.interaction.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.gdufs.planter.FocusActivity;
 import com.gdufs.planter.R;
 import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.ModuleBaseView;
@@ -18,6 +20,7 @@ import com.gdufs.planter.module.attendance.widget.AttendanceCodeDialog;
 import com.gdufs.planter.module.attention.model.AttentionViewModel;
 import com.gdufs.planter.module.attention.presenter.AttentionPresenter;
 import com.gdufs.planter.module.interaction.presenter.InteractionPresenter;
+import com.gdufs.planter.utils.CommonUtil;
 import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.widget.UniversalListView;
 
@@ -29,9 +32,7 @@ import java.util.List;
 
 public class ClassInteractionView implements ModuleBaseView {
 
-//    AttendancePresenter mAttendancePresenter;
-    UniversalListView mListView;
-//    List<InteractionItemView> mItemViewList;
+    private UniversalListView mListView;
     private AttendanceCodeDialog mDialog;
 
     private static final String TAG = ClassInteractionView.class.getSimpleName();
@@ -58,26 +59,57 @@ public class ClassInteractionView implements ModuleBaseView {
             mListView.getAdapter().addData(list);
         }
     }
-//    public void addViewData(AttendanceViewModel model){
-//        mListView.getAdapter().addData(model);
-//        View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_interaction_item, null);
-//        InteractionItemView itemView = new InteractionItemView(view, mActivity);
-//        itemView.setViews(Resource.MODULE_COURSE_ATTENDANCE);
-//        mItemViewList.add(itemView);
-//    }
 
-//    public void addListViewData(List<AttendanceViewModel> modelList){
-//        mListView.getAdapter().addData(modelList);
-//        if(modelList != null){
-//            for(int i=0;i<modelList.size();i++){
-//                View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_interaction_item, null);
-//                InteractionItemView itemView = new InteractionItemView(view, mActivity);
-//                itemView.setViews(Resource.MODULE_COURSE_ATTENDANCE);
-//                mItemViewList.add(itemView);
-//            }
-//        }
-//    }
+    private void onAttendanceItemClick(BaseViewModel model){
+        AttendanceViewModel viewModel = (AttendanceViewModel) model;
+        int status = viewModel.getmAttendanceStatus();
+        if(status == Resource.ATTENDANCE.ATTENDANCE_STATUS_DEFAULT){
+            showDialog();
+            return;
+        }
+        showAttendanceTipsByStatus(status, viewModel.getmAttendanceBonusNum());
+    }
 
+    private void onAttentionItemClick(BaseViewModel model){
+        AttentionViewModel viewModel = (AttentionViewModel) model;
+        int status = viewModel.getmAttentionStatus();
+        if(status == Resource.ATTENTION.ATTENTION_STATUS_DEFAULT){
+            AttentionViewModel attentionViewModel = (AttentionViewModel) model;
+            Intent intent = new Intent(mActivity, FocusActivity.class);
+            intent.putExtra(Resource.MODULE_COURSE_ATTENTION_NAME, attentionViewModel);
+            LogUtil.e(TAG, "onAttentionItemClick");
+            mActivity.startActivity(intent);
+            return;
+        }
+
+        showAttentionTipsByStatus(status);
+
+    }
+
+    private void showAttentionTipsByStatus(int status) {
+        switch (status){
+            case Resource.ATTENTION.ATTENTION_STATUS_SUCCESS:{
+                Toast.makeText(mActivity, "该专注已成功！", Toast.LENGTH_SHORT).show();
+            }
+            break;
+            case Resource.ATTENTION.ATTENTION_STATUS_FAIL:{
+                Toast.makeText(mActivity, "该专注已失败", Toast.LENGTH_SHORT).show();
+            }
+            break;
+            case Resource.ATTENTION.ATTENTION_STATUS_NOT_IN_TIME:{
+                Toast.makeText(mActivity, "不在专注时间", Toast.LENGTH_SHORT).show();
+            }
+            break;
+            case Resource.ATTENTION.ATTENTION_STATUS_NOT_PAY_ATTENTION:{
+                Toast.makeText(mActivity, "未参与本次专注", Toast.LENGTH_SHORT).show();
+            }
+            break;
+            case Resource.ATTENTION.ATTENTION_STATUS_DEFAULT:{
+            }
+            break;
+
+        }
+    }
 
 
     private void initViews(){
@@ -90,7 +122,7 @@ public class ClassInteractionView implements ModuleBaseView {
             public RecyclerView.ViewHolder createItemViewHolder(Context context) {
                 final View view = LayoutInflater.from(context).inflate(R.layout.layout_interaction_item, null);
                 final InteractionItemView mItemView = new InteractionItemView(view, mActivity);
-                mItemView.setAttendanceListener(new InteractionItemView.OnRequestClickListener() {
+                mItemView.setOnRequestClickListener(new InteractionItemView.OnRequestClickListener() {
                     @Override
                     public void onRequestClick() {
                         pos = mItemView.getAdapterPosition();
@@ -100,17 +132,13 @@ public class ClassInteractionView implements ModuleBaseView {
                             int module = model.getmModuleId();
                             switch (module){
                                 case Resource.MODULE_COURSE_ATTENDANCE:{
-                                    AttendanceViewModel viewModel = (AttendanceViewModel) model;
-                                    int status = viewModel.getmAttendanceStatus();
-                                    if(status == Resource.ATTENDANCE.ATTENDANCE_STATUS_DEFAULT){
-                                        showDialog();
-                                        return;
-                                    }
-                                    showTipsByStatus(status, viewModel.getmAttendanceBonusNum());
+                                    onAttendanceItemClick(model);
                                 }
                                 break;
                                 case Resource.MODULE_COURSE_ATTENTION:{
-
+                                    AttentionViewModel viewModel = (AttentionViewModel) model;
+                                    LogUtil.e(TAG, "viewModel AttentionType: " + viewModel.getmAttentionType());
+                                    onAttentionItemClick(model);
                                 }
                                 break;
                             }
@@ -118,8 +146,6 @@ public class ClassInteractionView implements ModuleBaseView {
 
                     }
                 });
-
-//                mItemViewList.add(mItemView);
                 return mItemView;
             }
 
@@ -142,11 +168,7 @@ public class ClassInteractionView implements ModuleBaseView {
             @Override
             public void submit(String code) {
                 AttendanceViewModel model = (AttendanceViewModel) mListView.getAdapter().getData().get(pos);
-                AttendancePresenter.getInstance().sendAttendanceCode(model);
-
-//                if(mAttendancePresenter != null){
-//                    mAttendancePresenter.sendAttendanceCode(code);
-//                }
+                AttendancePresenter.getInstance().sendAttendanceCode(model, mActivity);
             }
 
         });
@@ -174,7 +196,7 @@ public class ClassInteractionView implements ModuleBaseView {
 
     }
 
-    private void showTipsByStatus(int status, int bonusNum){
+    private void showAttendanceTipsByStatus(int status, int bonusNum){
         switch (status) {
             case Resource.ATTENDANCE.ATTENDANCE_STATUS_SUCCESS:{
                 Toast.makeText(mActivity, "已经考勤！", Toast.LENGTH_SHORT).show();
@@ -212,13 +234,6 @@ public class ClassInteractionView implements ModuleBaseView {
             BaseViewModel model = (BaseViewModel) response.getData();
             dismissDialog();
             update(model);
-//            AttendanceInfo info = (AttendanceInfo) response.getData();
-//            if(info != null) {
-//                int status = info.getmAttendanceStatus();
-//                Log.e("ppp", "status: " + status);
-//                int bonus = info.getmAttendanceBonusNum();
-//                showTipsByStatus(status, bonus);
-//            }
         }
 
     }
@@ -229,64 +244,18 @@ public class ClassInteractionView implements ModuleBaseView {
     }
 
     public void onReceiveAttendanceStatus(int status) {
-        showTipsByStatus(status, 0);
-    }
-
-    private void modifyViewListData(List<BaseViewModel> list, BaseViewModel model, int pos){
-        int module = model.getmModuleId();
-        switch (module){
-            case Resource.MODULE_COURSE_ATTENDANCE:{
-                AttendanceViewModel viewModel = (AttendanceViewModel) model;
-                if(viewModel.getmAttendanceStatus() == Resource.ATTENDANCE.ATTENDANCE_STATUS_SUCCESS){
-                    ((AttendanceViewModel) list.get(pos)).setmAttendanceStatus(Resource.ATTENDANCE.ATTENDANCE_STATUS_ALREADY_CHECK_SUCCESS);
-                } else {
-                    ((AttendanceViewModel) list.get(pos)).setmAttendanceStatus(viewModel.getmAttendanceStatus());
-                }
-
-
-
-//                ((AttendanceViewModel)list.get(pos)).setmAttendanceStatus(viewModel.getmAttendanceStatus());
-            }
-            break;
-            case Resource.MODULE_COURSE_ATTENTION:{}break;
-        }
+        showAttendanceTipsByStatus(status, 0);
     }
 
     private List<BaseViewModel> getViewModelListFromDB(){
-        return InteractionPresenter.getInstance().readAllViewModelToList(Resource.MODULE_COURSE_INTERACTION_NAME);
+        return InteractionPresenter.getInstance().readAllViewModelToList(CommonUtil.getCurrentSelectedCourseId(mActivity));
     }
 
     @Override
     public void update(BaseViewModel model) {
-//        dismissDialog();
-        if(model == null){
-            return;
-        }
-
-        int moduleId = model.getmModuleId();
-        switch (moduleId){
-            case Resource.MODULE_COURSE_ATTENDANCE:{
-                AttendanceViewModel viewModel = (AttendanceViewModel) model;
-                mListView.getAdapter().clearData();
-                mListView.getAdapter().addData(getViewModelListFromDB());
-//                if(viewModel.getmDataFrom() == Resource.DATA_FROM.DATA_FROM_PUSH){
-//                    mListView.getAdapter().addData(viewModel);
-//                } else if(viewModel.getmDataFrom() == Resource.DATA_FROM.DATA_FROM_REQUEST){
-//                    mListView.getAdapter().addData(viewModel);
-//                }
-//                InteractionPresenter.getInstance().addDataToFile(viewModel);
-
-//                InteractionPresenter.getInstance().modifyData(pos, viewModel);
-//                InteractionPresenter.getInstance().addDataToFile(viewModel);
-//                modifyViewListData(mListView.getAdapter().getData(), viewModel, pos);
-
-            }
-            break;
-            case Resource.MODULE_COURSE_ATTENTION:{
-                AttentionViewModel viewModel = (AttentionViewModel) model;
-                mListView.getAdapter().addData(viewModel);
-            }
-            break;
+        if(mListView != null){
+            mListView.getAdapter().clearData();
+            mListView.getAdapter().addData(getViewModelListFromDB());
         }
 
     }

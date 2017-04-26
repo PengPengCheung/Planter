@@ -59,7 +59,7 @@ public class PlanterDetailView implements ModuleBaseView {
         Intent intent = mActivity.getIntent();
         if(intent != null){
             String courseId = intent.getStringExtra(Resource.KEY.KEY_COURSE_ID);
-            LogUtil.e(TAG, "getCourseId: " + courseId);
+            LogUtil.e(TAG, "getmCourseId: " + courseId);
             if(courseId != null && !TextUtils.isEmpty(courseId)){
                 List<BaseViewDBModel> models = getModelData(courseId);
                 if(models != null){

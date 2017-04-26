@@ -112,6 +112,7 @@ public class UniversalListView {
             }
         });//实现onRefresh方法，进行刷新
 
+        mSwipeRefreshWidget.setEnabled(false);
 
         mRecyclerView.setHasFixedSize(true);
 
@@ -199,6 +200,12 @@ public class UniversalListView {
             }
         }
     };
+
+    public void setRefreshEnabled(boolean enabled){
+        if(mSwipeRefreshWidget != null){
+            mSwipeRefreshWidget.setEnabled(enabled);
+        }
+    }
 
     public void showProgress(boolean show){
         mSwipeRefreshWidget.setRefreshing(show);

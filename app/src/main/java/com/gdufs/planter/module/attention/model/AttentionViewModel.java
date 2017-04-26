@@ -1,5 +1,7 @@
 package com.gdufs.planter.module.attention.model;
 
+import android.os.Parcelable;
+
 import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.Resource;
 import com.google.gson.annotations.SerializedName;
@@ -12,11 +14,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * Created by peng on 2017/3/20.
  */
 
-@Entity
 public class AttentionViewModel extends BaseViewModel {
-
-    @Id
-    private Long id;
 
     @SerializedName(Resource.KEY.KEY_ATTENTION_ID)
     private String mAttentionId;
@@ -36,34 +34,40 @@ public class AttentionViewModel extends BaseViewModel {
     @SerializedName(Resource.KEY.KEY_ATTENTION_BONUS_NUM)
     private int mAttentionBonusNum;
 
+    @SerializedName(Resource.KEY.KEY_BONUS_TYPE)
+    private int mAttentionBonusType;
+
     @SerializedName(Resource.KEY.KEY_ATTENTION_STATUS)
     private int mAttentionStatus;
 
-    @Generated(hash = 2014470970)
-    public AttentionViewModel(Long id, String mAttentionId, String mAttentionTime,
-            String mAttentionDuration, int mAttentionFocusCount,
-            int mAttentionLostFocusCount, int mAttentionBonusNum,
-            int mAttentionStatus) {
-        this.id = id;
-        this.mAttentionId = mAttentionId;
-        this.mAttentionTime = mAttentionTime;
-        this.mAttentionDuration = mAttentionDuration;
-        this.mAttentionFocusCount = mAttentionFocusCount;
-        this.mAttentionLostFocusCount = mAttentionLostFocusCount;
-        this.mAttentionBonusNum = mAttentionBonusNum;
-        this.mAttentionStatus = mAttentionStatus;
+    @SerializedName(Resource.KEY.KEY_CLASS_OPEN_ID)
+    private String mOpenClassId;
+
+    @SerializedName(Resource.KEY.KEY_ATTENTION_TYPE)
+    private int mAttentionType;
+
+    public int getmAttentionType() {
+        return mAttentionType;
     }
 
-    @Generated(hash = 1997872258)
-    public AttentionViewModel() {
+    public void setmAttentionType(int mAttentionType) {
+        this.mAttentionType = mAttentionType;
     }
 
-    public Long getId() {
-        return id;
+    public String getmOpenClassId() {
+        return mOpenClassId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setmOpenClassId(String mOpenClassId) {
+        this.mOpenClassId = mOpenClassId;
+    }
+
+    public int getmAttentionBonusType() {
+        return mAttentionBonusType;
+    }
+
+    public void setmAttentionBonusType(int mAttentionBonusType) {
+        this.mAttentionBonusType = mAttentionBonusType;
     }
 
     public String getmAttentionId() {

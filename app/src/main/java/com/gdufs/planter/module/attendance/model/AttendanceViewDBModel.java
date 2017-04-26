@@ -58,13 +58,23 @@ public class AttendanceViewDBModel extends BaseViewDBModel {
     @SerializedName(Resource.KEY.KEY_ATTENDANCE_STATUS)
     private int mAttendanceStatus;
 
+    @SerializedName(Resource.KEY.KEY_CLASS_OPEN_ID)
+    private String mOpenClassId;
 
-    @Generated(hash = 1695644791)
+    public String getmOpenClassId() {
+        return mOpenClassId;
+    }
+
+    public void setmOpenClassId(String mOpenClassId) {
+        this.mOpenClassId = mOpenClassId;
+    }
+
+    @Generated(hash = 1238475659)
     public AttendanceViewDBModel(Long id, int mDataFrom, String mCourseId, int mModuleId,
             int mActionId, String mTeacherId, String mStudentId, String attendanceId,
             String mAttendanceTime, int mAttendanceCount, int mAbsenceCount,
             String mAttendanceValidDuration, int mAttendanceBonusNum, String mAttendanceCode,
-            int mAttendanceStatus) {
+            int mAttendanceStatus, String mOpenClassId) {
         this.id = id;
         this.mDataFrom = mDataFrom;
         this.mCourseId = mCourseId;
@@ -80,6 +90,7 @@ public class AttendanceViewDBModel extends BaseViewDBModel {
         this.mAttendanceBonusNum = mAttendanceBonusNum;
         this.mAttendanceCode = mAttendanceCode;
         this.mAttendanceStatus = mAttendanceStatus;
+        this.mOpenClassId = mOpenClassId;
     }
 
     @Generated(hash = 1090463366)
@@ -313,6 +324,14 @@ public class AttendanceViewDBModel extends BaseViewDBModel {
 
     public void setMDataFrom(int mDataFrom) {
         this.mDataFrom = mDataFrom;
+    }
+
+    public String getMOpenClassId() {
+        return this.mOpenClassId;
+    }
+
+    public void setMOpenClassId(String mOpenClassId) {
+        this.mOpenClassId = mOpenClassId;
     }
 
 }

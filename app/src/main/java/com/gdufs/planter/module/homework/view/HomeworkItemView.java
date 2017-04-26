@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.gdufs.planter.R;
 import com.gdufs.planter.common.Resource;
-import com.gdufs.planter.module.homework.mode.HomeworkViewModel;
+import com.gdufs.planter.module.homework.model.HomeworkViewModel;
 import com.gdufs.planter.widget.ItemViewHolder;
 
 import me.drakeet.materialdialog.MaterialDialog;

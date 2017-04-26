@@ -15,8 +15,11 @@ import com.gdufs.planter.common.ModuleBaseView;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attention.model.AttentionViewModel;
 import com.gdufs.planter.module.attention.presenter.AttentionPresenter;
+import com.gdufs.planter.utils.CommonUtil;
 import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.widget.UniversalListView;
+
+import java.util.List;
 
 /**
  * Created by peng on 2017/3/20.
@@ -27,8 +30,10 @@ public class AttentionView implements ModuleBaseView{
     private static String TAG = AttentionView.class.getSimpleName();
 
     UniversalListView mView;
+    private Activity mActivity;
 
     public AttentionView(Activity activity, LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        mActivity = activity;
         mView = new UniversalListView(activity, inflater, container, savedInstanceState);
         initParams();
         setListeners();
@@ -62,20 +67,32 @@ public class AttentionView implements ModuleBaseView{
 
     public void initParams(){
         AttentionPresenter.getInstance().registerView(this);
-        mView.getAdapter().addData(AttentionPresenter.getInstance().readAllViewModelToList(Resource.MODULE_COURSE_ATTENTION_NAME));
+        mView.getAdapter().clearData();
+        mView.getAdapter().addData(getViewModelDataList());
         LogUtil.e(TAG, "initParams");
+    }
+
+    private List<BaseViewModel> getViewModelDataList(){
+        return AttentionPresenter.getInstance().readAllViewModelToList(CommonUtil.getCurrentSelectedCourseId(mActivity));
     }
 
     @Override
     public void update(BaseViewModel model) {
-        AttentionViewModel itemViewModel = (AttentionViewModel) model;
-        mView.getAdapter().addData(0, itemViewModel);
-        LogUtil.e(TAG, "update Attention View");
+
+        if(mView != null){
+            mView.getAdapter().clearData();
+            mView.getAdapter().addData(getViewModelDataList());
+        }
+
+//        AttentionViewModel itemViewModel = (AttentionViewModel) model;
+//        mView.getAdapter().addData(0, itemViewModel);
+//        LogUtil.e(TAG, "update Attention View");
     }
 
     @Override
     public void onResponseSuccess(DataResponse response) {
-
+        LogUtil.e(TAG, "onResponseSuccess");
+        update(new BaseViewModel());
     }
 
     @Override

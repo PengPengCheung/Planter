@@ -8,27 +8,32 @@
     android:gravity="center">
 
     <TextView
+        android:id="@+id/tv_title_bar_planter"
         android:text="Planter"
         android:gravity="center"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
 
-    <!--<android.support.v7.widget.AppCompatSpinner-->
-        <!--android:id="@+id/sp_title_bar"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:entries="@array/spingarr"/>-->
+    <TextView
+        android:id="@+id/tv_title_course_selector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sn_18sp"
+        android:background="@drawable/shape_title_bar_spinner"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:text="请选择课程"/>
 
     <Spinner
         android:id="@+id/sp_title_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_title_bar_spinner"
+        android:visibility="gone"
         android:entries="@array/spingarr">
 
     </Spinner>

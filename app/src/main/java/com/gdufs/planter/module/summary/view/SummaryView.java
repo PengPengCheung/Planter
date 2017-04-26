@@ -10,12 +10,13 @@ import com.gdufs.planter.R;
 import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.DataResponse;
 import com.gdufs.planter.common.ModuleBaseView;
-import com.gdufs.planter.common.Resource;
-import com.gdufs.planter.module.summary.SummaryItemView;
 import com.gdufs.planter.module.summary.model.SummaryViewModel;
 import com.gdufs.planter.module.summary.presenter.SummaryPresenter;
-import com.gdufs.planter.utils.LogUtil;
+import com.gdufs.planter.utils.CommonUtil;
+import com.gdufs.planter.widget.LoadingDialog;
 import com.gdufs.planter.widget.UniversalListView;
+
+import java.util.List;
 
 /**
  * Created by peng on 2017/3/20.
@@ -27,11 +28,13 @@ public class SummaryView implements ModuleBaseView{
 
     UniversalListView mListView;
     Activity mActivity;
+    private LoadingDialog mLoadingDialog;
 
     public SummaryView(Activity activity){
         mActivity = activity;
         View view = LayoutInflater.from(activity).inflate(R.layout.widget_recycler_view, null);
         mListView = new UniversalListView(activity, view);
+        mLoadingDialog = new LoadingDialog(mActivity);
         initParams();
         setListeners();
 
@@ -65,22 +68,44 @@ public class SummaryView implements ModuleBaseView{
 
     private void initParams(){
         SummaryPresenter.getInstance().registerView(this);
-        mListView.getAdapter().addData(SummaryPresenter.getInstance().readAllViewModelToList(Resource.MODULE_COURSE_SUMMARY_NAME));
+        if(mListView != null){
+            mListView.getAdapter().clearData();
+            mListView.getAdapter().addData(getViewModelDataList());
+        }
     }
 
     public View getUniversalView(){
         return mListView.getUniversalListView();
     }
 
+    private List<BaseViewModel> getViewModelDataList(){
+        return SummaryPresenter.getInstance().readAllViewModelToList(CommonUtil.getCurrentSelectedCourseId(mActivity));
+    }
+
     @Override
     public void update(BaseViewModel model) {
-        SummaryViewModel model1 = (SummaryViewModel) model;
-        LogUtil.e(TAG, "summary bonus: " + model1.getmSummaryBonusNum());
-        mListView.getAdapter().addData(model);
+        dismissLoadingDialog();
+        if(mListView != null){
+            mListView.getAdapter().clearData();
+            mListView.getAdapter().addData(getViewModelDataList());
+        }
+
+
+//        SummaryViewModel model1 = (SummaryViewModel) model;
+//        LogUtil.e(TAG, "summary bonus: " + model1.getmSummaryBonusNum());
+//        mListView.getAdapter().addData(model);
+    }
+
+    private void dismissLoadingDialog(){
+        if(mLoadingDialog != null){
+            mLoadingDialog.dismiss();
+        }
     }
 
     @Override
     public void onResponseSuccess(DataResponse response) {
+//        dismissLoadingDialog();
+        update(new BaseViewModel());
 
     }
 
@@ -92,10 +117,18 @@ public class SummaryView implements ModuleBaseView{
     public void setItemViewListener(SummaryItemView itemView, int pos) {
         // 默认只能填写最新的反馈
 //        if(pos != 0){
+        if(mListView == null || itemView == null){
+            return;
+        }
+
+        final SummaryViewModel viewModel = (SummaryViewModel) mListView.getAdapter().getData().get(pos);
             itemView.setOnSendSummaryListener(new SummaryItemView.OnSendSummaryListener() {
                 @Override
                 public void sendSummary(String summary) {
-                    SummaryPresenter.getInstance().sendSummary(summary, mActivity);
+                    if(mLoadingDialog != null){
+                        mLoadingDialog.show();
+                    }
+                    SummaryPresenter.getInstance().sendSummary(summary, viewModel.getmSummaryId(), mActivity);
                 }
             });
 //        }

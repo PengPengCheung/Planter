@@ -1,5 +1,7 @@
 package com.gdufs.planter.module.planter.presenter;
 
+import android.content.Context;
+
 import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.DataResponse;
 import com.gdufs.planter.common.ModuleBasePresenter;
@@ -11,6 +13,7 @@ import com.gdufs.planter.module.planter.model.PlanterViewModel;
 import com.gdufs.planter.utils.JsonUtil;
 import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.utils.NetworkUtil;
+import com.gdufs.planter.utils.PreferenceHelper;
 import com.gdufs.planter.utils.ResultCallback;
 
 import java.util.HashMap;
@@ -64,11 +67,11 @@ public class PlanterMainPresenter extends ModuleBasePresenter {
     }
 
 
-    public void sendCourseCode(String courseCode){
+    public void sendCourseCode(String courseCode, Context context){
 
         Map<String, Object> params = new HashMap<>();
         params.put(Resource.KEY.KEY_STU_COURSE_CODE, courseCode);
-//        params.put(Resource.KEY.KEY_STUDENT_ID, );
+        params.put(Resource.KEY.KEY_STUDENT_ID, PreferenceHelper.getInstance(context).getString(Resource.KEY.KEY_STUDENT_ID, ""));
         NetworkUtil.post(Resource.PlanterURL.PLANTER_ADD_COURSE, params, new ResultCallback<String>() {
 
             @Override
@@ -78,10 +81,14 @@ public class PlanterMainPresenter extends ModuleBasePresenter {
                 DataResponse<PlanterViewModel> dataResponse = ResponseDataConverter.convertToPlanterViewModel(response);
 
                 if(dataResponse != null){
-                    PlanterDataManager.getInstance().storeNewCourse(dataResponse.getData());
-                    responseAllViewIfSuccess(dataResponse);
+                    if(dataResponse.getData() != null && dataResponse.getData().getmCourseId() != null){
+                        PlanterDataManager.getInstance().storeNewCourse(dataResponse.getData());
+                        responseAllViewIfSuccess(dataResponse);
+                        return;
+                    }
                 }
 
+                responseAllViewIfFailure(new Exception());
 
             }
 

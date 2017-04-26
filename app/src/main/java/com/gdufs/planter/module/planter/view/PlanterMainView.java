@@ -22,6 +22,7 @@ import com.gdufs.planter.module.planter.PlanterDataManager;
 import com.gdufs.planter.module.planter.PlanterViewSignal;
 import com.gdufs.planter.module.planter.presenter.PlanterMainPresenter;
 import com.gdufs.planter.module.planter.model.PlanterViewModel;
+import com.gdufs.planter.widget.LoadingDialog;
 import com.gdufs.planter.widget.MaterialDialog;
 import com.gdufs.planter.widget.RecyclerViewAdapter;
 import com.gdufs.planter.widget.UniversalListView;
@@ -39,6 +40,8 @@ public class PlanterMainView implements ModuleBaseView{
     private MaterialDialog mDialog;
 
     private Activity mActivity;
+
+    private LoadingDialog mLoadingDialog;
 
     public PlanterMainView(Activity activity, LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         mActivity = activity;
@@ -67,9 +70,12 @@ public class PlanterMainView implements ModuleBaseView{
                                     Toast.makeText(mActivity, "请输入课程码", Toast.LENGTH_SHORT).show();
                                 }
 
+                                editCourseCodeInput.setText("");
                             }
                         });
         mDialog.setCanceledOnTouchOutside(true);
+
+        mLoadingDialog = new LoadingDialog(mActivity);
     }
 
     private void setItemViewListener(PlanterMainItemView itemView, final PlanterViewModel model){
@@ -143,8 +149,21 @@ public class PlanterMainView implements ModuleBaseView{
         });
     }
 
+    public void showLoadingDialog(){
+        if(mLoadingDialog != null){
+            mLoadingDialog.show();
+        }
+    }
+
+    public void dismissLoadingDialog(){
+        if(mLoadingDialog != null){
+            mLoadingDialog.dismiss();
+        }
+    }
+
     private void sendCourseCode(String courseCode){
-        PlanterMainPresenter.getInstance().sendCourseCode(courseCode);
+        showLoadingDialog();
+        PlanterMainPresenter.getInstance().sendCourseCode(courseCode, mActivity);
     }
 
     private void initParams(){
@@ -179,6 +198,8 @@ public class PlanterMainView implements ModuleBaseView{
 
     @Override
     public void update(BaseViewModel model) {
+        dismissDialog();
+        dismissLoadingDialog();
         if(mListView != null){
             mListView.getAdapter().clearData();
             mListView.getAdapter().addData(readModelDataList());
@@ -188,11 +209,14 @@ public class PlanterMainView implements ModuleBaseView{
     @Override
     public void onResponseSuccess(DataResponse response) {
         update((PlanterViewModel)response.getData());
-        dismissDialog();
+
     }
 
     @Override
     public void onResponseFailure(Exception e) {
         dismissDialog();
+        dismissLoadingDialog();
+        Toast.makeText(mActivity, "已添加该课程", Toast.LENGTH_SHORT).show();
+
     }
 }

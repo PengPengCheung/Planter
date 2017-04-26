@@ -11,12 +11,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.gdufs.planter.common.Resource;
+import com.gdufs.planter.utils.LogUtil;
+import com.gdufs.planter.utils.PreferenceHelper;
 
 /**
  * Created by peng on 2017/3/23.
  */
 
 public class LaunchActivity extends AppCompatActivity {
+
+    private static final String TAG = LaunchActivity.class.getSimpleName();
 
     private EditText mEditName;
     private EditText mEditNum;
@@ -31,9 +35,22 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_launch);
-        initView();
-        setListeners();
+        boolean isSignUp = checkIfSignUp();
+        if(!isSignUp){
+            setContentView(R.layout.activity_launch);
+            initView();
+            setListeners();
+        } else {
+            jumpToPlanterMainActivity(null);
+        }
+
+    }
+
+    private boolean checkIfSignUp() {
+        boolean isSignUp = PreferenceHelper.getInstance(this).contains(Resource.KEY.KEY_STUDENT_ID);
+        LogUtil.e(TAG, "isSignUp: " + isSignUp);
+        return isSignUp;
+//        return false;
     }
 
     private void initView() {
@@ -85,11 +102,17 @@ public class LaunchActivity extends AppCompatActivity {
                 bundle.putString(Resource.KEY.KEY_STU_NAME, mName);
                 bundle.putString(Resource.KEY.KEY_STU_PASSWORD, mPassword);
                 bundle.putString(Resource.KEY.KEY_STU_COURSE_CODE, mCourseCode);
-                Intent intent = new Intent(LaunchActivity.this, PlanterMainActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                LaunchActivity.this.finish();
+                jumpToPlanterMainActivity(bundle);
             }
         });
+    }
+
+    private void jumpToPlanterMainActivity(Bundle bundle){
+        Intent intent = new Intent(LaunchActivity.this, PlanterMainActivity.class);
+        if(bundle != null){
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+        LaunchActivity.this.finish();
     }
 }

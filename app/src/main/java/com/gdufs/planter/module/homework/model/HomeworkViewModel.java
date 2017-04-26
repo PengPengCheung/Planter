@@ -1,4 +1,4 @@
-package com.gdufs.planter.module.homework.mode;
+package com.gdufs.planter.module.homework.model;
 
 import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.Resource;
@@ -36,6 +36,17 @@ public class HomeworkViewModel extends BaseViewModel {
 
     @SerializedName(Resource.KEY.KEY_HOMEWORK_CONTENT)
     private String mHomeworkContent;
+
+    @SerializedName(Resource.KEY.KEY_HOMEWORK_ID)
+    private String mHomeworkId;
+
+    public String getmHomeworkId() {
+        return mHomeworkId;
+    }
+
+    public void setmHomeworkId(String mHomeworkId) {
+        this.mHomeworkId = mHomeworkId;
+    }
 
     public String getmHomeworkTitle() {
         return mHomeworkTitle;

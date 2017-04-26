@@ -6,9 +6,11 @@ import com.gdufs.planter.common.ModuleBasePresenter;
 import com.gdufs.planter.common.PersistenceManager;
 import com.gdufs.planter.common.Resource;
 import com.gdufs.planter.module.attendance.model.AttendanceViewModel;
+import com.gdufs.planter.module.attention.model.AttentionViewModel;
 import com.gdufs.planter.module.planter.model.PlanterDetailViewDBModel;
 import com.gdufs.planter.module.planter.model.PlanterViewDBModel;
 import com.gdufs.planter.module.planter.model.PlanterViewModel;
+import com.gdufs.planter.module.summary.model.SummaryViewModel;
 import com.gdufs.planter.utils.CommonUtil;
 import com.gdufs.planter.utils.LogUtil;
 
@@ -228,6 +230,20 @@ public class PlanterDataManager {
                 changeBonusNumByBonusType(100, Resource.BONUS_TYPE.BONUS_WATER, planterViewModel);
                 changeBonusNumByBonusType(100, Resource.BONUS_TYPE.BONUS_SUNSHINE, planterViewModel);
                 changeBonusNumByBonusType(100, Resource.BONUS_TYPE.BONUS_SOIL, planterViewModel);
+            }
+            break;
+            case Resource.MODULE_COURSE_ATTENTION:{
+                AttentionViewModel attentionViewModel = (AttentionViewModel) viewModel;
+                int type = attentionViewModel.getmAttentionBonusType();
+                int bonusNum = attentionViewModel.getmAttentionBonusNum();
+                changeBonusNumByBonusType(bonusNum, type, planterViewModel);
+            }
+            break;
+            case Resource.MODULE_COURSE_SUMMARY:{
+                SummaryViewModel summaryViewModel = (SummaryViewModel) viewModel;
+                int type = summaryViewModel.getmSummaryBonusType();
+                int bonusNum = summaryViewModel.getmSummaryBonusNum();
+                changeBonusNumByBonusType(bonusNum, type, planterViewModel);
             }
             break;
         }

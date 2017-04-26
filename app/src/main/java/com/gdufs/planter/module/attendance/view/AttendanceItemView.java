@@ -55,6 +55,7 @@ public class AttendanceItemView extends ItemViewHolder{
         String attendanceCount = mContext.getResources().getString(R.string.course_attendance_item_attendance_count);
         String attendanceFormatStr = String.format(attendanceCount, model.getmAttendanceCount(), model.getmAbsenceCount());
         mTVCourseAttendanceCount.setText(attendanceFormatStr);
+        mTVCourseAttendanceCount.setVisibility(View.INVISIBLE);
 
         if(status == Resource.ATTENDANCE.ATTENDANCE_STATUS_DEFAULT){
             mTVCourseLimitTime.setText(model.getmAttendanceValidDuration());
