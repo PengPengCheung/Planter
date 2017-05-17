@@ -56,6 +56,7 @@
     <string name="interaction_notification">%1$s通知</string>
     <string name="interaction_type_and_limit">%1$s%2$s</string>
     <string name="interaction_result">%1$s成功</string>
+    <string name="interaction_attention_result">%1$s失败</string>
     <string name="interaction_bonus_num"> * %1$d</string>
 
     <!--分组模块-->

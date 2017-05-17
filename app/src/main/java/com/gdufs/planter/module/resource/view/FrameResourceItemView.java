@@ -1,14 +1,20 @@
 package com.gdufs.planter.module.resource.view;
 
 import android.content.Context;
+import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.daimajia.numberprogressbar.NumberProgressBar;
+import com.daimajia.numberprogressbar.OnProgressBarListener;
 import com.gdufs.planter.R;
 import com.gdufs.planter.module.resource.model.ResourceViewModel;
+import com.gdufs.planter.utils.FileUtil;
 import com.gdufs.planter.utils.LogUtil;
+import com.gdufs.planter.utils.PreferenceHelper;
 import com.gdufs.planter.utils.TimeUtil;
 import com.gdufs.planter.widget.ItemViewHolder;
 
@@ -30,6 +36,7 @@ public class FrameResourceItemView extends ItemViewHolder {
     private TextView mTVResourceUploadTime;
     private TextView mTVDownloadCount;
     private TextView mTVLikeCount;
+    private NumberProgressBar mNumProgressBar;
 
     private OnDownloadListener mDownloadListener;
     private ResourceViewModel resourceViewModel;
@@ -59,11 +66,11 @@ public class FrameResourceItemView extends ItemViewHolder {
         mTVResourceUploadTime = (TextView) itemView.findViewById(R.id.tv_resource_upload_time);
         mTVDownloadCount = (TextView) itemView.findViewById(R.id.tv_resource_download_count);
         mTVLikeCount = (TextView) itemView.findViewById(R.id.tv_resource_like_count);
-
+        mNumProgressBar = (NumberProgressBar) itemView.findViewById(R.id.number_progress_bar);
 
     }
 
-    public void setViews(ResourceViewModel viewModel){
+    public void setViews(final ResourceViewModel viewModel){
         resourceViewModel = viewModel;
         String resourceName = viewModel.getmResourceName();
         mTVResourceName.setText(resourceName);
@@ -83,7 +90,49 @@ public class FrameResourceItemView extends ItemViewHolder {
         String formatLikeCountStr = String.format(likeCountStr, viewModel.getmLikeCount());
         mTVLikeCount.setText(formatLikeCountStr);
 
+        mIVResourceIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = viewModel.getmResourceId();
+                LogUtil.e(TAG, "resourceId: " + id);
+                String filePath = PreferenceHelper.getInstance(mContext).getString(id, "");
+                if(filePath != null && !TextUtils.isEmpty(filePath)){
+                    LogUtil.e(TAG, "filePath: " + filePath);
+                    Intent intent = FileUtil.openFile(filePath);
+                    mContext.startActivity(intent);
+                }
+            }
+        });
+
+//        mNumProgressBar.setOnProgressBarListener(new OnProgressBarListener() {
+//            @Override
+//            public void onProgressChange(int i, int i1) {
+//                updateProgress(i, i1);
+//            }
+//        });
+
     }
+
+//    public void updateProgress(int current, int max){
+//        if(mNumProgressBar != null){
+//            if(current == max){
+//                mNumProgressBar.setProgress(0);
+//                mNumProgressBar.setVisibility(View.GONE);
+//                return;
+//            }
+//
+//            if(current < max){
+//                int progress =  current / max;
+//                mNumProgressBar.setProgress(current);
+//            }
+//        }
+//    }
+//
+//    public void showProgressBar(){
+//        if(mNumProgressBar != null){
+//            mNumProgressBar.setVisibility(View.VISIBLE);
+//        }
+//    }
 
     private TextDrawable getResourceIconDrawable(int colorRes, String showLetters){
         int color = mContext.getResources().getColor(colorRes);

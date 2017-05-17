@@ -17,7 +17,8 @@ public class Resource {
         // http://192.168.1.74:8080
         // http://192.168.235.50:8080
         // http://172.17.198.7:8080
-        private static String HOST_URL = (DEBUG ? "http://172.17.198.7:8080" : "http://118.89.48.183:8080");
+        // http://10.173.40.45:8080
+        private static String HOST_URL = (DEBUG ? "http://10.173.8.165:8080" : "http://118.89.48.183:8080");
         private static String WEB_URL = HOST_URL + "/web";
         private static String MOBILE_URL = HOST_URL + "/mob";
         public static String JSON_TEST_URL = HOST_URL + "/json";

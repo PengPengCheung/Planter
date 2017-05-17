@@ -122,13 +122,13 @@ public class SummaryView implements ModuleBaseView{
         }
 
         final SummaryViewModel viewModel = (SummaryViewModel) mListView.getAdapter().getData().get(pos);
-            itemView.setOnSendSummaryListener(new SummaryItemView.OnSendSummaryListener() {
+        itemView.setOnSendSummaryListener(new SummaryItemView.OnSendSummaryListener() {
                 @Override
                 public void sendSummary(String summary) {
                     if(mLoadingDialog != null){
                         mLoadingDialog.show();
                     }
-                    SummaryPresenter.getInstance().sendSummary(summary, viewModel.getmSummaryId(), mActivity);
+                    SummaryPresenter.getInstance().sendSummary(summary, viewModel.getmSummaryId(), viewModel.getmOpenClassId(), mActivity);
                 }
             });
 //        }

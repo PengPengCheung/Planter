@@ -81,7 +81,7 @@ public class FrameResourceView implements ModuleBaseView {
             @Override
             public void download(String id, String fileName) {
                 showLoadingDialog();
-                ResourcePresenter.getInstance().downloadFile(id, fileName);
+                ResourcePresenter.getInstance().downloadFile(mActivity, id, fileName);
             }
         });
     }
@@ -120,8 +120,13 @@ public class FrameResourceView implements ModuleBaseView {
 //
 //    }
 
+    public void showProgressBar(){
+
+    }
+
     public void updateWhenDownloadSuccess(String filePath){
         dismissLoadingDialog();
+//        PreferenceHelper.getInstance(mActivity).putBoolean(filePath, true);
         requestResourceData();
         String toastTips = "文件已保存至 " + filePath;
         Toast.makeText(mActivity, toastTips, Toast.LENGTH_LONG).show();

@@ -37,6 +37,7 @@ public class SummaryViewDBModelDao extends AbstractDao<SummaryViewDBModel, Long>
         public final static Property MSummaryBonusType = new Property(10, int.class, "mSummaryBonusType", false, "M_SUMMARY_BONUS_TYPE");
         public final static Property MSummaryContent = new Property(11, String.class, "mSummaryContent", false, "M_SUMMARY_CONTENT");
         public final static Property MSummaryStatus = new Property(12, int.class, "mSummaryStatus", false, "M_SUMMARY_STATUS");
+        public final static Property MOpenClassId = new Property(13, String.class, "mOpenClassId", false, "M_OPEN_CLASS_ID");
     }
 
 
@@ -64,7 +65,8 @@ public class SummaryViewDBModelDao extends AbstractDao<SummaryViewDBModel, Long>
                 "\"M_SUMMARY_BONUS_NUM\" INTEGER NOT NULL ," + // 9: mSummaryBonusNum
                 "\"M_SUMMARY_BONUS_TYPE\" INTEGER NOT NULL ," + // 10: mSummaryBonusType
                 "\"M_SUMMARY_CONTENT\" TEXT," + // 11: mSummaryContent
-                "\"M_SUMMARY_STATUS\" INTEGER NOT NULL );"); // 12: mSummaryStatus
+                "\"M_SUMMARY_STATUS\" INTEGER NOT NULL ," + // 12: mSummaryStatus
+                "\"M_OPEN_CLASS_ID\" TEXT);"); // 13: mOpenClassId
     }
 
     /** Drops the underlying database table. */
@@ -117,6 +119,11 @@ public class SummaryViewDBModelDao extends AbstractDao<SummaryViewDBModel, Long>
             stmt.bindString(12, mSummaryContent);
         }
         stmt.bindLong(13, entity.getMSummaryStatus());
+ 
+        String mOpenClassId = entity.getMOpenClassId();
+        if (mOpenClassId != null) {
+            stmt.bindString(14, mOpenClassId);
+        }
     }
 
     @Override
@@ -163,6 +170,11 @@ public class SummaryViewDBModelDao extends AbstractDao<SummaryViewDBModel, Long>
             stmt.bindString(12, mSummaryContent);
         }
         stmt.bindLong(13, entity.getMSummaryStatus());
+ 
+        String mOpenClassId = entity.getMOpenClassId();
+        if (mOpenClassId != null) {
+            stmt.bindString(14, mOpenClassId);
+        }
     }
 
     @Override
@@ -185,7 +197,8 @@ public class SummaryViewDBModelDao extends AbstractDao<SummaryViewDBModel, Long>
             cursor.getInt(offset + 9), // mSummaryBonusNum
             cursor.getInt(offset + 10), // mSummaryBonusType
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // mSummaryContent
-            cursor.getInt(offset + 12) // mSummaryStatus
+            cursor.getInt(offset + 12), // mSummaryStatus
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13) // mOpenClassId
         );
         return entity;
     }
@@ -205,6 +218,7 @@ public class SummaryViewDBModelDao extends AbstractDao<SummaryViewDBModel, Long>
         entity.setMSummaryBonusType(cursor.getInt(offset + 10));
         entity.setMSummaryContent(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setMSummaryStatus(cursor.getInt(offset + 12));
+        entity.setMOpenClassId(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
      }
     
     @Override

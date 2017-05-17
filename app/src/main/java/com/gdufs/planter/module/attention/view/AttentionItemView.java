@@ -55,6 +55,11 @@ public class AttentionItemView extends ItemViewHolder {
         int bonus = model.getmAttentionBonusNum();
         String str = mContext.getResources().getString(R.string.course_attendance_item_bonus_num);
         String bonusStr = String.format(str, bonus);
+
+//        mTVAttentionTipsPrefix.setText(R.string.bonus_signal_minus);
+//        String bs = String.format(str, -bonus);
+//        mTVAttentionBonusNum.setText(bs);
+
         switch (status) {
             case Resource.ATTENTION.ATTENTION_STATUS_SUCCESS:{
                 mTVAttentionTipsPrefix.setText(R.string.bonus_signal_plus);

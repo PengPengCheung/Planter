@@ -1,5 +1,7 @@
 package com.gdufs.planter.module.resource.presenter;
 
+import android.content.Context;
+
 import com.gdufs.planter.common.BaseViewModel;
 import com.gdufs.planter.common.DataResponse;
 import com.gdufs.planter.common.ModuleBasePresenter;
@@ -11,6 +13,7 @@ import com.gdufs.planter.utils.JsonUtil;
 import com.gdufs.planter.utils.LogUtil;
 import com.gdufs.planter.utils.NetworkUtil;
 import com.gdufs.planter.utils.ObjectWriter;
+import com.gdufs.planter.utils.PreferenceHelper;
 import com.gdufs.planter.utils.ResultCallback;
 import com.gdufs.planter.utils.TimeUtil;
 import com.google.gson.reflect.TypeToken;
@@ -123,7 +126,7 @@ public class ResourcePresenter extends ModuleBasePresenter {
 //        testIon(context);
 //    }
 
-    public void downloadFile(String resourceId, String resourceName){
+    public void downloadFile(final Context context, final String resourceId, String resourceName){
 
 
         LogUtil.e(TAG, "downloadFile");
@@ -146,6 +149,7 @@ public class ResourcePresenter extends ModuleBasePresenter {
             @Override
             protected void completed(BaseDownloadTask task) {
                 LogUtil.e(TAG, "download completed.");
+                PreferenceHelper.getInstance(context).putString(resourceId, task.getPath());
                 updateAllViewsWhenDownloadFinished(task.getPath());
             }
 

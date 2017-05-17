@@ -53,11 +53,24 @@ public class SummaryViewDBModel extends BaseViewDBModel{
     @SerializedName(Resource.KEY.KEY_SUMMARY_STATUS)
     private int mSummaryStatus;
 
-    @Generated(hash = 1026195869)
+    @SerializedName(Resource.KEY.KEY_CLASS_OPEN_ID)
+    private String mOpenClassId;
+
+
+    public String getmOpenClassId() {
+        return mOpenClassId;
+    }
+
+    public void setmOpenClassId(String mOpenClassId) {
+        this.mOpenClassId = mOpenClassId;
+    }
+
+    @Generated(hash = 109596238)
     public SummaryViewDBModel(Long id, int mDataFrom, String mCourseId,
             int mModuleId, int mActionId, String mTeacherId, String mStudentId,
             String mSummaryId, String mSummaryRequestTime, int mSummaryBonusNum,
-            int mSummaryBonusType, String mSummaryContent, int mSummaryStatus) {
+            int mSummaryBonusType, String mSummaryContent, int mSummaryStatus,
+            String mOpenClassId) {
         this.id = id;
         this.mDataFrom = mDataFrom;
         this.mCourseId = mCourseId;
@@ -71,6 +84,7 @@ public class SummaryViewDBModel extends BaseViewDBModel{
         this.mSummaryBonusType = mSummaryBonusType;
         this.mSummaryContent = mSummaryContent;
         this.mSummaryStatus = mSummaryStatus;
+        this.mOpenClassId = mOpenClassId;
     }
 
     @Generated(hash = 1978998625)
@@ -275,5 +289,13 @@ public class SummaryViewDBModel extends BaseViewDBModel{
 
     public void setMSummaryBonusType(int mSummaryBonusType) {
         this.mSummaryBonusType = mSummaryBonusType;
+    }
+
+    public String getMOpenClassId() {
+        return this.mOpenClassId;
+    }
+
+    public void setMOpenClassId(String mOpenClassId) {
+        this.mOpenClassId = mOpenClassId;
     }
 }

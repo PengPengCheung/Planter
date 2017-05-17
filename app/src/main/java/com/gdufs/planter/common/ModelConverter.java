@@ -167,6 +167,7 @@ public class ModelConverter {
         dbModel.setmSummaryContent(viewModel.getmSummaryContent());
         dbModel.setmSummaryRequestTime(viewModel.getmSummaryRequestTime());
         dbModel.setmSummaryStatus(viewModel.getmSummaryStatus());
+        dbModel.setmOpenClassId(viewModel.getmOpenClassId());
 
         return dbModel;
     }
@@ -185,6 +186,7 @@ public class ModelConverter {
         viewModel.setmSummaryContent(dbModel.getmSummaryContent());
         viewModel.setmSummaryRequestTime(dbModel.getmSummaryRequestTime());
         viewModel.setmSummaryStatus(dbModel.getmSummaryStatus());
+        viewModel.setmOpenClassId(dbModel.getmOpenClassId());
 
         return viewModel;
     }

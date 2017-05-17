@@ -43,7 +43,6 @@ public class PlanterMainActivity extends LaunchBaseActivity {
     private static String TAG = PlanterMainActivity.class.getSimpleName();
 
     private FrameView mFrameView;
-//    private PushHandler mPushHandler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

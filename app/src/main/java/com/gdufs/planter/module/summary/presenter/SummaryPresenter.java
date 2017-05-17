@@ -84,7 +84,7 @@ public class SummaryPresenter extends ModuleBasePresenter {
         List<BaseViewDBModel> modelList = PersistenceManager.getInstance().findViewDBModelByCustomId(courseId, Resource.MODULE_COURSE_SUMMARY);
         for(BaseViewDBModel model:modelList){
             SummaryViewDBModel summaryViewModel = (SummaryViewDBModel) model;
-            if(summaryViewModel.getmSummaryId().equals(summaryId)){
+            if(summaryViewModel.getmSummaryId() != null && summaryViewModel.getmSummaryId().equals(summaryId)){
                 return summaryViewModel;
             }
         }
@@ -106,12 +106,12 @@ public class SummaryPresenter extends ModuleBasePresenter {
         PlanterDataManager.getInstance().getDataFromModules(viewModel);
     }
 
-    public void sendSummary(String summary, String summaryId, Activity activity){
+    public void sendSummary(String summary, String summaryId, String openClassId, Activity activity){
         LogUtil.e(TAG, "summaryId: " + summaryId + ", courseId: " + CommonUtil.getCurrentSelectedCourseId(activity));
         storeSummaryContent(summary, summaryId, activity);
         // summaryId: 865cb2d6-24b6-45f6-ad6f-c6648a180589, courseId: 0a564996-a618-45d7-bf4c-20e60a457185
 
-        Map<String, Object> params = constructParams(summary, summaryId, activity);
+        Map<String, Object> params = constructParams(summary, summaryId, openClassId, activity);
 
         NetworkUtil.post(Resource.PlanterURL.SUMMARY_SEND_URL, params, new ResultCallback<String>() {
             @Override
@@ -137,12 +137,13 @@ public class SummaryPresenter extends ModuleBasePresenter {
         });
     }
 
-    private Map<String, Object> constructParams(String summary, String summaryId, Activity activity){
+    private Map<String, Object> constructParams(String summary, String summaryId, String openClassId,  Activity activity){
         Map<String, Object> params = new HashMap<>();
         params.put(Resource.KEY.KEY_SUMMARY_CONTENT, summary);
         String stuId = PreferenceHelper.getInstance(activity).getString(Resource.KEY.KEY_STUDENT_ID, "");
         params.put(Resource.KEY.KEY_STUDENT_ID, stuId);
         params.put(Resource.KEY.KEY_SUMMARY_ID, summaryId);
+        params.put(Resource.KEY.KEY_CLASS_OPEN_ID, openClassId);
         LogUtil.e(TAG, "mViewModel");
 
         params.put(Resource.KEY.KEY_COURSE_ID, CommonUtil.getCurrentSelectedCourseId(activity));

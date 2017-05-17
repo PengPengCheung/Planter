@@ -173,7 +173,7 @@ public class InteractionItemView extends ItemViewHolder {
             }
             break;
             case Resource.MODULE_COURSE_ATTENTION:{
-                String resultStr = mContext.getResources().getString(R.string.interaction_result);
+                String resultStr = mContext.getResources().getString(R.string.interaction_attention_result);
                 String s = String.format(resultStr, "专注");
                 mTVTypeInteractionNotification.setText(s);
             }

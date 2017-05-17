@@ -28,6 +28,17 @@ public class SummaryViewModel extends BaseViewModel {
     @SerializedName(Resource.KEY.KEY_SUMMARY_STATUS)
     private int mSummaryStatus;
 
+    @SerializedName(Resource.KEY.KEY_CLASS_OPEN_ID)
+    private String mOpenClassId;
+
+    public String getmOpenClassId() {
+        return mOpenClassId;
+    }
+
+    public void setmOpenClassId(String mOpenClassId) {
+        this.mOpenClassId = mOpenClassId;
+    }
+
     public int getmSummaryBonusType() {
         return mSummaryBonusType;
     }

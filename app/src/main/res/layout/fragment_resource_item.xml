@@ -5,99 +5,120 @@
     android:background="@color/colorShallowGrey">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="@dimen/item_margin_top_large"
-        android:layout_marginLeft="@dimen/item_margin_left">
+        android:id="@+id/rl_resource_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_resource_item_file"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/item_margin_top_large"
+            android:layout_marginLeft="@dimen/item_margin_left">
+
+            <ImageView
+                android:id="@+id/iv_resource_item_file"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_margin_left"
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@+id/iv_resource_item_file"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_resource_name"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
+                    android:text="第6周课件" />
+
+                <TextView
+                    android:id="@+id/tv_resource_upload_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/item_margin_top"
+                    android:textColor="@color/colorBlack"
+                    android:text="2017-4-12" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/item_margin_left"
-            android:layout_marginTop="4dp"
-            android:layout_toRightOf="@+id/iv_resource_item_file"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/item_margin_top_large"
+            android:layout_marginRight="@dimen/item_margin_right"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_resource_name"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorBlack"
-                android:singleLine="true"
-                android:ellipsize="middle"
-                android:text="第6周课件" />
-
-            <TextView
-                android:id="@+id/tv_resource_upload_time"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/item_margin_top"
-                android:textColor="@color/colorBlack"
-                android:text="2017-4-12" />
+                android:layout_marginBottom="@dimen/item_margin_bottom">
+
+                <ImageView
+                    android:id="@+id/iv_resource_download"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/download" />
+
+                <TextView
+                    android:id="@+id/tv_resource_download_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/item_margin_left"
+                    android:textColor="@color/colorGrey"
+                    android:text="@string/resource_item_download" />
+
+                <!--@string/resource_item_download-->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/like" />
+
+                <TextView
+                    android:id="@+id/tv_resource_like_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/item_margin_left"
+                    android:textColor="@color/colorGrey"
+                    android:text="@string/resource_item_like" />
+
+                <!--@string/resource_item_like-->
+
+            </LinearLayout>
 
         </LinearLayout>
+
+
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <com.daimajia.numberprogressbar.NumberProgressBar
+        android:id="@+id/number_progress_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="@dimen/item_margin_top_large"
-        android:layout_marginRight="@dimen/item_margin_right"
-        android:orientation="vertical">
+        android:layout_below="@+id/rl_resource_item"
+        android:layout_marginTop="@dimen/item_margin_top"
+        android:layout_marginBottom="@dimen/item_margin_bottom"
+        android:visibility="gone" />
+    <!--style="@style/NumberProgressBar_Passing_Green"-->
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/item_margin_bottom">
 
-            <ImageView
-                android:id="@+id/iv_resource_download"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@drawable/download" />
-
-            <TextView
-                android:id="@+id/tv_resource_download_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/item_margin_left"
-                android:textColor="@color/colorGrey"
-                android:text="@string/resource_item_download" />
-
-            <!--@string/resource_item_download-->
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@drawable/like" />
-
-            <TextView
-                android:id="@+id/tv_resource_like_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/item_margin_left"
-                android:textColor="@color/colorGrey"
-                android:text="@string/resource_item_like" />
-
-            <!--@string/resource_item_like-->
-
-        </LinearLayout>
-
-    </LinearLayout>
 
 </RelativeLayout>
